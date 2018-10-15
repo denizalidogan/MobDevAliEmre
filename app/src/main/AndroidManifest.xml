@@ -3,7 +3,9 @@
     package="com.pxl.teamy">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,6 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".SetupActivity" />
     </application>
 
 </manifest>
