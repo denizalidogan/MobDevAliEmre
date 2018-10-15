@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "10123684982",
+    "firebase_url": "https://teamy-1b64d.firebaseio.com",
+    "project_id": "teamy-1b64d",
+    "storage_bucket": "teamy-1b64d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:10123684982:android:050748540dd9f9e9",
+        "android_client_info": {
+          "package_name": "com.pxl.teamy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "10123684982-htclqqjv3ldddshf912s36f047i8qros.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1Fw9pEzXNCV4kQJdU2VX_YnNg6_kW5-A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
