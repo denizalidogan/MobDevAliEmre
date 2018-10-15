@@ -5,7 +5,7 @@ De opzet van het project is een app te bouwen waarbij gebruikers events kunnen c
 
 De gebruiker zal kunnen inloggen en registreren waarbij de gebruiker ook na het inloggen zijn gegevens kan aanpassen. De login gegevens kunnen worden opgeslagen om later als suggestie te kunnen kiezen. Dit is een nieuwe functie bij ANDROID.
 
-De gebruiker zal verder een event kunnen aanmaken waarbij het keuze bestaat tussen aantal deelnemers, locatie, vereiste enz.… 
+De gebruiker zal verder een event kunnen aanmaken waarbij het keuze bestaat tussen aantal deelnemers, locatie, vereiste,...
 
 Na het joinen van een event krijgt een gebruiker een herinnering (Push notification)
 
