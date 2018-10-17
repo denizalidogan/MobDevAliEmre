@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "10123684982-qqv3dtugf61se1rq0k8hp582536e8n7i.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.pxl.teamy",
-            "certificate_hash": "49212566fb8bd85b1bfc172d7fa7e67059b39f38"
-          }
-        },
-        {
           "client_id": "10123684982-htclqqjv3ldddshf912s36f047i8qros.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "10123684982-htclqqjv3ldddshf912s36f047i8qros.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

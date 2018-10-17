@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText  loginTxtEmail;
     private EditText loginTxtPassword;
     private Button loginBtnLogin;
-    private Button loginRegBtn;
+    private Button loginBtnRegister;
 
     private  FirebaseAuth mAuth;
     private ProgressBar loginProgress;
@@ -37,18 +37,9 @@ public class LoginActivity extends AppCompatActivity {
         loginTxtEmail = (EditText) findViewById(R.id.login_txtEmail);
         loginTxtPassword = (EditText) findViewById(R.id.login_txtPassword);
         loginBtnLogin = (Button) findViewById(R.id.login_btnLogin);
-        loginRegBtn = (Button) findViewById(R.id.login_btnRegister);
+        loginBtnRegister = (Button) findViewById(R.id.login_btnRegister);
         loginProgress = (ProgressBar) findViewById(R.id.login_progress);
 
-        loginRegBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent regIntent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(regIntent);
-
-            }
-        });
 
         loginBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
                 loginProgress.setVisibility(View.VISIBLE);
 
                 //oncomplete listener om feedback op resultaat te kunnen plakken
-                mAuth.signInWithEmailAndPassword(loginEmail,loginPass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                mAuth.signInWithEmailAndPassword(loginEmail,loginPass).addOnCompleteListener((new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
@@ -78,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         loginProgress.setVisibility(View.INVISIBLE);
                     }
-                });
+                }));
                  }
             }
         });
