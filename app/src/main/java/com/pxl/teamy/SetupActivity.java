@@ -44,7 +44,6 @@ public class SetupActivity extends AppCompatActivity {
     private Uri mainImageURI = null;
 
     private String user_id;
-
     private boolean isChanged = false;
 
     private EditText setupName;
@@ -72,7 +71,6 @@ public class SetupActivity extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
 
-
         setupImage = findViewById(R.id.setup_image);
         setupName = findViewById(R.id.setup_name);
         setupBtn = findViewById(R.id.setup_btn);
@@ -81,10 +79,15 @@ public class SetupActivity extends AppCompatActivity {
         setupProgress.setVisibility(View.VISIBLE);
         setupBtn.setEnabled(false);
 
+
+
+
+
+
+        //Glide gebruikt om passief foto en naam te kunnen opladen
         firebaseFirestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
                 if(task.isSuccessful()){
 
                     if(task.getResult().exists()){
@@ -93,27 +96,21 @@ public class SetupActivity extends AppCompatActivity {
                         String image = task.getResult().getString("image");
 
                         mainImageURI = Uri.parse(image);
-
                         setupName.setText(name);
-
                         RequestOptions placeholderRequest = new RequestOptions();
                         placeholderRequest.placeholder(R.drawable.default_image);
 
                         Glide.with(SetupActivity.this).setDefaultRequestOptions(placeholderRequest).load(image).into(setupImage);
-
-
                     }
 
                 } else {
 
                     String error = task.getException().getMessage();
                     Toast.makeText(SetupActivity.this, "(FIRESTORE Retrieve Error) : " + error, Toast.LENGTH_LONG).show();
-
                 }
 
                 setupProgress.setVisibility(View.INVISIBLE);
                 setupBtn.setEnabled(true);
-
             }
         });
 
@@ -121,7 +118,6 @@ public class SetupActivity extends AppCompatActivity {
         setupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 final String user_name = setupName.getText().toString();
 
                 if (!TextUtils.isEmpty(user_name) && mainImageURI != null) {
@@ -140,74 +136,55 @@ public class SetupActivity extends AppCompatActivity {
 
                                 if (task.isSuccessful()) {
                                     storeFirestore(task, user_name);
-
                                 } else {
 
                                     String error = task.getException().getMessage();
                                     Toast.makeText(SetupActivity.this, "(IMAGE Error) : " + error, Toast.LENGTH_LONG).show();
-
                                     setupProgress.setVisibility(View.INVISIBLE);
-
                                 }
                             }
                         });
-
                     } else {
-
                         storeFirestore(null, user_name);
-
                     }
-
                 }
-
             }
 
         });
 
+
+        //Geen popup anders voor permissies bij hogere dan marsmellow versies
         setupImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-
                     if(ContextCompat.checkSelfPermission(SetupActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-
                         Toast.makeText(SetupActivity.this, "Permission Denied", Toast.LENGTH_LONG).show();
                         ActivityCompat.requestPermissions(SetupActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
                     } else {
-
                         BringImagePicker();
-
                     }
-
                 } else {
-
                     BringImagePicker();
-
                 }
-
             }
 
         });
-
-
     }
 
-    private void storeFirestore(@NonNull Task<UploadTask.TaskSnapshot> task, String user_name) {
 
+    //hasmap uploaden naar firestore voor de referenties te kunnen legen met de gebruikers
+    private void storeFirestore(@NonNull Task<UploadTask.TaskSnapshot> task, String user_name) {
 
         Uri download_uri;
 
         if(task != null) {
-
             //download_uri = task.getUploadSessionUri();
             download_uri = mainImageURI;
         } else {
-
             download_uri = mainImageURI;
-
-        }
+            }
 
         Map<String, String> userMap = new HashMap<>();
         userMap.put("name", user_name);
@@ -216,36 +193,25 @@ public class SetupActivity extends AppCompatActivity {
         firebaseFirestore.collection("Users").document(user_id).set(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-
                 if(task.isSuccessful()){
-
                     Toast.makeText(SetupActivity.this, "The user Settings are updated.", Toast.LENGTH_LONG).show();
                     Intent mainIntent = new Intent(SetupActivity.this, MainActivity.class);
                     startActivity(mainIntent);
                     finish();
-
                 } else {
-
                     String error = task.getException().getMessage();
                     Toast.makeText(SetupActivity.this, "(FIRESTORE Error) : " + error, Toast.LENGTH_LONG).show();
-
                 }
-
                 setupProgress.setVisibility(View.INVISIBLE);
-
             }
         });
-
-
     }
 
     private void BringImagePicker() {
-
         CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .setAspectRatio(1, 1)
                 .start(SetupActivity.this);
-
     }
 
     @Override
@@ -258,7 +224,6 @@ public class SetupActivity extends AppCompatActivity {
 
                 mainImageURI = result.getUri();
                 setupImage.setImageURI(mainImageURI);
-
                 isChanged = true;
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
