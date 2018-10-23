@@ -76,15 +76,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnAddPost = findViewById(R.id.btnAddPost);
-        btnAddPost.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) {
-                Intent newPostIntent = new Intent(MainActivity.this    , NewPostActivity.class);
-                startActivity(newPostIntent);
-            }
-
-        });
     }
 
     @Override
