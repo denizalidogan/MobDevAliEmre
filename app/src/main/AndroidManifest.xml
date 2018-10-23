@@ -6,7 +6,6 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
     <!-- setup -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -18,8 +17,6 @@
 
 =======
 >>>>>>> parent of b270a6b... Layout changes
-=======
->>>>>>> fc48c02bbeae1c2049ab22affd429a19b5489112
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -27,7 +24,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         <activity
@@ -42,17 +38,12 @@
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait">
 >>>>>>> parent of b270a6b... Layout changes
-=======
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait">
->>>>>>> fc48c02bbeae1c2049ab22affd429a19b5489112
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         <activity
@@ -79,9 +70,6 @@
 =======
         <activity android:name=".LoginActivity" android:screenOrientation="portrait"></activity>
 >>>>>>> parent of b270a6b... Layout changes
-=======
-        <activity android:name=".LoginActivity" android:screenOrientation="portrait"></activity>
->>>>>>> fc48c02bbeae1c2049ab22affd429a19b5489112
     </application>
 
 </manifest>

@@ -2,7 +2,6 @@ package com.pxl.teamy;
 
 import android.content.Intent;
 <<<<<<< HEAD
-<<<<<<< HEAD
 import android.os.Bundle;
 <<<<<<< HEAD
 import android.support.design.widget.FloatingActionButton;
@@ -20,17 +19,12 @@ import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 >>>>>>> parent of b270a6b... Layout changes
-=======
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
->>>>>>> fc48c02bbeae1c2049ab22affd429a19b5489112
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     private Toolbar mainToolbar;
@@ -45,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
 =======
 >>>>>>> parent of b270a6b... Layout changes
-=======
->>>>>>> fc48c02bbeae1c2049ab22affd429a19b5489112
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         mainToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(mainToolbar);
 
-<<<<<<< HEAD
         getSupportActionBar().setTitle("Teamy");
 
         btnAddPost = findViewById(R.id.btnAddPost);
@@ -77,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
 >>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
 =======
 >>>>>>> parent of b270a6b... Layout changes
-=======
->>>>>>> fc48c02bbeae1c2049ab22affd429a19b5489112
 
                 Intent newPostIntent = new Intent(MainActivity.this    , NewPostActivity.class);
                 startActivity(newPostIntent);
@@ -92,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-<<<<<<< HEAD
 <<<<<<< HEAD
         if (currentUser == null) {
             sentToLogin();
@@ -181,16 +169,4 @@ public class MainActivity extends AppCompatActivity {
 >>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
 =======
 >>>>>>> parent of b270a6b... Layout changes
-=======
-        if(currentUser == null){
-            // Activiteit wordt aangemaakt
-            startActivity(new Intent( this, LoginActivity.class));
-            // Zorgt ervoor dat je niet terug kunt met bv Back button
-            finish();
-
-        }
-
-
-    }
->>>>>>> fc48c02bbeae1c2049ab22affd429a19b5489112
 }

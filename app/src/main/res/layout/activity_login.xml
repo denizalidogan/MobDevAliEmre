@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
     android:background="#1f0606"
 =======
     android:background="@drawable/gradient_bg_login"
@@ -14,14 +13,10 @@
 =======
     android:background="@color/colorPrimary"
 >>>>>>> parent of b270a6b... Layout changes
-=======
-    android:background="@color/colorPrimary"
->>>>>>> fc48c02bbeae1c2049ab22affd429a19b5489112
     tools:context=".LoginActivity">
 
     <TextView
         android:id="@+id/login_txtLogo"
-<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         android:layout_width="200dp"
@@ -33,10 +28,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 >>>>>>> parent of b270a6b... Layout changes
-=======
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
->>>>>>> fc48c02bbeae1c2049ab22affd429a19b5489112
         android:layout_marginStart="134dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="134dp"
@@ -50,7 +41,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 <<<<<<< HEAD
-<<<<<<< HEAD
         app:layout_constraintTop_toTopOf="parent"
 <<<<<<< HEAD
         app:layout_constraintVertical_bias="0.422"
@@ -60,9 +50,6 @@
 =======
         app:layout_constraintTop_toTopOf="parent" />
 >>>>>>> parent of b270a6b... Layout changes
-=======
-        app:layout_constraintTop_toTopOf="parent" />
->>>>>>> fc48c02bbeae1c2049ab22affd429a19b5489112
 
     <EditText
         android:id="@+id/login_txtEmail"
