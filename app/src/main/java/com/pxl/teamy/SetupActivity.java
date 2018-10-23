@@ -88,8 +88,11 @@ public class SetupActivity extends AppCompatActivity {
         firebaseFirestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
 
+
+//Does the colllection excist?
+                if(task.isSuccessful()){
+// User exist?
                     if(task.getResult().exists()){
 
                         String name = task.getResult().getString("name");
