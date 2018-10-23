@@ -1,9 +1,9 @@
 package com.pxl.teamy;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -40,15 +40,6 @@ public class LoginActivity extends AppCompatActivity {
         loginBtnRegister = (Button) findViewById(R.id.login_btnRegister);
         loginProgress = (ProgressBar) findViewById(R.id.login_progress);
 
-        loginBtnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent regIntent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(regIntent);
-
-            }
-        });
 
         loginBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
