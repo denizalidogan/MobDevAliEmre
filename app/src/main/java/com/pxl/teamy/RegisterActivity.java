@@ -46,11 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
         reg_login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-<<<<<<< HEAD
                 //Na login niet meer terug te kunnen gaan
-=======
-
->>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
                 finish();
 
             }
@@ -59,10 +55,6 @@ public class RegisterActivity extends AppCompatActivity {
         reg_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-<<<<<<< HEAD
-=======
-
->>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
                 String email = reg_email_field.getText().toString();
                 String pass = reg_pass_field.getText().toString();
                 String confirm_pass = reg_confirm_pass_field.getText().toString();
@@ -101,11 +93,6 @@ public class RegisterActivity extends AppCompatActivity {
 
                     }
                 }
-<<<<<<< HEAD
-=======
-
-
->>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
             }
         });
 
@@ -118,13 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-<<<<<<< HEAD
             sendToMain();
-=======
-
-            sendToMain();
-
->>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
         }
 
     }

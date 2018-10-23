@@ -21,10 +21,7 @@
     <string name="action_search_text">Search</string>
     <string name="action_setting_text">Account Settings</string>
     <string name="action_logout_text">Logout</string>
-<<<<<<< HEAD
     <string name="post_desc_hint">Add Description ...</string>
     <string name="new_post_btn_hint">Post Blog</string>
-=======
->>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
 
 </resources>

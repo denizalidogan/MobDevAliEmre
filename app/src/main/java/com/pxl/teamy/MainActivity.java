@@ -2,34 +2,21 @@ package com.pxl.teamy;
 
 import android.content.Intent;
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.support.design.widget.FloatingActionButton;
-=======
->>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-<<<<<<< HEAD
 import android.view.View;
-=======
->>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-<<<<<<< HEAD
     private Toolbar mainToolbar;
     private FirebaseAuth mAuth;
     private FloatingActionButton btnAddPost;
-=======
-
-    private Toolbar mainToolbar;
-    private FirebaseAuth mAuth;
-
->>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnAddPost.setOnClickListener(new View.OnClickListener() {
 
-<<<<<<< HEAD
             public void onClick(View v) {
-=======
-        mAuth = FirebaseAuth.getInstance();
-
-        mainToolbar = (Toolbar) findViewById(R.id.main_toolbar);
-        setSupportActionBar(mainToolbar);
-
-        getSupportActionBar().setTitle("Teamy");
->>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
 
                 Intent newPostIntent = new Intent(MainActivity.this    , NewPostActivity.class);
                 startActivity(newPostIntent);
@@ -72,11 +50,6 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null) {
             sentToLogin();
-<<<<<<< HEAD
-=======
-
-
->>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
         }
     }
 
@@ -95,10 +68,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
             case R.id.action_btnSettings:
 
                 Intent settingsIntent = new Intent(MainActivity.this, SetupActivity.class);
@@ -106,10 +75,6 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
             default:
                 return false;
 
@@ -118,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void logOut() {
-<<<<<<< HEAD
         mAuth.signOut();
         sentToLogin();
     }
@@ -131,19 +95,4 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-=======
-
-        mAuth.signOut();
-        sentToLogin();
-    }
-
-
-    private void sentToLogin() {
-        // Activiteit wordt aangemaakt
-        startActivity(new Intent(this, LoginActivity.class));
-        // Zorgt ervoor dat je niet terug kunt met bv Back button
-        finish();
-    }
-
->>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
 }
