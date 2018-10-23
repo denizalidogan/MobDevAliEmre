@@ -44,10 +44,6 @@ public class SetupActivity extends AppCompatActivity {
     private Uri mainImageURI = null;
 
     private String user_id;
-<<<<<<< HEAD
-=======
-
->>>>>>> parent of fc48c02... Revert "Layout changes"
     private boolean isChanged = false;
 
     private EditText setupName;
@@ -75,10 +71,6 @@ public class SetupActivity extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
 
-<<<<<<< HEAD
-=======
-
->>>>>>> parent of fc48c02... Revert "Layout changes"
         setupImage = findViewById(R.id.setup_image);
         setupName = findViewById(R.id.setup_name);
         setupBtn = findViewById(R.id.setup_btn);
@@ -87,7 +79,6 @@ public class SetupActivity extends AppCompatActivity {
         setupProgress.setVisibility(View.VISIBLE);
         setupBtn.setEnabled(false);
 
-<<<<<<< HEAD
 
 
 
@@ -97,12 +88,6 @@ public class SetupActivity extends AppCompatActivity {
         firebaseFirestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-=======
-        firebaseFirestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
->>>>>>> parent of fc48c02... Revert "Layout changes"
                 if(task.isSuccessful()){
 
                     if(task.getResult().exists()){
@@ -111,40 +96,21 @@ public class SetupActivity extends AppCompatActivity {
                         String image = task.getResult().getString("image");
 
                         mainImageURI = Uri.parse(image);
-<<<<<<< HEAD
                         setupName.setText(name);
-=======
-
-                        setupName.setText(name);
-
->>>>>>> parent of fc48c02... Revert "Layout changes"
                         RequestOptions placeholderRequest = new RequestOptions();
                         placeholderRequest.placeholder(R.drawable.default_image);
 
                         Glide.with(SetupActivity.this).setDefaultRequestOptions(placeholderRequest).load(image).into(setupImage);
-<<<<<<< HEAD
-=======
-
-
->>>>>>> parent of fc48c02... Revert "Layout changes"
                     }
 
                 } else {
 
                     String error = task.getException().getMessage();
                     Toast.makeText(SetupActivity.this, "(FIRESTORE Retrieve Error) : " + error, Toast.LENGTH_LONG).show();
-<<<<<<< HEAD
-=======
-
->>>>>>> parent of fc48c02... Revert "Layout changes"
                 }
 
                 setupProgress.setVisibility(View.INVISIBLE);
                 setupBtn.setEnabled(true);
-<<<<<<< HEAD
-=======
-
->>>>>>> parent of fc48c02... Revert "Layout changes"
             }
         });
 
@@ -152,10 +118,6 @@ public class SetupActivity extends AppCompatActivity {
         setupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-<<<<<<< HEAD
-=======
-
->>>>>>> parent of fc48c02... Revert "Layout changes"
                 final String user_name = setupName.getText().toString();
 
                 if (!TextUtils.isEmpty(user_name) && mainImageURI != null) {
@@ -174,15 +136,10 @@ public class SetupActivity extends AppCompatActivity {
 
                                 if (task.isSuccessful()) {
                                     storeFirestore(task, user_name);
-<<<<<<< HEAD
-=======
-
->>>>>>> parent of fc48c02... Revert "Layout changes"
                                 } else {
 
                                     String error = task.getException().getMessage();
                                     Toast.makeText(SetupActivity.this, "(IMAGE Error) : " + error, Toast.LENGTH_LONG).show();
-<<<<<<< HEAD
                                     setupProgress.setVisibility(View.INVISIBLE);
                                 }
                             }
@@ -191,28 +148,10 @@ public class SetupActivity extends AppCompatActivity {
                         storeFirestore(null, user_name);
                     }
                 }
-=======
-
-                                    setupProgress.setVisibility(View.INVISIBLE);
-
-                                }
-                            }
-                        });
-
-                    } else {
-
-                        storeFirestore(null, user_name);
-
-                    }
-
-                }
-
->>>>>>> parent of fc48c02... Revert "Layout changes"
             }
 
         });
 
-<<<<<<< HEAD
 
         //Geen popup anders voor permissies bij hogere dan marsmellow versies
         setupImage.setOnClickListener(new View.OnClickListener() {
@@ -220,21 +159,10 @@ public class SetupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                     if(ContextCompat.checkSelfPermission(SetupActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-=======
-        setupImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-
-                    if(ContextCompat.checkSelfPermission(SetupActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-
->>>>>>> parent of fc48c02... Revert "Layout changes"
                         Toast.makeText(SetupActivity.this, "Permission Denied", Toast.LENGTH_LONG).show();
                         ActivityCompat.requestPermissions(SetupActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
                     } else {
-<<<<<<< HEAD
                         BringImagePicker();
                     }
                 } else {
@@ -257,40 +185,6 @@ public class SetupActivity extends AppCompatActivity {
         } else {
             download_uri = mainImageURI;
             }
-=======
-
-                        BringImagePicker();
-
-                    }
-
-                } else {
-
-                    BringImagePicker();
-
-                }
-
-            }
-
-        });
-
-
-    }
-
-    private void storeFirestore(@NonNull Task<UploadTask.TaskSnapshot> task, String user_name) {
-
-
-        Uri download_uri;
-
-        if(task != null) {
-
-            //download_uri = task.getUploadSessionUri();
-            download_uri = mainImageURI;
-        } else {
-
-            download_uri = mainImageURI;
-
-        }
->>>>>>> parent of fc48c02... Revert "Layout changes"
 
         Map<String, String> userMap = new HashMap<>();
         userMap.put("name", user_name);
@@ -299,18 +193,11 @@ public class SetupActivity extends AppCompatActivity {
         firebaseFirestore.collection("Users").document(user_id).set(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-<<<<<<< HEAD
                 if(task.isSuccessful()){
-=======
-
-                if(task.isSuccessful()){
-
->>>>>>> parent of fc48c02... Revert "Layout changes"
                     Toast.makeText(SetupActivity.this, "The user Settings are updated.", Toast.LENGTH_LONG).show();
                     Intent mainIntent = new Intent(SetupActivity.this, MainActivity.class);
                     startActivity(mainIntent);
                     finish();
-<<<<<<< HEAD
                 } else {
                     String error = task.getException().getMessage();
                     Toast.makeText(SetupActivity.this, "(FIRESTORE Error) : " + error, Toast.LENGTH_LONG).show();
@@ -321,34 +208,10 @@ public class SetupActivity extends AppCompatActivity {
     }
 
     private void BringImagePicker() {
-=======
-
-                } else {
-
-                    String error = task.getException().getMessage();
-                    Toast.makeText(SetupActivity.this, "(FIRESTORE Error) : " + error, Toast.LENGTH_LONG).show();
-
-                }
-
-                setupProgress.setVisibility(View.INVISIBLE);
-
-            }
-        });
-
-
-    }
-
-    private void BringImagePicker() {
-
->>>>>>> parent of fc48c02... Revert "Layout changes"
         CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .setAspectRatio(1, 1)
                 .start(SetupActivity.this);
-<<<<<<< HEAD
-=======
-
->>>>>>> parent of fc48c02... Revert "Layout changes"
     }
 
     @Override
@@ -361,10 +224,6 @@ public class SetupActivity extends AppCompatActivity {
 
                 mainImageURI = result.getUri();
                 setupImage.setImageURI(mainImageURI);
-<<<<<<< HEAD
-=======
-
->>>>>>> parent of fc48c02... Revert "Layout changes"
                 isChanged = true;
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
