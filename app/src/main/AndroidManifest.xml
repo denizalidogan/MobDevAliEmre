@@ -4,9 +4,15 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+<<<<<<< HEAD
     <!-- setup -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+=======
+    <!--setup-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+>>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
 
     <application
         android:allowBackup="true"
@@ -15,15 +21,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
+=======
+        <activity android:name=".SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
+>>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait" />
@@ -35,6 +48,16 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".NewPostActivity"></activity>
+=======
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".LoginActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".RegisterActivity" />
+
+        <!--setup-->
+        <activity android:name=".SetupActivity" />
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>
+>>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
     </application>
 
 </manifest>
