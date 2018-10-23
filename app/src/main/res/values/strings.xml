@@ -6,6 +6,7 @@
     <string name="Login">Login</string>
     <string name="btnLogin_text">Login to Account</string>
     <string name="btnRegister_text">Need a new Account?</string>
+<<<<<<< HEAD
     <string name="reg_confirm_pass_text">Confirm Password...</string>
     <string name="reg_btn_text">Create new Account</string>
     <string name="reg_login_text">Already have an Account?</string>
@@ -27,4 +28,6 @@
 =======
 >>>>>>> parent of fc48c02... Revert "Layout changes"
 
+=======
+>>>>>>> parent of b270a6b... Layout changes
 </resources>
