@@ -46,7 +46,11 @@ public class RegisterActivity extends AppCompatActivity {
         reg_login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
                 //Na login niet meer terug te kunnen gaan
+=======
+
+>>>>>>> parent of fc48c02... Revert "Layout changes"
                 finish();
 
             }
@@ -55,6 +59,10 @@ public class RegisterActivity extends AppCompatActivity {
         reg_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of fc48c02... Revert "Layout changes"
                 String email = reg_email_field.getText().toString();
                 String pass = reg_pass_field.getText().toString();
                 String confirm_pass = reg_confirm_pass_field.getText().toString();
@@ -93,6 +101,11 @@ public class RegisterActivity extends AppCompatActivity {
 
                     }
                 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> parent of fc48c02... Revert "Layout changes"
             }
         });
 
@@ -105,7 +118,13 @@ public class RegisterActivity extends AppCompatActivity {
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
+<<<<<<< HEAD
             sendToMain();
+=======
+
+            sendToMain();
+
+>>>>>>> parent of fc48c02... Revert "Layout changes"
         }
 
     }
