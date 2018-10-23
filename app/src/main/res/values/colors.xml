@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <color name="colorPrimary">#2196f3</color>
     <color name="colorPrimaryDark">#0069c0</color>
     <color name="colorAccent">#dd2c00</color>
@@ -9,7 +10,12 @@
     <color name="colorPrimaryDark">#c471ed</color>
     <color name="colorAccent">#f64f59</color>
 >>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
+=======
+    <color name="colorPrimary">#2196f3</color>
+    <color name="colorPrimaryDark">#0069c0</color>
+    <color name="colorAccent">#f44336</color>
+>>>>>>> parent of b270a6b... Layout changes
 
     <color name="whiteTransparentHalf">#80ffffff</color>
-    <color name="gray">#444440</color>
+
 </resources>
