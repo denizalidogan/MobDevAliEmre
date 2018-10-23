@@ -7,11 +7,6 @@
         android:id="@+id/action_btnSettings"
         android:title="@string/action_setting_text" />
     <item
-        android:id="@+id/action_btnSearch"
-        android:icon="@mipmap/action_search"
-        android:title="@string/action_search_text"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/action_btnLogout"
         android:title="@string/action_logout_text" />
 </menu>
