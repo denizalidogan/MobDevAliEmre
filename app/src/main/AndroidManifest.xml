@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"
-            android:theme="@style/AppThemeLogin"/>
+            android:theme="@style/AppTheme"/>
         <activity android:name=".LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeLogin"></activity>
@@ -32,10 +32,12 @@
             android:theme="@style/AppThemeRegister"/>
 
         <!--setup-->
-        <activity android:name=".SetupActivity" />
+        <activity android:name=".SetupActivity"
+            android:theme="@style/AppTheme"/>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
-        <activity android:name=".NewPostActivity"></activity>
+        <activity android:name=".NewPostActivity"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,22 +12,20 @@
         android:id="@+id/login_txtLogo"
         android:layout_width="400dp"
         android:layout_height="200dp"
-        android:layout_marginStart="134dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="134dp"
-        android:layout_marginBottom="442dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logologin" />
+        app:srcCompat="@drawable/logoalles"/>
 
     <EditText
         android:id="@+id/login_txtEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="8dp"
         android:autofillHints=""
         android:background="#55000000"
@@ -93,6 +92,7 @@
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:text="@string/btnRegister_text"
+        android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
         android:textColorLink="@color/colorPrimary"
         android:textSize="14sp"
