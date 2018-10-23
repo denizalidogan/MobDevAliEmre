@@ -6,7 +6,6 @@
     <string name="Login">Login</string>
     <string name="btnLogin_text">Login to Account</string>
     <string name="btnRegister_text">Need a new Account?</string>
-<<<<<<< HEAD
     <string name="reg_confirm_pass_text">Confirm Password...</string>
     <string name="reg_btn_text">Create new Account</string>
     <string name="reg_login_text">Already have an Account?</string>
@@ -28,6 +27,4 @@
 =======
 >>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
 
-=======
->>>>>>> parent of b270a6b... Layout changes
 </resources>

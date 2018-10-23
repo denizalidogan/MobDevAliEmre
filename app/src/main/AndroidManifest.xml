@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
 <<<<<<< HEAD
-<<<<<<< HEAD
     <!-- setup -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,8 +14,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 >>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
 
-=======
->>>>>>> parent of b270a6b... Layout changes
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,7 +21,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
 <<<<<<< HEAD
         <activity
             android:name=".MainActivity"
@@ -34,17 +30,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
 >>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
-=======
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait">
->>>>>>> parent of b270a6b... Layout changes
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
 <<<<<<< HEAD
         <activity
             android:name=".LoginActivity"
@@ -67,9 +58,6 @@
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
 >>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
-=======
-        <activity android:name=".LoginActivity" android:screenOrientation="portrait"></activity>
->>>>>>> parent of b270a6b... Layout changes
     </application>
 
 </manifest>
