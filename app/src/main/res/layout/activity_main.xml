@@ -9,6 +9,7 @@
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     <android.support.v7.widget.Toolbar
         android:id="@+id/main_toolbar"
         android:layout_width="match_parent"
@@ -40,6 +41,9 @@
         app:layout_constraintTop_toTopOf="parent"></android.support.v7.widget.Toolbar>
 >>>>>>> b270a6bcf376199b33b8e5da522bb19aed03b9eb
 =======
+=======
+
+>>>>>>> fc48c02bbeae1c2049ab22affd429a19b5489112
 
 
 
@@ -68,8 +72,11 @@
 
 
 
+<<<<<<< HEAD
 
 >>>>>>> parent of b270a6b... Layout changes
+=======
+>>>>>>> fc48c02bbeae1c2049ab22affd429a19b5489112
 
 
 </android.support.constraint.ConstraintLayout>

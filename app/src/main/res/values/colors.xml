@@ -2,6 +2,7 @@
 <resources>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <color name="colorPrimary">#2196f3</color>
     <color name="colorPrimaryDark">#0069c0</color>
     <color name="colorAccent">#dd2c00</color>
@@ -15,6 +16,11 @@
     <color name="colorPrimaryDark">#0069c0</color>
     <color name="colorAccent">#f44336</color>
 >>>>>>> parent of b270a6b... Layout changes
+=======
+    <color name="colorPrimary">#2196f3</color>
+    <color name="colorPrimaryDark">#0069c0</color>
+    <color name="colorAccent">#f44336</color>
+>>>>>>> fc48c02bbeae1c2049ab22affd429a19b5489112
 
     <color name="whiteTransparentHalf">#80ffffff</color>
 

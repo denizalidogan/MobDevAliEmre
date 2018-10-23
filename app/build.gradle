@@ -29,6 +29,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.0.4'
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     //setup
     implementation 'com.google.firebase:firebase-core:16.0.4'
     implementation 'com.google.firebase:firebase-storage:16.0.3'
@@ -46,4 +47,6 @@ dependencies {
 
 =======
 >>>>>>> parent of b270a6b... Layout changes
+=======
+>>>>>>> fc48c02bbeae1c2049ab22affd429a19b5489112
 }
