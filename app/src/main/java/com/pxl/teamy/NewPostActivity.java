@@ -130,7 +130,10 @@ public class NewPostActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull final Task<UploadTask.TaskSnapshot> task) {
 
-                           final  String downloadUri = task.getResult().getStorage().getDownloadUrl().toString();
+                            Task<Uri> urlTask = task.getResult().getStorage().getDownloadUrl();
+
+                            while (!urlTask.isSuccessful());
+                            final  String downloadUri  =urlTask.getResult().toString();
 
 
                             if(task.isSuccessful()){
@@ -159,7 +162,11 @@ public class NewPostActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                                       final String downloadthumbUri = task.getResult().getStorage().getDownloadUrl().toString();
+
+                                        Task<Uri> urlTask = task.getResult().getStorage().getDownloadUrl();
+
+                                        while (!urlTask.isSuccessful());
+                                        final  String downloadthumbUri  =urlTask.getResult().toString();
 
                                         Map<String, Object> postMap = new HashMap<>();
                                         postMap.put("image_url", downloadUri);
