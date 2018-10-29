@@ -97,7 +97,7 @@
                 app:srcCompat="@mipmap/action_join_accent" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/event_join_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
