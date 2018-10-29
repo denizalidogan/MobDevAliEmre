@@ -36,19 +36,16 @@ public class HomeFragment extends Fragment {
     private List<EventPost> event_list;
 
 
-
     private FirebaseFirestore firebaseFirestore;
     private EventRecyclerAdapter eventRecyclerAdapter;
     private DocumentSnapshot lastVisible;
 
 
-private FirebaseAuth firebaseAuth;
+    private FirebaseAuth firebaseAuth;
+
     public HomeFragment() {
         // Required empty public constructor
     }
-
-
-
 
 
     @Override
@@ -62,94 +59,87 @@ private FirebaseAuth firebaseAuth;
         firebaseAuth = firebaseAuth.getInstance();
         eventRecyclerAdapter = new EventRecyclerAdapter(event_list);
 
-         event_list_view.setLayoutManager(new LinearLayoutManager(container.getContext()));
-         event_list_view.setAdapter(eventRecyclerAdapter);
+        event_list_view.setLayoutManager(new LinearLayoutManager(container.getContext()));
+        event_list_view.setAdapter(eventRecyclerAdapter);
 
 
+        if (firebaseAuth.getCurrentUser() != null) {
 
-         if ( firebaseAuth.getCurrentUser()!=null) {
+            firebaseFirestore = FirebaseFirestore.getInstance();
 
-             firebaseFirestore = FirebaseFirestore.getInstance();
+            event_list_view.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
 
-             event_list_view.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                                                     @Override
-                                                     public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                                                         super.onScrolled(recyclerView, dx, dy);
+                    boolean reachedBottom = !recyclerView.canScrollVertically(1);
 
-                                                        boolean reachedBottom = !recyclerView.canScrollVertically(1);
+                    if (reachedBottom) {
+                        String desc = lastVisible.getString("desc");
+                        Toast.makeText(container.getContext(), "Reached" + desc, Toast.LENGTH_LONG).show();
+                        LoadMorePost();
+                    }
+                }
+            });
 
-        if (reachedBottom){
-                                                            String desc = lastVisible.getString("desc");
-                                                            Toast.makeText(container.getContext(),"Reached"  + desc,Toast.LENGTH_LONG).show();
-                                                            LoadMorePost();
+            Query firstQuery = firebaseFirestore.collection("Posts").orderBy("date", Query.Direction.DESCENDING).limit(3);
+
+
+            firstQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        lastVisible = queryDocumentSnapshots.getDocuments()
+                                .get(queryDocumentSnapshots.size() - 1);
+
+
+                        for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
+                            if (doc.getType() == DocumentChange.Type.ADDED) {
+
+                                EventPost eventPost = doc.getDocument().toObject(EventPost.class);
+                                event_list.add(eventPost);
+
+                                eventRecyclerAdapter.notifyDataSetChanged();
+
+                            }
+
+                        }
+                    }
+                }
+            });
         }
-                                                     }
-                                                     });
-
-                     Query firstQuery = firebaseFirestore.collection("Posts").orderBy("date", Query.Direction.DESCENDING).limit(3);
-
-
-
-
-             firstQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
-                 @Override
-                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-
-                     if(!queryDocumentSnapshots.isEmpty()) {
-                         lastVisible = queryDocumentSnapshots.getDocuments()
-                                 .get(queryDocumentSnapshots.size() - 1);
-
-
-                         for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
-                             if (doc.getType() == DocumentChange.Type.ADDED) {
-
-                                 EventPost eventPost = doc.getDocument().toObject(EventPost.class);
-                                 event_list.add(eventPost);
-
-                                 eventRecyclerAdapter.notifyDataSetChanged();
-
-                             }
-
-                         }
-                     }
-                 }
-             });
-         }
         // Inflate the layout for this fragment
         return view;
     }
 
-    public void LoadMorePost(){
-        Query nextQuery = firebaseFirestore.collection("Posts").orderBy("date",Query.Direction.DESCENDING).startAfter(lastVisible).limit(3);
+    public void LoadMorePost() {
+        Query nextQuery = firebaseFirestore.collection("Posts").orderBy("date", Query.Direction.DESCENDING).startAfter(lastVisible).limit(3);
 
         nextQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 
-                    if(!queryDocumentSnapshots.isEmpty()){
+                if (!queryDocumentSnapshots.isEmpty()) {
 
 
-                lastVisible = queryDocumentSnapshots.getDocuments()
-                        .get(queryDocumentSnapshots.size() -1);
-
+                    lastVisible = queryDocumentSnapshots.getDocuments()
+                            .get(queryDocumentSnapshots.size() - 1);
 
 
                     for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
-                    if (doc.getType() == DocumentChange.Type.ADDED) {
+                        if (doc.getType() == DocumentChange.Type.ADDED) {
 
 
+                            EventPost eventPost = doc.getDocument().toObject(EventPost.class);
+                            event_list.add(eventPost);
 
+                            eventRecyclerAdapter.notifyDataSetChanged();
 
-
-                        EventPost eventPost = doc.getDocument().toObject(EventPost.class);
-                        event_list.add(eventPost);
-
-                        eventRecyclerAdapter.notifyDataSetChanged();
+                        }
 
                     }
-
                 }
-                    }
             }
         });
     }

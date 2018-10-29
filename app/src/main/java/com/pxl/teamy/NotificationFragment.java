@@ -28,5 +28,4 @@ public class NotificationFragment extends Fragment {
     }
 
 
-
 }

@@ -137,7 +137,7 @@ public class SetupActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 rb = rg.findViewById(checkedId);
 
-                switch(checkedId){
+                switch (checkedId) {
                     case R.id.setup_gendermale:
                         gender = rb.getText().toString();
                         break;
@@ -158,9 +158,9 @@ public class SetupActivity extends AppCompatActivity {
 
 
                 //Does the colllection excist?
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     // User exist?
-                    if(task.getResult().exists()){
+                    if (task.getResult().exists()) {
 
                         String name = task.getResult().getString("name");
                         String image = task.getResult().getString("image");
@@ -176,7 +176,7 @@ public class SetupActivity extends AppCompatActivity {
                         setupBirth.setText(date);
                         setupBio.setText(bio);
 
-                        switch(genderStr){
+                        switch (genderStr) {
                             case "Male":
                                 rb = findViewById(R.id.setup_gendermale);
                                 rb.setChecked(true);
@@ -253,8 +253,8 @@ public class SetupActivity extends AppCompatActivity {
         setupImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                    if(ContextCompat.checkSelfPermission(SetupActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(SetupActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                         Toast.makeText(SetupActivity.this, "Permission Denied", Toast.LENGTH_LONG).show();
                         ActivityCompat.requestPermissions(SetupActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
@@ -276,10 +276,8 @@ public class SetupActivity extends AppCompatActivity {
 
         Task<Uri> urlTask = task.getResult().getStorage().getDownloadUrl();
 
-        while (!urlTask.isSuccessful());
-        final  String download_uri  =urlTask.getResult().toString();
-
-        
+        while (!urlTask.isSuccessful()) ;
+        final String download_uri = urlTask.getResult().toString();
 
 
         Map<String, String> userMap = new HashMap<>();
@@ -293,7 +291,7 @@ public class SetupActivity extends AppCompatActivity {
         firebaseFirestore.collection("Users").document(user_id).set(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Toast.makeText(SetupActivity.this, "The user Settings are updated.", Toast.LENGTH_LONG).show();
                     Intent mainIntent = new Intent(SetupActivity.this, MainActivity.class);
                     startActivity(mainIntent);
@@ -335,8 +333,8 @@ public class SetupActivity extends AppCompatActivity {
 
     }
 
-    public void genderClick(View view){
+    public void genderClick(View view) {
         int radiobuttonid = rg.getCheckedRadioButtonId();
-        rb =  findViewById(radiobuttonid);
+        rb = findViewById(radiobuttonid);
     }
 }

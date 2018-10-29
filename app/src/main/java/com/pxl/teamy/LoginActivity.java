@@ -19,13 +19,14 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText  loginTxtEmail;
+    private EditText loginTxtEmail;
     private EditText loginTxtPassword;
     private Button loginBtnLogin;
     private Button loginBtnRegister;
 
-    private  FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
     private ProgressBar loginProgress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,32 +55,31 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-            String loginEmail = loginTxtEmail.getText().toString();
-            String loginPass = loginTxtPassword.getText().toString();
+                String loginEmail = loginTxtEmail.getText().toString();
+                String loginPass = loginTxtPassword.getText().toString();
 
 
-            if( !TextUtils.isEmpty(loginEmail) && !TextUtils.isEmpty(loginPass)){
-                loginProgress.setVisibility(View.VISIBLE);
+                if (!TextUtils.isEmpty(loginEmail) && !TextUtils.isEmpty(loginPass)) {
+                    loginProgress.setVisibility(View.VISIBLE);
 
-                //oncomplete listener om feedback op resultaat te kunnen plakken
-                mAuth.signInWithEmailAndPassword(loginEmail,loginPass).addOnCompleteListener((new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                    //oncomplete listener om feedback op resultaat te kunnen plakken
+                    mAuth.signInWithEmailAndPassword(loginEmail, loginPass).addOnCompleteListener((new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
 
-                            sendToMain();
+                                sendToMain();
 
+                            } else {
+
+                                String errorMessage = task.getException().getMessage();
+                                Toast.makeText(LoginActivity.this, "Error : " + errorMessage, Toast.LENGTH_LONG).show();
                             }
-                        else{
-
-                            String errorMessage = task.getException().getMessage();
-                            Toast.makeText(LoginActivity.this, "Error : " + errorMessage, Toast.LENGTH_LONG).show();
+                            loginProgress.setVisibility(View.INVISIBLE);
                         }
-                        loginProgress.setVisibility(View.INVISIBLE);
-                    }
-                }));
-                 }
+                    }));
+                }
             }
         });
 
@@ -91,12 +91,12 @@ public class LoginActivity extends AppCompatActivity {
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if(currentUser!=null)
+        if (currentUser != null)
             sendToMain();
     }
 
     private void sendToMain() {
-        startActivity(new Intent( this, MainActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 }

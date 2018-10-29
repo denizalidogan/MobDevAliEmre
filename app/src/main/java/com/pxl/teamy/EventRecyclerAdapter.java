@@ -32,14 +32,15 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
     private FirebaseFirestore firebaseFirestore;
 
-    public EventRecyclerAdapter(List<EventPost> event_list){ this.event_list = event_list;
+    public EventRecyclerAdapter(List<EventPost> event_list) {
+        this.event_list = event_list;
 
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.event_list_item,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.event_list_item, viewGroup, false);
         context = viewGroup.getContext();
         firebaseFirestore = FirebaseFirestore.getInstance();
         return new ViewHolder(view);
@@ -55,33 +56,26 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
 
                     String userName = task.getResult().getString("name");
                     String userImage = task.getResult().getString("image");
 
-                    viewHolder.setUserData(userName,userImage);
+                    viewHolder.setUserData(userName, userImage);
 
 
-
-                } else{
+                } else {
 
                     //Firebase Exception
                 }
-
-
 
 
             }
         });
 
 
-
-
-
         viewHolder.setDescText(desc_data);
         viewHolder.setEventImage(image_url);
-
 
 
 //        // SimpleDateFormat formatter = new SimpleDateFormat("dd:HH:mm:ss");
@@ -101,14 +95,12 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     }
 
 
-
-
     @Override
     public int getItemCount() {
         return event_list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private View mView;
         private TextView descView;
         private ImageView eventImageView;
@@ -122,45 +114,42 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             mView = itemView;
         }
 
-        public void setDescText(String descText){
+        public void setDescText(String descText) {
             descView = mView.findViewById(R.id.event_desc);
             descView.setText(descText);
         }
 
-            public void setEventImage(String downloadUrl){
-                eventImageView = mView.findViewById(R.id.event_image);
+        public void setEventImage(String downloadUrl) {
+            eventImageView = mView.findViewById(R.id.event_image);
 
-                RequestOptions placeholderOption = new RequestOptions();
-                placeholderOption.placeholder(R.drawable.image_placeholder);
-                Glide.with(context).applyDefaultRequestOptions(placeholderOption).load(downloadUrl).into(eventImageView);
+            RequestOptions placeholderOption = new RequestOptions();
+            placeholderOption.placeholder(R.drawable.image_placeholder);
+            Glide.with(context).applyDefaultRequestOptions(placeholderOption).load(downloadUrl).into(eventImageView);
 
-            }
-
-            public void setTime(String date){
-                eventCreatedDate = mView.findViewById(R.id.event_created_date);
-                eventCreatedDate.setText(date);
         }
 
-            public void setUserData(String name, String image){
+        public void setTime(String date) {
+            eventCreatedDate = mView.findViewById(R.id.event_created_date);
+            eventCreatedDate.setText(date);
+        }
+
+        public void setUserData(String name, String image) {
             eventUserImage = mView.findViewById(R.id.event_user_image);
             eventUserName = mView.findViewById(R.id.event_Username);
 
             eventUserName.setText(name);
 
-                RequestOptions placeholderOption = new RequestOptions();
-                placeholderOption.placeholder(R.drawable.profile_placeholder);
-
+            RequestOptions placeholderOption = new RequestOptions();
+            placeholderOption.placeholder(R.drawable.profile_placeholder);
 
 
             Glide.with(context).applyDefaultRequestOptions(placeholderOption).load(image).into(eventUserImage);
 
 
-            }
+        }
 
 
     }
-
-
 
 
 }

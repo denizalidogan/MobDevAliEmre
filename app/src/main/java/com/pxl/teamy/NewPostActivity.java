@@ -176,7 +176,7 @@ public class NewPostActivity extends AppCompatActivity {
                 final String location = newPostLocation.getText().toString();
                 final String max = newPostMaxPart.getText().toString();
 
-                if(!TextUtils.isEmpty(desc) && postImageUri != null){
+                if (!TextUtils.isEmpty(desc) && postImageUri != null) {
 
                     newPostProgress.setVisibility(View.VISIBLE);
 
@@ -209,11 +209,11 @@ public class NewPostActivity extends AppCompatActivity {
 
                             Task<Uri> urlTask = task.getResult().getStorage().getDownloadUrl();
 
-                            while (!urlTask.isSuccessful());
-                            final  String downloadUri  =urlTask.getResult().toString();
+                            while (!urlTask.isSuccessful()) ;
+                            final String downloadUri = urlTask.getResult().toString();
 
 
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
 
                                 File newThumbFile = new File(postImageUri.getPath());
                                 try {
@@ -242,8 +242,8 @@ public class NewPostActivity extends AppCompatActivity {
 
                                         Task<Uri> urlTask = task.getResult().getStorage().getDownloadUrl();
 
-                                        while (!urlTask.isSuccessful());
-                                        final  String downloadthumbUri  =urlTask.getResult().toString();
+                                        while (!urlTask.isSuccessful()) ;
+                                        final String downloadthumbUri = urlTask.getResult().toString();
 
                                         Map<String, Object> postMap = new HashMap<>();
                                         postMap.put("image_url", downloadUri);
@@ -261,7 +261,7 @@ public class NewPostActivity extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<DocumentReference> task) {
 
-                                                if(task.isSuccessful()){
+                                                if (task.isSuccessful()) {
                                                     Toast.makeText(NewPostActivity.this, "Post was added", Toast.LENGTH_LONG).show();
                                                     Intent mainIntent = new Intent(NewPostActivity.this, MainActivity.class);
                                                     startActivity(mainIntent);

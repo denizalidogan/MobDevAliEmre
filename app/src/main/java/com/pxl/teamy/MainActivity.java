@@ -41,49 +41,45 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
 
-        if(mAuth.getCurrentUser() !=null){
-        mainToolbar = (Toolbar) findViewById(R.id.main_toolbar);
-        setSupportActionBar(mainToolbar);
+        if (mAuth.getCurrentUser() != null) {
+            mainToolbar = (Toolbar) findViewById(R.id.main_toolbar);
+            setSupportActionBar(mainToolbar);
 
-        getSupportActionBar().setTitle("Teamy");
-
-
+            getSupportActionBar().setTitle("Teamy");
 
 
+            mainBottemNav = findViewById(R.id.mainBottomNav);
 
+            //FRAGMENTS
+            homeFragment = new HomeFragment();
+            notificationFragment = new NotificationFragment();
+            accountFragment = new AccountFragment();
 
-        mainBottemNav = findViewById(R.id.mainBottomNav);
+            replaceFragment(homeFragment);
 
-        //FRAGMENTS
-        homeFragment = new HomeFragment();
-        notificationFragment = new NotificationFragment();
-        accountFragment = new AccountFragment();
+            mainBottemNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    switch (menuItem.getItemId()) {
+                        case R.id.bottom_action_home:
+                            replaceFragment(homeFragment);
+                            return true;
+                        case R.id.bottom_action_notification:
+                            replaceFragment(notificationFragment);
+                            return true;
+                        case R.id.bottom_action_myaccount:
+                            replaceFragment(accountFragment);
+                            return true;
 
-        replaceFragment(homeFragment);
-
-        mainBottemNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.bottom_action_home:
-                        replaceFragment(homeFragment);
-                        return true;
-                    case R.id.bottom_action_notification:
-                        replaceFragment(notificationFragment);
-                        return true;
-                    case R.id.bottom_action_myaccount:
-                        replaceFragment(accountFragment);
-                        return true;
-
-                    case R.id.bottom_action_add:
-                        sentToAddEvent();
-                        return true;
+                        case R.id.bottom_action_add:
+                            sentToAddEvent();
+                            return true;
 
                         default:
                             return false;
+                    }
                 }
-            }
-        });
+            });
 
         }
     }
@@ -95,24 +91,23 @@ public class MainActivity extends AppCompatActivity {
         if (currentUser == null) {
 
             sentToLogin();
-        } else{
+        } else {
             //Checken of de gebruiker wel foto enz heeft.
             current_user_id = mAuth.getCurrentUser().getUid();
 
             firebaseFirestore.collection("Users").document(current_user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if(task.isSuccessful()){
-                        if(!task.getResult().exists()){
+                    if (task.isSuccessful()) {
+                        if (!task.getResult().exists()) {
 
                             Intent setupIntent = new Intent(MainActivity.this, SetupActivity.class);
                             startActivity(setupIntent);
                             finish();
                         }
-                    }
-                        else{
-                    String errorMessage = task.getException().getMessage();
-                    Toast.makeText(MainActivity.this, "Error : " + errorMessage, Toast.LENGTH_LONG).show();
+                    } else {
+                        String errorMessage = task.getException().getMessage();
+                        Toast.makeText(MainActivity.this, "Error : " + errorMessage, Toast.LENGTH_LONG).show();
                     }
                 }
             });
@@ -159,8 +154,9 @@ public class MainActivity extends AppCompatActivity {
         // Zorgt ervoor dat je niet terug kunt met bv Back button
         finish();
     }
-    private void replaceFragment(Fragment fragment){
-        FragmentTransaction fragmentTransaction =  getSupportFragmentManager().beginTransaction();
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_container, fragment);
         fragmentTransaction.commit();
     }

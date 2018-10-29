@@ -20,7 +20,7 @@ public class EventPost {
         this.aantalDeel = aantalDeel;
     }
 
-    public EventPost(){
+    public EventPost() {
 
     }
 
@@ -95,11 +95,6 @@ public class EventPost {
     public void setImage_thumb(String image_thumb) {
         this.image_thumb = image_thumb;
     }
-
-
-
-
-
 
 
 }

@@ -59,9 +59,9 @@ public class RegisterActivity extends AppCompatActivity {
                 String pass = reg_pass_field.getText().toString();
                 String confirm_pass = reg_confirm_pass_field.getText().toString();
 
-                if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(pass) & !TextUtils.isEmpty(confirm_pass)){
+                if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(pass) & !TextUtils.isEmpty(confirm_pass)) {
 
-                    if(pass.equals(confirm_pass)){
+                    if (pass.equals(confirm_pass)) {
 
                         reg_progress.setVisibility(View.VISIBLE);
 
@@ -69,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                if(task.isSuccessful()){
+                                if (task.isSuccessful()) {
 
                                     Intent setupIntent = new Intent(RegisterActivity.this, SetupActivity.class);
                                     startActivity(setupIntent);
@@ -104,7 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onStart();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
+        if (currentUser != null) {
             sendToMain();
         }
 
