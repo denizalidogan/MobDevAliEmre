@@ -40,10 +40,17 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
+
+        if(mAuth.getCurrentUser() !=null){
         mainToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(mainToolbar);
 
         getSupportActionBar().setTitle("Teamy");
+
+
+
+
+
 
         mainBottemNav = findViewById(R.id.mainBottomNav);
 
@@ -78,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        }
     }
 
     @Override
