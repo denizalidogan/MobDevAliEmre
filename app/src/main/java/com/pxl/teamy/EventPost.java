@@ -5,11 +5,12 @@ import java.util.Date;
 
 public class EventPost extends EventPostId {
 
-    public String user_id, image_url, desc, image_thumb, location;
+    public String user_id, image_url, desc, image_thumb, location, title;
     public String time, date;
-    public int aantalDeel;
+    public String maxParticipants;
 
-    public EventPost(String user_id, String image_url, String desc, String image_thumb, String time, String date, String location, int aantalDeel) {
+
+    public EventPost(String user_id, String image_url, String desc, String image_thumb, String time, String date, String location, String aantalDeel, String title) {
         this.user_id = user_id;
         this.image_url = image_url;
         this.desc = desc;
@@ -17,11 +18,21 @@ public class EventPost extends EventPostId {
         this.date = date;
         this.time = time;
         this.location = location;
-        this.aantalDeel = aantalDeel;
+        this.maxParticipants = maxParticipants;
+        this.title = title;
     }
 
     public EventPost() {
 
+    }
+
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getLocation() {
@@ -40,12 +51,12 @@ public class EventPost extends EventPostId {
         this.time = time;
     }
 
-    public int getAantalDeel() {
-        return aantalDeel;
+    public String getMaxParticipants() {
+        return maxParticipants;
     }
 
-    public void setAantalDeel(int aantalDeel) {
-        this.aantalDeel = aantalDeel;
+    public void setMaxParticipants(String maxParticipants) {
+        this.maxParticipants = maxParticipants;
     }
 
     public String getImage_url() {
