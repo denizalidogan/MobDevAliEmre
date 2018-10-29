@@ -8,25 +8,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.common.base.Converter;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -36,8 +31,6 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     public Context context;
 
     private FirebaseFirestore firebaseFirestore;
-    private FirebaseAuth firebaseAuth;
-
 
     public EventRecyclerAdapter(List<EventPost> event_list) {
         this.event_list = event_list;
@@ -50,7 +43,6 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.event_list_item, viewGroup, false);
         context = viewGroup.getContext();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
         return new ViewHolder(view);
     }
 
@@ -59,9 +51,6 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         String desc_data = event_list.get(i).getDesc();
         String image_url = event_list.get(i).getImage_uri();
         String user_id = event_list.get(i).getUser_id();
-        String thumbUrl = event_list.get(i).getImage_thumb();
-        final String eventPostId = event_list.get(i).EventPostId;
-        final String currentUserId = firebaseAuth.getCurrentUser().getUid();
 
         firebaseFirestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -84,9 +73,9 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             }
         });
 
-        viewHolder.setDescText(desc_data);
-        viewHolder.setEventImage(image_url,thumbUrl);
 
+        viewHolder.setDescText(desc_data);
+        viewHolder.setEventImage(image_url);
 
 
 //        // SimpleDateFormat formatter = new SimpleDateFormat("dd:HH:mm:ss");
@@ -102,25 +91,6 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
 
         viewHolder.setTime(event_list.get(i).getDate() + " " + event_list.get(i).getTime());
-
-
-        viewHolder.eventJoinBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Map<String,Object> JoinersMap = new HashMap<>();
-                JoinersMap.put("timestamp", FieldValue.serverTimestamp());
-                firebaseFirestore.collection("Posts").document(eventPostId).collection("Likes").document(currentUserId).set(JoinersMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(context, "You have succesfully Joined!",Toast.LENGTH_LONG).show();
-                    }
-                });
-
-            }
-
-
-        }) ;
-
 
     }
 
@@ -138,16 +108,10 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
         private TextView eventUserName;
         private CircleImageView eventUserImage;
-        private ImageView eventJoinBtn;
-        private TextView eventJoinCount;
-
 
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-
-            eventJoinBtn = mView.findViewById(R.id.event_join_btn);
-
         }
 
         public void setDescText(String descText) {
@@ -155,12 +119,12 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             descView.setText(descText);
         }
 
-        public void setEventImage(String downloadUrl, String thumbUrl) {
+        public void setEventImage(String downloadUrl) {
             eventImageView = mView.findViewById(R.id.event_image);
 
             RequestOptions placeholderOption = new RequestOptions();
             placeholderOption.placeholder(R.drawable.image_placeholder);
-            Glide.with(context).applyDefaultRequestOptions(placeholderOption).load(downloadUrl).thumbnail(Glide.with(context).load(thumbUrl)).into(eventImageView);
+            Glide.with(context).applyDefaultRequestOptions(placeholderOption).load(downloadUrl).into(eventImageView);
 
         }
 
