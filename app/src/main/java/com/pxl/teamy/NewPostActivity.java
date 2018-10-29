@@ -59,6 +59,7 @@ public class NewPostActivity extends AppCompatActivity {
     private EditText newPostLocation;
     private EditText newPostMaxPart;
     private Button newPostBtn;
+    private EditText newPostTitle;
 
     private static final String TAG = "NewPostActivity";
     private DatePickerDialog.OnDateSetListener onDateSetListener;
@@ -100,6 +101,7 @@ public class NewPostActivity extends AppCompatActivity {
         newPostMaxPart = findViewById(R.id.new_post_max);
         newPostBtn = findViewById(R.id.btnPost);
         newPostProgress = findViewById(R.id.new_post_progress);
+        newPostTitle = findViewById(R.id.new_post_title);
 
         newPostImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,9 +176,10 @@ public class NewPostActivity extends AppCompatActivity {
                 final String date = newPostDate.getText().toString();
                 final String time = newPostTime.getText().toString();
                 final String location = newPostLocation.getText().toString();
-                final String max = newPostMaxPart.getText().toString();
+                final String count = newPostMaxPart.getText().toString();
+                final String title = newPostTitle.getText().toString();
 
-                if (!TextUtils.isEmpty(desc) && postImageUri != null) {
+                if (!TextUtils.isEmpty(title) && postImageUri != null) {
 
                     newPostProgress.setVisibility(View.VISIBLE);
 
@@ -248,11 +251,12 @@ public class NewPostActivity extends AppCompatActivity {
                                         Map<String, Object> postMap = new HashMap<>();
                                         postMap.put("image_url", downloadUri);
                                         postMap.put("image_thumb", downloadthumbUri);
+                                        postMap.put("title", title);
                                         postMap.put("desc", desc);
                                         postMap.put("date", date);
                                         postMap.put("time", time);
                                         postMap.put("location", location);
-                                        postMap.put("maxParticipants", max);
+                                        postMap.put("maxParticipants", count);
 
                                         postMap.put("user_id", current_user_id);
                                         postMap.put("timestamp", FieldValue.serverTimestamp());

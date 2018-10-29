@@ -26,6 +26,7 @@
     <string name="action_setting_text">Account Settings</string>
     <string name="action_logout_text">Logout</string>
 
+    <string name="post_title_hint">Title</string>
     <string name="post_desc_hint">Add Description ...</string>
     <string name="post_date_event_hint">Date</string>
     <string name="post_time_event_hint">Time</string>
