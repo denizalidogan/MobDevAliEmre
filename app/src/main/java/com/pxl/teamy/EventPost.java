@@ -3,7 +3,7 @@ package com.pxl.teamy;
 
 import java.util.Date;
 
-public class EventPost {
+public class EventPost extends EventPostId {
 
     public String user_id, image_url, desc, image_thumb, location;
     public String time, date;
