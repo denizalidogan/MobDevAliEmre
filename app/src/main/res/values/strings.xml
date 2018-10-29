@@ -21,14 +21,18 @@
     <string name="setup_male_text">Male</string>
     <string name="setup_female_text">Female</string>
 
-
-
     <string name="bottom_ac_text">Account</string>
     <string name="action_search_text">Search</string>
     <string name="action_setting_text">Account Settings</string>
     <string name="action_logout_text">Logout</string>
+
     <string name="post_desc_hint">Add Description ...</string>
-    <string name="new_post_btn_hint">Post Blog</string>
+    <string name="post_date_event_hint">Date</string>
+    <string name="post_time_event_hint">Time</string>
+    <string name="post_location_event_hint">Location</string>
+    <string name="post_max_event_hint">Maximum Participants</string>
+
+    <string name="new_post_btn_hint">Post Event</string>
     <string name="bottom_home_text">Home</string>
     <string name="bottom_search_text">Search</string>
     <string name="Bottom_AddEvent_Text">Add Event</string>

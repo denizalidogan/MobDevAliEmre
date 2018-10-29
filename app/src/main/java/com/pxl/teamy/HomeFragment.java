@@ -3,6 +3,7 @@ package com.pxl.teamy;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.solver.widgets.Snapshot;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -85,7 +86,7 @@ private FirebaseAuth firebaseAuth;
                                                      }
                                                      });
 
-                     Query firstQuery = firebaseFirestore.collection("Posts").orderBy("timestamp", Query.Direction.DESCENDING).limit(3);
+                     Query firstQuery = firebaseFirestore.collection("Posts").orderBy("date", Query.Direction.DESCENDING).limit(3);
 
 
 
@@ -94,34 +95,32 @@ private FirebaseAuth firebaseAuth;
                  @Override
                  public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 
+                     if(!queryDocumentSnapshots.isEmpty()) {
+                         lastVisible = queryDocumentSnapshots.getDocuments()
+                                 .get(queryDocumentSnapshots.size() - 1);
 
-                     lastVisible = queryDocumentSnapshots.getDocuments()
-                             .get(queryDocumentSnapshots.size() -1);
 
+                         for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
+                             if (doc.getType() == DocumentChange.Type.ADDED) {
 
+                                 EventPost eventPost = doc.getDocument().toObject(EventPost.class);
+                                 event_list.add(eventPost);
 
-                     for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
-                         if (doc.getType() == DocumentChange.Type.ADDED) {
+                                 eventRecyclerAdapter.notifyDataSetChanged();
 
-                             EventPost eventPost = doc.getDocument().toObject(EventPost.class);
-                             event_list.add(eventPost);
-
-                             eventRecyclerAdapter.notifyDataSetChanged();
+                             }
 
                          }
-
                      }
-
                  }
              });
          }
-
         // Inflate the layout for this fragment
         return view;
     }
 
     public void LoadMorePost(){
-        Query nextQuery = firebaseFirestore.collection("Posts").orderBy("timestamp",Query.Direction.DESCENDING).startAfter(lastVisible).limit(3);
+        Query nextQuery = firebaseFirestore.collection("Posts").orderBy("date",Query.Direction.DESCENDING).startAfter(lastVisible).limit(3);
 
         nextQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override

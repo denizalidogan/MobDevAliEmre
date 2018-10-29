@@ -1,18 +1,26 @@
 package com.pxl.teamy;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,6 +40,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -45,7 +54,15 @@ public class NewPostActivity extends AppCompatActivity {
 
     private ImageView newPostImage;
     private EditText newPostDesc;
+    private TextView newPostDate;
+    private TextView newPostTime;
+    private EditText newPostLocation;
+    private EditText newPostMaxPart;
     private Button newPostBtn;
+
+    private static final String TAG = "NewPostActivity";
+    private DatePickerDialog.OnDateSetListener onDateSetListener;
+    private TimePickerDialog.OnTimeSetListener onTimeSetListener;
 
     private Uri postImageUri = null;
 
@@ -75,12 +92,12 @@ public class NewPostActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Add New Post");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-
-
-
         newPostImage = findViewById(R.id.new_post_image);
         newPostDesc = findViewById(R.id.new_post_desc);
+        newPostDate = findViewById(R.id.new_post_date);
+        newPostTime = findViewById(R.id.new_post_time);
+        newPostLocation = findViewById(R.id.new_post_location);
+        newPostMaxPart = findViewById(R.id.new_post_max);
         newPostBtn = findViewById(R.id.btnPost);
         newPostProgress = findViewById(R.id.new_post_progress);
 
@@ -97,11 +114,67 @@ public class NewPostActivity extends AppCompatActivity {
             }
         });
 
+        newPostDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        NewPostActivity.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        onDateSetListener,
+                        year, month, day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month + 1;
+                Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + dayOfMonth + "/" + year);
+
+                String date = dayOfMonth + "/" + month + "/" + year;
+                newPostDate.setText(date);
+            }
+        };
+
+        newPostTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int hour = cal.get(Calendar.HOUR_OF_DAY);
+                int min = cal.get(Calendar.MINUTE);
+                TimePickerDialog dialog = new TimePickerDialog(
+                        NewPostActivity.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        onTimeSetListener,
+                        hour, min, true);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                newPostTime.setText(hourOfDay + ":" + minute);
+            }
+        };
+
         newPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 final String desc = newPostDesc.getText().toString();
+                final String date = newPostDate.getText().toString();
+                final String time = newPostTime.getText().toString();
+                final String location = newPostLocation.getText().toString();
+                final String max = newPostMaxPart.getText().toString();
 
                 if(!TextUtils.isEmpty(desc) && postImageUri != null){
 
@@ -176,6 +249,11 @@ public class NewPostActivity extends AppCompatActivity {
                                         postMap.put("image_url", downloadUri);
                                         postMap.put("image_thumb", downloadthumbUri);
                                         postMap.put("desc", desc);
+                                        postMap.put("date", date);
+                                        postMap.put("time", time);
+                                        postMap.put("location", location);
+                                        postMap.put("maxParticipants", max);
+
                                         postMap.put("user_id", current_user_id);
                                         postMap.put("timestamp", FieldValue.serverTimestamp());
 

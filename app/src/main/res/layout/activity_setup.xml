@@ -69,7 +69,6 @@
         android:layout_marginStart="8dp"
         android:ems="10"
         android:hint="@string/setup_birth_hint_text"
-        android:inputType="textPersonName"
         android:padding="15dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"

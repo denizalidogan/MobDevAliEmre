@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.common.base.Converter;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -83,19 +84,20 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
 
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd:HH:mm:ss");
+//        // SimpleDateFormat formatter = new SimpleDateFormat("dd:HH:mm:ss");
+//
+//
+//        long  milliseconds = Long.parseLong(event_list.get(i).getTime());
+//
+//        String dateString = android.text.format.DateFormat.format("dd/MM/yyyy", new Date(milliseconds)).toString();
+//
+//
+//        Date date = new Date(milliseconds);
+//        String dateString2 = formatter.format(date);
 
 
-        long  milliseconds = event_list.get(i).getTimestamp().getTime();
+        viewHolder.setTime(event_list.get(i).getDate() + " " + event_list.get(i).getTime());
 
-        String dateString = android.text.format.DateFormat.format("dd/MM/yyyy", new Date(milliseconds)).toString();
-
-
-        Date date = new Date(milliseconds);
-        String dateString2 = formatter.format(date);
-
-
-        viewHolder.setTime(dateString);
     }
 
 
