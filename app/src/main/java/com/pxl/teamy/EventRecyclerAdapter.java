@@ -17,8 +17,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.common.base.Converter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -27,6 +30,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.annotation.Nullable;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -56,6 +61,15 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
+
+
+        viewHolder.setIsRecyclable(false);
+
+
+
+
+
+
         String desc_data = event_list.get(i).getDesc();
         String image_url = event_list.get(i).getImage_uri();
         String user_id = event_list.get(i).getUser_id();
@@ -101,20 +115,113 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 //        String dateString2 = formatter.format(date);
 
 
+
+
+
+
         viewHolder.setTime(event_list.get(i).getDate() + " " + event_list.get(i).getTime());
+
+
+
+
+        //Get Likes Count
+        firebaseFirestore.collection("Posts/" + eventPostId + "/Likes").addSnapshotListener( new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+
+                if(!documentSnapshots.isEmpty()){
+
+                    int count = documentSnapshots.size();
+
+                    viewHolder.updateJoinersCount(count);
+
+                } else {
+
+                    viewHolder.updateJoinersCount(0);
+
+                }
+
+            }
+        });
+
+
+        //Get Likes
+        firebaseFirestore.collection("Posts/" + eventPostId + "/Likes").document(currentUserId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+
+                if(documentSnapshot.exists()){
+
+                    viewHolder.eventJoinBtn.setImageDrawable(context.getDrawable(R.mipmap.action_join_color));
+
+                } else {
+
+                    viewHolder.eventJoinBtn.setImageDrawable(context.getDrawable(R.mipmap.action_join_accent));
+
+                }
+
+            }
+        });
+
+
+
+
+        //get Likes
+
+
+
+
+//
+//        firebaseFirestore.collection("Posts").document(eventPostId).collection("Likes").document(currentUserId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+//
+//                if(!documentSnapshot.exists()){
+//                    viewHolder.eventJoinBtn.setImageDrawable(context.getDrawable(R.mipmap.action_join_accent));
+//
+//                }
+//
+//                else{
+//                    viewHolder.eventJoinBtn.setImageDrawable(context.getDrawable(R.mipmap.action_join_color));
+//                }
+//
+//            }
+//        });
+
 
 
         viewHolder.eventJoinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Map<String,Object> JoinersMap = new HashMap<>();
-                JoinersMap.put("timestamp", FieldValue.serverTimestamp());
-                firebaseFirestore.collection("Posts").document(eventPostId).collection("Likes").document(currentUserId).set(JoinersMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                firebaseFirestore.collection("Posts").document(eventPostId).collection("Likes").document(currentUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(context, "You have succesfully Joined!",Toast.LENGTH_LONG).show();
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+
+
+
+                        if(!task.getResult().exists()){
+                            Map<String,Object> JoinersMap = new HashMap<>();
+                            JoinersMap.put("timestamp", FieldValue.serverTimestamp());
+                            firebaseFirestore.collection("Posts").document(eventPostId).collection("Likes").document(currentUserId).set(JoinersMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(context, "You have succesfully Joined!",Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        } else{
+
+                            firebaseFirestore.collection("Posts").document(eventPostId).collection("Likes").document(currentUserId).delete();
+                            Toast.makeText(context, "You have left the event!",Toast.LENGTH_LONG).show();
+
+                        }
+
+
                     }
                 });
+
+
 
             }
 
@@ -183,6 +290,22 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
 
         }
+
+
+        public void updateJoinersCount(int count){
+
+            eventJoinCount = mView.findViewById(R.id.event_join_count);
+
+
+
+            if(count <1)
+            eventJoinCount.setText(count + " Participant");
+            else
+                eventJoinCount.setText(count + " Participant");
+
+        }
+
+
 
 
     }
