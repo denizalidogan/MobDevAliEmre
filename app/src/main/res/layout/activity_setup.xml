@@ -20,10 +20,10 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/setup_image"
-        android:layout_width="241dp"
-        android:layout_height="334dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
         android:src="@drawable/default_image"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,15 +36,92 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="@string/setup_name_hint_text"
         android:inputType="textPersonName"
         android:padding="15dp"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/setup_image" />
+
+    <EditText
+        android:id="@+id/setup_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:hint="@string/setup_username_hint_text"
+        android:inputType="textPersonName"
+        android:padding="15dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setup_name" />
+
+    <TextView
+        android:id="@+id/setup_birth"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:hint="@string/setup_birth_hint_text"
+        android:inputType="textPersonName"
+        android:padding="15dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setup_username" />
+
+    <RadioGroup
+        android:id="@+id/setup_gendergroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:orientation="horizontal"
+        android:ems="10"
+        android:hint="@string/setup_birth_hint_text"
+        android:inputType="textPersonName"
+        android:padding="15dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setup_birth">
+        <RadioButton
+            android:id="@+id/setup_gendermale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setup_male_text"
+            android:checked="false"
+            android:onClick="genderClick"/>
+        <RadioButton
+            android:id="@+id/setup_genderfemale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/setup_female_text"
+            android:checked="false"
+            android:onClick="genderClick"/>
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/setup_bio"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:hint="@string/setup_bio_hint_text"
+        android:inputType="textPersonName"
+        android:padding="15dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setup_gendergroup" />
 
     <Button
         android:id="@+id/setup_btn"
@@ -61,7 +138,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/setup_name" />
+        app:layout_constraintTop_toBottomOf="@+id/setup_bio" />
 
     <ProgressBar
         android:id="@+id/setup_progress"
