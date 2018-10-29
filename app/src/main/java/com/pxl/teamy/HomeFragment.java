@@ -1,6 +1,7 @@
 package com.pxl.teamy;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.solver.widgets.Snapshot;
@@ -31,17 +32,14 @@ import javax.annotation.Nullable;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-
     private RecyclerView event_list_view;
     private List<EventPost> event_list;
-
-
     private FirebaseFirestore firebaseFirestore;
     private EventRecyclerAdapter eventRecyclerAdapter;
     private DocumentSnapshot lastVisible;
-
-
     private FirebaseAuth firebaseAuth;
+
+    private Boolean isFirstPageFirstLoad = true;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -82,7 +80,7 @@ public class HomeFragment extends Fragment {
                 }
             });
 
-            Query firstQuery = firebaseFirestore.collection("Posts").orderBy("date", Query.Direction.DESCENDING).limit(3);
+            Query firstQuery = firebaseFirestore.collection("Posts").orderBy("timestamp", Query.Direction.DESCENDING).limit(3);
 
 
             firstQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -90,21 +88,30 @@ public class HomeFragment extends Fragment {
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 
                     if (!queryDocumentSnapshots.isEmpty()) {
-                        lastVisible = queryDocumentSnapshots.getDocuments()
-                                .get(queryDocumentSnapshots.size() - 1);
 
+                        if (isFirstPageFirstLoad) {
+
+                            lastVisible = queryDocumentSnapshots.getDocuments()
+                                    .get(queryDocumentSnapshots.size() - 1);
+                        }
 
                         for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
                             if (doc.getType() == DocumentChange.Type.ADDED) {
 
-                                EventPost eventPost = doc.getDocument().toObject(EventPost.class);
-                                event_list.add(eventPost);
+                                String blogPostId = doc.getDocument().getId();
+                                EventPost eventPost = doc.getDocument().toObject(EventPost.class).withId(blogPostId);
 
+
+                                if (isFirstPageFirstLoad) {
+                                    event_list.add(eventPost);
+                                } else {
+                                    event_list.add(0, eventPost);
+                                }
                                 eventRecyclerAdapter.notifyDataSetChanged();
-
                             }
-
                         }
+                        isFirstPageFirstLoad = false;
+
                     }
                 }
             });
@@ -113,8 +120,20 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onDetach() {
+        isFirstPageFirstLoad = true;
+        super.onDetach();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        isFirstPageFirstLoad = true;
+        super.onAttach(context);
+    }
+
     public void LoadMorePost() {
-        Query nextQuery = firebaseFirestore.collection("Posts").orderBy("date", Query.Direction.DESCENDING).startAfter(lastVisible).limit(3);
+        Query nextQuery = firebaseFirestore.collection("Posts").orderBy("timestamp", Query.Direction.DESCENDING).startAfter(lastVisible).limit(3);
 
         nextQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -131,7 +150,10 @@ public class HomeFragment extends Fragment {
                         if (doc.getType() == DocumentChange.Type.ADDED) {
 
 
-                            EventPost eventPost = doc.getDocument().toObject(EventPost.class);
+                            String blogPostId = doc.getDocument().getId();
+
+
+                            EventPost eventPost = doc.getDocument().toObject(EventPost.class).withId(blogPostId);
                             event_list.add(eventPost);
 
                             eventRecyclerAdapter.notifyDataSetChanged();
