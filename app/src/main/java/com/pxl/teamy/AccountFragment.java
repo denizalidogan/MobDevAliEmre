@@ -124,8 +124,11 @@ public class AccountFragment extends Fragment {
                         for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
                             if (doc.getType() == DocumentChange.Type.ADDED) {
                                 String user = doc.getDocument().toObject(EventPost.class).getUser_id();
+
+
                                 if(doc.getDocument().toObject(EventPost.class).getUser_id().contains(user_id)){
-                                    EventPost eventPost = doc.getDocument().toObject(EventPost.class);
+                                    String blogPostId = doc.getDocument().getId();
+                                    EventPost eventPost = doc.getDocument().toObject(EventPost.class).withId(blogPostId);
                                     event_list.add(eventPost);
                                     profileEventRecyclerAdapter.notifyDataSetChanged();
                                     count ++;
@@ -135,6 +138,9 @@ public class AccountFragment extends Fragment {
 
                         }
                     }
+
+
+
                 }
             });
         }

@@ -38,6 +38,8 @@
             android:theme="@style/Base.Theme.AppCompat"/>
         <activity android:name=".NewPostActivity" android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme"/>
+        <activity android:name=".DetailActivity"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>
