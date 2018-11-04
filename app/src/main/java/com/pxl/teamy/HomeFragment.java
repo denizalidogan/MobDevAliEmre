@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -34,6 +36,9 @@ import javax.annotation.Nullable;
 public class HomeFragment extends Fragment {
     private RecyclerView event_list_view;
     private List<EventPost> event_list;
+    private List<User> user_list;
+
+
     private FirebaseFirestore firebaseFirestore;
     private EventRecyclerAdapter eventRecyclerAdapter;
     private DocumentSnapshot lastVisible;
@@ -52,10 +57,12 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         event_list = new ArrayList<>();
+
+        user_list = new ArrayList<>();
         event_list_view = view.findViewById(R.id.event_list_view);
 
         firebaseAuth = firebaseAuth.getInstance();
-        eventRecyclerAdapter = new EventRecyclerAdapter(event_list);
+        eventRecyclerAdapter = new EventRecyclerAdapter(event_list, user_list);
 
         event_list_view.setLayoutManager(new LinearLayoutManager(container.getContext()));
         event_list_view.setAdapter(eventRecyclerAdapter);
@@ -82,8 +89,7 @@ public class HomeFragment extends Fragment {
 
             Query firstQuery = firebaseFirestore.collection("Posts").orderBy("timestamp", Query.Direction.DESCENDING).limit(3);
 
-
-            firstQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            firstQuery.addSnapshotListener(getActivity(), new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 
@@ -93,21 +99,44 @@ public class HomeFragment extends Fragment {
 
                             lastVisible = queryDocumentSnapshots.getDocuments()
                                     .get(queryDocumentSnapshots.size() - 1);
+                            event_list.clear();
+                            user_list.clear();
                         }
 
                         for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
                             if (doc.getType() == DocumentChange.Type.ADDED) {
 
                                 String blogPostId = doc.getDocument().getId();
-                                EventPost eventPost = doc.getDocument().toObject(EventPost.class).withId(blogPostId);
+                                final EventPost eventPost = doc.getDocument().toObject(EventPost.class).withId(blogPostId);
+
+                                String eventUserId = doc.getDocument().getString("user_id");
 
 
-                                if (isFirstPageFirstLoad) {
-                                    event_list.add(eventPost);
-                                } else {
-                                    event_list.add(0, eventPost);
-                                }
-                                eventRecyclerAdapter.notifyDataSetChanged();
+
+                                firebaseFirestore.collection("Users").document(eventUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if(task.isSuccessful()){
+
+                                            User user = task.getResult().toObject(User.class);
+
+
+                                            //dont load before users are getted
+                                            if (isFirstPageFirstLoad) {
+                                                user_list.add(user);
+                                                event_list.add(eventPost);
+                                            } else {
+                                                user_list.add(0,user);
+                                                event_list.add(0, eventPost);
+                                            }
+                                            eventRecyclerAdapter.notifyDataSetChanged();
+                                        }
+
+                                    }
+                                });
+
+
+
                             }
                         }
                         isFirstPageFirstLoad = false;
@@ -135,7 +164,7 @@ public class HomeFragment extends Fragment {
     public void LoadMorePost() {
         Query nextQuery = firebaseFirestore.collection("Posts").orderBy("timestamp", Query.Direction.DESCENDING).startAfter(lastVisible).limit(3);
 
-        nextQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        nextQuery.addSnapshotListener(getActivity(),new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 
@@ -153,10 +182,30 @@ public class HomeFragment extends Fragment {
                             String blogPostId = doc.getDocument().getId();
 
 
-                            EventPost eventPost = doc.getDocument().toObject(EventPost.class).withId(blogPostId);
-                            event_list.add(eventPost);
+                            final EventPost eventPost = doc.getDocument().toObject(EventPost.class).withId(blogPostId);
+                            String eventUserId = doc.getDocument().getString("user_id");
 
-                            eventRecyclerAdapter.notifyDataSetChanged();
+
+
+                            firebaseFirestore.collection("Users").document(eventUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if(task.isSuccessful()){
+
+                                        User user = task.getResult().toObject(User.class);
+
+
+                                        //dont load before users are getted
+
+                                            user_list.add(user);
+                                            event_list.add(eventPost);
+
+                                        eventRecyclerAdapter.notifyDataSetChanged();
+                                    }
+
+                                }
+                            });
+
 
                         }
 

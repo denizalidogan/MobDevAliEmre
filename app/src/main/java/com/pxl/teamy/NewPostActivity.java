@@ -91,7 +91,7 @@ public class NewPostActivity extends AppCompatActivity {
         newPostToolbar = findViewById(R.id.new_post_toolbar);
         setSupportActionBar(newPostToolbar);
         getSupportActionBar().setTitle("Add New Post");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         newPostImage = findViewById(R.id.new_post_image);
         newPostDesc = findViewById(R.id.new_post_desc);

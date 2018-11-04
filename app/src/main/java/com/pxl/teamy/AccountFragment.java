@@ -112,7 +112,7 @@ public class AccountFragment extends Fragment {
             Query firstQuery = firebaseFirestore.collection("Posts").orderBy("date", Query.Direction.DESCENDING);
 
 
-            firstQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            firstQuery.addSnapshotListener(getActivity(),new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 
@@ -189,7 +189,7 @@ public class AccountFragment extends Fragment {
     public void LoadMorePost() {
         Query nextQuery = firebaseFirestore.collection("Posts").orderBy("date", Query.Direction.DESCENDING).startAfter(lastVisible).limit(3);
 
-        nextQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        nextQuery.addSnapshotListener(getActivity(),new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 

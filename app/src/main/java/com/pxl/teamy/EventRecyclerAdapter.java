@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.common.base.Converter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,14 +42,19 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdapter.ViewHolder> {
 
     public List<EventPost> event_list;
+    public List<User> user_list;
     public Context context;
 
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
 
-    public EventRecyclerAdapter(List<EventPost> event_list) {
-        this.event_list = event_list;
 
+
+
+
+    public EventRecyclerAdapter(List<EventPost> event_list, List <User> user_list) {
+        this.event_list = event_list;
+        this.user_list = user_list;
     }
 
     @NonNull
@@ -61,7 +68,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
 
 
         viewHolder.setIsRecyclable(false);
@@ -69,32 +76,28 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
         String desc_data = event_list.get(i).getDesc();
         String image_url = event_list.get(i).getImage_uri();
-        String user_id = event_list.get(i).getUser_id();
+        String event_user_id = event_list.get(i).getUser_id();
+
+
+        String userName = user_list.get(i).getName();
+        String userImage = user_list.get(i).getImage();
+
+        viewHolder.setUserData(userName, userImage);
+
+
+
+
         String thumbUrl = event_list.get(i).getImage_thumb();
         final String maxParticipants = event_list.get(i).getMaxParticipants();
         final String eventPostId = event_list.get(i).EventPostId;
         final String currentUserId = firebaseAuth.getCurrentUser().getUid();
 
-        firebaseFirestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-                if (task.isSuccessful()) {
-
-                    String userName = task.getResult().getString("name");
-                    String userImage = task.getResult().getString("image");
-
-                    viewHolder.setUserData(userName, userImage);
+        if(event_user_id.equals(currentUserId)){
+            viewHolder.btnEventDelete.setEnabled(true);
+            viewHolder.btnEventDelete.setVisibility(View.VISIBLE);
+        }
 
 
-                } else {
-
-                    //Firebase Exception
-                }
-
-
-            }
-        });
 
         viewHolder.setDescText(desc_data);
         viewHolder.setEventImage(image_url, thumbUrl);
@@ -221,6 +224,43 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             }
         });
 
+        viewHolder.detailpage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("EVENT_POST_ID", eventPostId);
+                context.startActivity(intent);
+            }
+        });
+
+        viewHolder.btnEventDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                firebaseFirestore.collection("Posts").document(eventPostId).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                        event_list.remove(i);
+                        user_list.remove(i);
+                        
+                    }
+                });
+
+            }
+        });
+
+
+
+        viewHolder.eventCommentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent commentIntent = new Intent(context,CommentsActivity.class);
+                commentIntent.putExtra("event_post_id", eventPostId);
+                context.startActivity(commentIntent);
+            }
+        });
+
 
     }
 
@@ -235,11 +275,14 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         private TextView descView;
         private ImageView eventImageView;
         private TextView eventCreatedDate;
-
+        private Button btnEventDelete;
         private TextView eventUserName;
         private CircleImageView eventUserImage;
         private ImageView eventJoinBtn;
         private TextView eventJoinCount;
+
+        private ImageView eventCommentBtn;
+
 
         private ConstraintLayout detailpage;
 
@@ -249,6 +292,9 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
             eventJoinBtn = mView.findViewById(R.id.event_join_btn);
             detailpage = mView.findViewById(R.id.detailpage);
+             eventCommentBtn = mView.findViewById(R.id.event_comment_icon);
+             btnEventDelete = mView.findViewById(R.id.btnDeleteEvent);
+
 
         }
 

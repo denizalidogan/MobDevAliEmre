@@ -40,12 +40,16 @@ import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.zelory.compressor.Compressor;
 
 
 public class SetupActivity extends AppCompatActivity {
@@ -224,22 +228,44 @@ public class SetupActivity extends AppCompatActivity {
 
                         user_id = firebaseAuth.getCurrentUser().getUid();
 
-                        StorageReference image_path = storageReference.child("profile_images").child(user_id + ".jpg");
+                        File newImageFile = new File(mainImageURI.getPath());
+                        try {
 
-                        image_path.putFile(mainImageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                            compressedImageFile = new Compressor(SetupActivity.this)
+                                    .setMaxHeight(125)
+                                    .setMaxWidth(125)
+                                    .setQuality(50)
+                                    .compressToBitmap(newImageFile);
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        compressedImageFile.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                        byte[] thumbData = baos.toByteArray();
+
+                        UploadTask image_path = storageReference.child("profile_images").child(user_id + ".jpg").putBytes(thumbData);
+
+                        image_path.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
 
                                 if (task.isSuccessful()) {
                                     storeFirestore(task, user_name, user_username, user_date, user_bio, user_gender);
+
+
                                 } else {
 
                                     String error = task.getException().getMessage();
                                     Toast.makeText(SetupActivity.this, "(IMAGE Error) : " + error, Toast.LENGTH_LONG).show();
+
                                     setupProgress.setVisibility(View.INVISIBLE);
+
                                 }
                             }
                         });
+
                     } else {
                         storeFirestore(null, user_name, user_username, user_date, user_bio, user_gender);
                     }

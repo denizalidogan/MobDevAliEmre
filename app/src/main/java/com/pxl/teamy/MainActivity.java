@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private NotificationFragment notificationFragment;
     private AccountFragment accountFragment;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,31 +56,45 @@ public class MainActivity extends AppCompatActivity {
             notificationFragment = new NotificationFragment();
             accountFragment = new AccountFragment();
 
-            replaceFragment(homeFragment);
+            initializeFragment();
 
             mainBottemNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                    switch (menuItem.getItemId()) {
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                    Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.main_container);
+
+                    switch (item.getItemId()) {
+
                         case R.id.bottom_action_home:
-                            replaceFragment(homeFragment);
+
+                            replaceFragment(homeFragment, currentFragment);
                             return true;
-                        case R.id.bottom_action_notification:
-                            replaceFragment(notificationFragment);
-                            return true;
+
                         case R.id.bottom_action_myaccount:
-                            replaceFragment(accountFragment);
+
+                            replaceFragment(accountFragment, currentFragment);
+                            return true;
+
+                        case R.id.bottom_action_notification:
+
+                            replaceFragment(notificationFragment, currentFragment);
                             return true;
 
                         case R.id.bottom_action_add:
+
                             sentToAddEvent();
                             return true;
 
                         default:
                             return false;
+
+
                     }
+
                 }
             });
+
 
         }
     }
@@ -143,8 +158,7 @@ public class MainActivity extends AppCompatActivity {
     private void sentToAddEvent() {
         // Activiteit wordt aangemaakt
         startActivity(new Intent(this, NewPostActivity.class));
-        // Zorgt ervoor dat je niet terug kunt met bv Back button
-        finish();
+
     }
 
 
@@ -155,9 +169,48 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    private void replaceFragment(Fragment fragment) {
+    private void initializeFragment(){
+
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_container, fragment);
+
+        fragmentTransaction.add(R.id.main_container, homeFragment);
+        fragmentTransaction.add(R.id.main_container, notificationFragment);
+        fragmentTransaction.add(R.id.main_container, accountFragment);
+
+        fragmentTransaction.hide(notificationFragment);
+        fragmentTransaction.hide(accountFragment);
+
         fragmentTransaction.commit();
+
+    }
+
+    private void replaceFragment(Fragment fragment, Fragment currentFragment){
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if(fragment == homeFragment){
+
+            fragmentTransaction.hide(accountFragment);
+            fragmentTransaction.hide(notificationFragment);
+
+        }
+
+        if(fragment == accountFragment){
+
+            fragmentTransaction.hide(homeFragment);
+            fragmentTransaction.hide(notificationFragment);
+
+        }
+
+        if(fragment == notificationFragment){
+
+            fragmentTransaction.hide(homeFragment);
+            fragmentTransaction.hide(accountFragment);
+
+        }
+        fragmentTransaction.show(fragment);
+
+        //fragmentTransaction.replace(R.id.main_container, fragment);
+        fragmentTransaction.commit();
+
     }
 }
