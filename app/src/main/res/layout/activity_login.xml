@@ -12,8 +12,8 @@
         android:id="@+id/login_txtLogo"
         android:layout_width="400dp"
         android:layout_height="200dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -24,9 +24,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
-        android:autofillHints=""
         android:background="#55000000"
         android:backgroundTint="@color/common_google_signin_btn_text_dark_default"
         android:drawableStart="@drawable/ic_action_email"
@@ -38,6 +37,7 @@
         android:textColorHint="@color/whiteTransparentHalf"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_txtLogo" />
 
@@ -48,7 +48,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:autofillHints=""
         android:background="#55000000"
         android:backgroundTint="@color/common_google_signin_btn_text_dark_default"
         android:drawableStart="@drawable/ic_action_lock"
@@ -60,6 +59,7 @@
         android:textColorHint="@color/whiteTransparentHalf"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_txtEmail" />
 
@@ -68,17 +68,19 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="@color/colorPrimary"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:text="@string/btnLogin_text"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
-        android:textSize="14sp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/login_btnRegister"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_txtPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/login_txtPassword"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/login_btnRegister"
@@ -86,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="5dp"
         android:backgroundTint="@color/common_google_signin_btn_text_dark_default"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
@@ -94,9 +96,10 @@
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
         android:textColorLink="@color/colorPrimary"
-        android:textSize="14sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
@@ -111,4 +114,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="invisible" />
+
+    <CheckBox
+        android:id="@+id/cb_rememberLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="1dp"
+        android:buttonTint="@color/common_google_signin_btn_text_dark_default"
+        android:text="@string/cb_rememberLogin"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        app:layout_constraintBottom_toTopOf="@+id/login_btnLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_txtPassword"
+        app:layout_constraintVertical_bias="0.0" />
 </android.support.constraint.ConstraintLayout>

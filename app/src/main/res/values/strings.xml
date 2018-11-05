@@ -1,5 +1,13 @@
 <resources>
+
     <string name="app_name">Teamy</string>
+    <string name="checkbox">com.pxl.teamy.ViewActivities.cb_rememberLogin</string>
+    <string name="name">com.pxl.teamy.login_txtEmail</string>
+    <string name="password">com.pxl.teamy.reg_confirm_pass</string>
+
+
+
+
     <string name="pass_hint">Your Password...</string>
     <string name="email_hint">Your Email....</string>
     <string name="logo_text">Teamy</string>
@@ -41,5 +49,6 @@
     <string name="bottom_account_text">My Account</string>
 =
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cb_rememberLogin">Remember my Login</string>
 
 </resources>
