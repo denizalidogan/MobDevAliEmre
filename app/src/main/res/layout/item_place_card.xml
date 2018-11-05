@@ -42,7 +42,7 @@
                 android:layout_gravity="start"
                 android:textAlignment="viewStart"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@android:color/black" />
+                android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
             <TextView
                 android:id="@+id/address_text_view"
@@ -51,7 +51,8 @@
                 android:layout_gravity="start"
                 android:maxLines="1"
                 android:textAlignment="viewStart"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/common_google_signin_btn_text_dark_default" />
         </LinearLayout>
 
     </LinearLayout>

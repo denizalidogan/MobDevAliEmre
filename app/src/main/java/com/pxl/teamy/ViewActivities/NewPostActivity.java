@@ -151,9 +151,9 @@ public class NewPostActivity extends AppCompatActivity implements ConnectionCall
 
         current_user_id = firebaseAuth.getCurrentUser().getUid();
 
-        newPostToolbar = findViewById(R.id.new_post_toolbar);
-        setSupportActionBar(newPostToolbar);
-        getSupportActionBar().setTitle("Add New Post");
+  //      newPostToolbar = findViewById(R.id.new_post_toolbar);
+//        setSupportActionBar(newPostToolbar);
+//        getSupportActionBar().setTitle("Add New Post");
 
 
 
