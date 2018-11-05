@@ -19,7 +19,6 @@
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
-
         <activity
             android:name=".ViewActivities.SplashActivity"
             android:screenOrientation="portrait"
@@ -30,7 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ViewActivities.MainActivity"
             android:theme="@style/AppTheme" />
@@ -43,7 +41,7 @@
             android:theme="@style/AppThemeRegister" />
         <activity
             android:name=".ViewActivities.CommentsActivity"
-            android:theme="@style/AppThemeRegister" />
+            android:theme="@style/AppThemeLogin" />
 
         <!-- setup -->
         <activity
@@ -56,21 +54,10 @@
         <activity
             android:name=".ViewActivities.DetailActivity"
             android:theme="@style/AppTheme" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        <activity
+            android:name=".ViewActivities.DetaillActivity"
+            android:label="@string/title_activity_detaill"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

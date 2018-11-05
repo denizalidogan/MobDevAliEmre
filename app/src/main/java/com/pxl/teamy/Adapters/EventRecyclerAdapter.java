@@ -116,7 +116,8 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 //        String dateString2 = formatter.format(date);
 
 
-        viewHolder.setTime(event_list.get(i).getDate() + " " + event_list.get(i).getTime());
+        //viewHolder.setTime(event_list.get(i).getDate() + " " + event_list.get(i).getTime());
+        viewHolder.setTime(event_list.get(i).getDate());
 
 
         //Get Likes Count

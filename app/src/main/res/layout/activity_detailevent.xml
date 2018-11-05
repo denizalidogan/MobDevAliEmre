@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/common_google_signin_btn_text_dark_default"
-    tools:context=".DetailActivity">
+    tools:context=".ViewActivities.DetailActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/detail_post_toolbar"

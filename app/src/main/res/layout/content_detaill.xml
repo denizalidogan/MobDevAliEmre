@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ViewActivities.DetaillActivity"
+    tools:showIn="@layout/activity_detaill">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/detail_post_image"
+            android:layout_width="153dp"
+            android:layout_height="150dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/default_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/detail_post_image">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/post_desc"
+                android:layout_gravity="fill"
+                android:layout_columnWeight="1"
+                android:textSize="14sp"
+                android:padding="15dp"/>
+
+            <View
+                android:layout_width="7dp"
+                android:layout_height="300dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="50sp"
+                android:background="#a40404" />
+
+            <TextView
+                android:id="@+id/detail_post_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/post_desc_hint"
+                android:layout_gravity="fill"
+                android:layout_columnWeight="1"
+                android:textSize="14sp"
+                android:padding="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/post_date_event"
+                android:textSize="14sp"
+                android:padding="15dp"/>
+
+            <TextView
+                android:id="@+id/detail_post_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/post_date_event_hint"
+                android:textSize="14sp"
+                android:padding="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/post_time_event"
+                android:textSize="14sp"
+                android:padding="15dp"/>
+
+            <TextView
+                android:id="@+id/detail_post_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/post_time_event_hint"
+                android:textSize="14sp"
+                android:padding="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:hint="@string/post_location_event"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="15dp"/>
+
+            <TextView
+                android:id="@+id/detail_post_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:hint="@string/post_location_event_hint"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:hint="@string/post_max_event_hint"
+                android:inputType="number"
+                android:padding="15dp"/>
+
+            <TextView
+                android:id="@+id/detail_post_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:hint="@string/post_max_event_hint"
+                android:inputType="number"
+                android:padding="15dp"/>
+        </GridLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+
+
+
+</android.support.v4.widget.NestedScrollView>

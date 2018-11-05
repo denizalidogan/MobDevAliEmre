@@ -16,7 +16,7 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
@@ -27,26 +27,34 @@
             android:layout_height="wrap_content">
 
 
+            <ImageView
+                android:id="@+id/event_image"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/image_placeholder" />
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/event_user_image"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="16dp"
                 android:src="@drawable/profile_placeholder"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/event_image" />
 
             <TextView
                 android:id="@+id/event_Username"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
                 android:text="Username"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/event_user_image"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@id/event_user_image" />
 
             <TextView
                 android:id="@+id/event_created_date"
@@ -57,81 +65,73 @@
                 app:layout_constraintStart_toEndOf="@+id/event_user_image"
                 app:layout_constraintTop_toBottomOf="@+id/event_Username" />
 
-            <ImageView
-                android:id="@+id/event_image"
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="16dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/event_user_image"
-                app:srcCompat="@drawable/image_placeholder" />
-
             <TextView
                 android:id="@+id/event_desc"
-                android:layout_width="0dp"
-                android:layout_height="39dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="15dp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                android:layout_marginEnd="100dp"
+                android:gravity="center"
+                android:ellipsize="end"
+                android:maxLines="3"
                 android:text="Lorem ipsum dolor sit amet, soluta regione urbanitas vis in, qui elit populo ut. "
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/event_image" />
+                app:layout_constraintTop_toBottomOf="@+id/event_user_image"
+                app:layout_constraintVertical_bias="0.222" />
 
             <ImageView
                 android:id="@+id/event_join_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="8dp"
                 android:adjustViewBounds="false"
                 android:clickable="true"
-                android:contentDescription="Join"
+                android:focusable="true"
+                android:contentDescription="@string/desc_joinbtn"
                 android:contextClickable="true"
                 android:cropToPadding="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/event_desc"
                 app:srcCompat="@mipmap/action_join_accent" />
 
             <TextView
                 android:id="@+id/event_join_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="15dp"
                 android:text="0/0"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/event_join_btn"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/event_desc" />
 
             <ImageView
                 android:id="@+id/event_comment_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="5dp"
+                android:layout_marginEnd="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/event_desc"
                 app:srcCompat="@drawable/comments" />
 
             <Button
                 android:id="@+id/btnDeleteEvent"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:backgroundTintMode="screen"
-                android:enabled="false"
-                android:text="Delete Event"
-                android:textAllCaps="false"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/event_image" />
+                android:layout_height="wrap_content"/>
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:layout_marginEnd="16dp"-->
+                <!--android:backgroundTintMode="screen"-->
+                <!--android:enabled="false"-->
+                <!--android:text="Delete Event"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:visibility="invisible"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintTop_toTopOf="@+id/event_image" -->
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>

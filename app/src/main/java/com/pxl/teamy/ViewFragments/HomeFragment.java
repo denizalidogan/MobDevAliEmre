@@ -5,7 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment {
         firebaseAuth = firebaseAuth.getInstance();
         eventRecyclerAdapter = new EventRecyclerAdapter(event_list, user_list);
 
-        event_list_view.setLayoutManager(new LinearLayoutManager(container.getContext()));
+        event_list_view.setLayoutManager(new GridLayoutManager(container.getContext(), 2));
         event_list_view.setAdapter(eventRecyclerAdapter);
 
 
