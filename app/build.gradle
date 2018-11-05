@@ -30,6 +30,14 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.0.4'
     implementation 'id.zelory:compressor:2.1.0'
 
+    implementation 'com.google.android.gms:play-services-places:16.0.0'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+
+
+
+
+
+
     //setup
     implementation 'com.google.firebase:firebase-core:16.0.4'
     implementation 'com.google.firebase:firebase-storage:16.0.3'
