@@ -36,6 +36,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEventRecyclerAdapter.ViewHolder> {
 
     public List<EventPost> event_list;
+
+
+
+
     public Context context;
     public String maxParticipants = "0";
 
@@ -69,6 +73,8 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
         String thumbUrl = event_list.get(i).getImage_thumb();
         final String eventPostId = event_list.get(i).EventPostId;
         final String currentUserId = firebaseAuth.getCurrentUser().getUid();
+
+
 
         firebaseFirestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

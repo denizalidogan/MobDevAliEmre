@@ -75,6 +75,9 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         String desc_data = event_list.get(i).getDesc();
         String image_url = event_list.get(i).getImage_uri();
         String event_user_id = event_list.get(i).getUser_id();
+        String title_data = event_list.get(i).getTitle();
+        String location = event_list.get(i).getLocation();
+
 
 
         String userName = user_list.get(i).getName();

@@ -109,11 +109,10 @@ public class HomeFragment extends Fragment {
                         for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
                             if (doc.getType() == DocumentChange.Type.ADDED) {
 
-                                String blogPostId = doc.getDocument().getId();
-                                final EventPost eventPost = doc.getDocument().toObject(EventPost.class).withId(blogPostId);
+                                String eventPostId = doc.getDocument().getId();
+                                final EventPost eventPost = doc.getDocument().toObject(EventPost.class).withId(eventPostId);
 
                                 String eventUserId = doc.getDocument().getString("user_id");
-
 
 
                                 firebaseFirestore.collection("Users").document(eventUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -126,11 +125,13 @@ public class HomeFragment extends Fragment {
 
                                             //dont load before users are getted
                                             if (isFirstPageFirstLoad) {
-                                                user_list.add(user);
                                                 event_list.add(eventPost);
+                                                user_list.add(user);
+
                                             } else {
-                                                user_list.add(0,user);
                                                 event_list.add(0, eventPost);
+                                                user_list.add(0,user);
+
                                             }
                                             eventRecyclerAdapter.notifyDataSetChanged();
                                         }
@@ -199,9 +200,9 @@ public class HomeFragment extends Fragment {
 
 
                                         //dont load before users are getted
-
+                                             event_list.add(eventPost);
                                             user_list.add(user);
-                                            event_list.add(eventPost);
+
 
                                         eventRecyclerAdapter.notifyDataSetChanged();
                                     }
