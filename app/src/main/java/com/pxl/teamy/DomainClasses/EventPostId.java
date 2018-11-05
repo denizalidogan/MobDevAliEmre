@@ -1,4 +1,4 @@
-package com.pxl.teamy;
+package com.pxl.teamy.DomainClasses;
 
 
 
@@ -11,7 +11,7 @@ public class EventPostId {
     @Exclude
     public String EventPostId;
 
-    public <T extends EventPostId> T withId(@NonNull final String id) {
+    public <T extends com.pxl.teamy.DomainClasses.EventPostId> T withId(@NonNull final String id) {
         this.EventPostId = id;
 
         return (T) this;

@@ -1,4 +1,4 @@
-package com.pxl.teamy;
+package com.pxl.teamy.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -23,8 +25,11 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import org.w3c.dom.Text;
+import com.pxl.teamy.DomainClasses.EventPost;
+import com.pxl.teamy.DomainClasses.User;
+import com.pxl.teamy.R;
+import com.pxl.teamy.ViewActivities.CommentsActivity;
+import com.pxl.teamy.ViewActivities.DetailActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,25 +37,28 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEventRecyclerAdapter.ViewHolder> {
+public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdapter.ViewHolder> {
 
     public List<EventPost> event_list;
+    public List<User> user_list;
     public Context context;
-    public String maxParticipants = "0";
 
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
 
 
-    public ProfileEventRecyclerAdapter(List<EventPost> event_list) {
-        this.event_list = event_list;
 
+
+
+    public EventRecyclerAdapter(List<EventPost> event_list, List <User> user_list) {
+        this.event_list = event_list;
+        this.user_list = user_list;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.profile_list_item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.event_list_item, viewGroup, false);
         context = viewGroup.getContext();
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -58,43 +66,39 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
-        String title_data = event_list.get(i).getTitle();
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
+
+
+        viewHolder.setIsRecyclable(false);
+
+
         String desc_data = event_list.get(i).getDesc();
-        String location = event_list.get(i).getLocation();
-        maxParticipants = event_list.get(i).getMaxParticipants();
         String image_url = event_list.get(i).getImage_uri();
-        final String user_id = event_list.get(i).getUser_id();
+        String event_user_id = event_list.get(i).getUser_id();
+
+
+        String userName = user_list.get(i).getName();
+        String userImage = user_list.get(i).getImage();
+
+        viewHolder.setUserData(userName, userImage);
+
+
+
+
         String thumbUrl = event_list.get(i).getImage_thumb();
+        final String maxParticipants = event_list.get(i).getMaxParticipants();
         final String eventPostId = event_list.get(i).EventPostId;
         final String currentUserId = firebaseAuth.getCurrentUser().getUid();
 
-        firebaseFirestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-                if (task.isSuccessful()) {
-
-                    String userName = task.getResult().getString("name");
-                    String userImage = task.getResult().getString("image");
-
-                    viewHolder.setUserData(userName, userImage);
+        if(event_user_id.equals(currentUserId)){
+            viewHolder.btnEventDelete.setEnabled(true);
+            viewHolder.btnEventDelete.setVisibility(View.VISIBLE);
+        }
 
 
-                } else {
 
-                    //Firebase Exception
-                }
-
-
-            }
-        });
-
-        viewHolder.setTitleText(title_data);
-        viewHolder.setLocationText(location);
-        viewHolder.setCountText(maxParticipants + " Max Participants");
-        viewHolder.setEventImage(image_url,thumbUrl);
-
+        viewHolder.setDescText(desc_data);
+        viewHolder.setEventImage(image_url, thumbUrl);
 
 
 //        // SimpleDateFormat formatter = new SimpleDateFormat("dd:HH:mm:ss");
@@ -113,19 +117,19 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
 
 
         //Get Likes Count
-        firebaseFirestore.collection("Posts/" + eventPostId + "/Likes").addSnapshotListener( new EventListener<QuerySnapshot>() {
+        firebaseFirestore.collection("Posts/" + eventPostId + "/Likes").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
 
-                if(!documentSnapshots.isEmpty()){
+                if (!documentSnapshots.isEmpty()) {
 
                     int count = documentSnapshots.size();
 
-                    viewHolder.updateJoinersCount(count);
+                    viewHolder.updateJoinersCount(count, maxParticipants);
 
                 } else {
 
-                    viewHolder.updateJoinersCount(0);
+                    viewHolder.updateJoinersCount(0, maxParticipants);
 
                 }
 
@@ -138,7 +142,7 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
             @Override
             public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
 
-                if(documentSnapshot.exists()){
+                if (documentSnapshot.exists()) {
 
                     viewHolder.eventJoinBtn.setImageDrawable(context.getDrawable(R.mipmap.action_join_color));
 
@@ -152,11 +156,7 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
         });
 
 
-
-
         //get Likes
-
-
 
 
 //
@@ -177,7 +177,6 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
 //        });
 
 
-
         viewHolder.eventJoinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,20 +185,21 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
-                        if(!task.getResult().exists()){
-                            Map<String,Object> JoinersMap = new HashMap<>();
+
+                        if (!task.getResult().exists()) {
+                            Map<String, Object> JoinersMap = new HashMap<>();
                             JoinersMap.put("timestamp", FieldValue.serverTimestamp());
                             JoinersMap.put("user_id", currentUserId);
                             firebaseFirestore.collection("Posts").document(eventPostId).collection("Likes").document(currentUserId).set(JoinersMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    Toast.makeText(context, "You have succesfully Joined!",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(context, "You have succesfully Joined!", Toast.LENGTH_LONG).show();
                                 }
                             });
-                        } else{
+                        } else {
 
                             firebaseFirestore.collection("Posts").document(eventPostId).collection("Likes").document(currentUserId).delete();
-                            Toast.makeText(context, "You have left the event!",Toast.LENGTH_LONG).show();
+                            Toast.makeText(context, "You have left the event!", Toast.LENGTH_LONG).show();
 
                         }
 
@@ -208,11 +208,10 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
                 });
 
 
-
             }
 
 
-        }) ;
+        });
 
         viewHolder.detailpage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,6 +219,43 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
                 Intent intent = new Intent(context, DetailActivity.class);
                 intent.putExtra("EVENT_POST_ID", eventPostId);
                 context.startActivity(intent);
+            }
+        });
+
+        viewHolder.detailpage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("EVENT_POST_ID", eventPostId);
+                context.startActivity(intent);
+            }
+        });
+
+        viewHolder.btnEventDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                firebaseFirestore.collection("Posts").document(eventPostId).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                        event_list.remove(i);
+                        user_list.remove(i);
+                        
+                    }
+                });
+
+            }
+        });
+
+
+
+        viewHolder.eventCommentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent commentIntent = new Intent(context,CommentsActivity.class);
+                commentIntent.putExtra("event_post_id", eventPostId);
+                context.startActivity(commentIntent);
             }
         });
 
@@ -237,17 +273,16 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
         private TextView descView;
         private ImageView eventImageView;
         private TextView eventCreatedDate;
-        private TextView countView;
-        private TextView titleView;
-        private TextView locationView;
-
+        private Button btnEventDelete;
         private TextView eventUserName;
         private CircleImageView eventUserImage;
         private ImageView eventJoinBtn;
         private TextView eventJoinCount;
 
-        private ConstraintLayout detailpage;
+        private ImageView eventCommentBtn;
 
+
+        private ConstraintLayout detailpage;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -255,22 +290,15 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
 
             eventJoinBtn = mView.findViewById(R.id.event_join_btn);
             detailpage = mView.findViewById(R.id.detailpage);
+             eventCommentBtn = mView.findViewById(R.id.event_comment_icon);
+             btnEventDelete = mView.findViewById(R.id.btnDeleteEvent);
+
 
         }
 
-        public void setTitleText(String titleText) {
-            titleView = mView.findViewById(R.id.event_title);
-            titleView.setText(titleText);
-        }
-
-        public void setLocationText(String locationText) {
-            locationView = mView.findViewById(R.id.event_adress);
-            locationView.setText(locationText);
-        }
-
-        public void setCountText(String countText) {
-            countView = mView.findViewById(R.id.event_count);
-            countView.setText(countText);
+        public void setDescText(String descText) {
+            descView = mView.findViewById(R.id.event_desc);
+            descView.setText(descText);
         }
 
         public void setEventImage(String downloadUrl, String thumbUrl) {
@@ -302,15 +330,16 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
 
         }
 
-        public void updateJoinersCount(int count){
 
-            eventJoinCount = mView.findViewById(R.id.event_count);
+        public void updateJoinersCount(int count, String maxParticipants) {
+
+            eventJoinCount = mView.findViewById(R.id.event_join_count);
 
 
-            if(count <1)
-                eventJoinCount.setText(count + " / " + maxParticipants );
+            if (count < 1)
+                eventJoinCount.setText(count + " / " + maxParticipants);
             else
-                eventJoinCount.setText(count + " / " + maxParticipants );
+                eventJoinCount.setText(count + " / " + maxParticipants);
 
         }
 

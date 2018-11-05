@@ -1,10 +1,9 @@
-package com.pxl.teamy;
+package com.pxl.teamy.ViewFragments;
 
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.constraint.solver.widgets.Snapshot;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +22,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.pxl.teamy.Adapters.EventRecyclerAdapter;
+import com.pxl.teamy.DomainClasses.EventPost;
+import com.pxl.teamy.DomainClasses.User;
+import com.pxl.teamy.R;
 
 import java.util.ArrayList;
 import java.util.List;

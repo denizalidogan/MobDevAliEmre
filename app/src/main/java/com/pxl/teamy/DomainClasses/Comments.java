@@ -1,4 +1,4 @@
-package com.pxl.teamy;
+package com.pxl.teamy.DomainClasses;
 
 import java.util.Date;
 

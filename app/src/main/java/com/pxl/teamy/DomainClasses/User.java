@@ -1,4 +1,4 @@
-package com.pxl.teamy;
+package com.pxl.teamy.DomainClasses;
 
 public class User {
 

@@ -1,4 +1,4 @@
-package com.pxl.teamy;
+package com.pxl.teamy.ViewActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,6 +19,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.pxl.teamy.R;
+import com.pxl.teamy.ViewFragments.AccountFragment;
+import com.pxl.teamy.ViewFragments.HomeFragment;
+import com.pxl.teamy.ViewFragments.NotificationFragment;
 
 public class MainActivity extends AppCompatActivity {
 

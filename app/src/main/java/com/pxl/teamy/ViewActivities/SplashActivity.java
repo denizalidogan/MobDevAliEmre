@@ -1,4 +1,4 @@
-package com.pxl.teamy;
+package com.pxl.teamy.ViewActivities;
 
 import android.content.Intent;
 import android.os.Bundle;

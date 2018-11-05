@@ -1,7 +1,9 @@
-package com.pxl.teamy;
+package com.pxl.teamy.ViewActivities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import com.pxl.teamy.R;
 
 public class activity_comment extends AppCompatActivity {
 

@@ -1,8 +1,8 @@
-package com.pxl.teamy;
+package com.pxl.teamy.ViewActivities;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +21,9 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.pxl.teamy.Adapters.CommentsRecyclerAdapter;
+import com.pxl.teamy.DomainClasses.Comments;
+import com.pxl.teamy.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

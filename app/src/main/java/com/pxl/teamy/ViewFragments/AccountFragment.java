@@ -1,4 +1,4 @@
-package com.pxl.teamy;
+package com.pxl.teamy.ViewFragments;
 
 
 import android.net.Uri;
@@ -26,6 +26,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.pxl.teamy.Adapters.ProfileEventRecyclerAdapter;
+import com.pxl.teamy.DomainClasses.EventPost;
+import com.pxl.teamy.R;
 
 import java.util.ArrayList;
 import java.util.List;
