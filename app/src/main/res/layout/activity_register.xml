@@ -13,7 +13,7 @@
         android:layout_width="400dp"
         android:layout_height="200dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,15 +21,15 @@
 
     <EditText
         android:id="@+id/reg_email"
-        android:background="#55000000"
-        android:drawableStart="@drawable/ic_action_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
         android:autofillHints=""
+        android:background="#55000000"
         android:backgroundTint="@android:color/white"
+        android:drawableStart="@drawable/ic_action_email"
         android:ems="10"
         android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
@@ -38,19 +38,20 @@
         android:textColorHint="@color/whiteTransparentHalf"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/regPageLogo"/>
+        app:layout_constraintTop_toBottomOf="@+id/regPageLogo" />
 
     <EditText
         android:id="@+id/reg_pass"
-        android:background="#55000000"
-        android:drawableStart="@drawable/ic_action_lock"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="#55000000"
         android:backgroundTint="@android:color/white"
+        android:drawableStart="@drawable/ic_action_lock"
         android:ems="10"
         android:hint="@string/reg_pass_text"
         android:inputType="textPassword"
@@ -59,18 +60,20 @@
         android:textColorHint="@color/whiteTransparentHalf"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reg_email" />
 
     <EditText
         android:id="@+id/reg_confirm_pass"
-        android:background="#55000000"
-        android:drawableStart="@drawable/ic_action_lock"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="#55000000"
         android:backgroundTint="@android:color/white"
+        android:drawableStart="@drawable/ic_action_lock"
         android:ems="10"
         android:hint="@string/reg_confirm_pass_text"
         android:inputType="textPassword"
@@ -79,6 +82,7 @@
         android:textColorHint="@color/whiteTransparentHalf"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reg_pass" />
 
@@ -89,15 +93,19 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="@color/colorPrimaryDark"
-        android:paddingBottom="20dp"
         android:paddingTop="20dp"
+        android:paddingBottom="20dp"
         android:text="@string/reg_btn_text"
         android:textColor="@android:color/white"
-        android:textSize="14sp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/reg_login_btn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_confirm_pass" />
+        app:layout_constraintTop_toBottomOf="@+id/reg_confirm_pass"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/reg_login_btn"
@@ -105,17 +113,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="5dp"
         android:backgroundTint="@android:color/white"
-        android:paddingBottom="20dp"
         android:paddingTop="20dp"
+        android:paddingBottom="20dp"
         android:text="@string/reg_login_text"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="14sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
         android:id="@+id/reg_progress"

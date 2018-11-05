@@ -1,5 +1,25 @@
 <resources>
+
     <string name="app_name">Teamy</string>
+    <string name="checkbox">com.pxl.teamy.ViewActivities.cb_rememberLogin</string>
+    <string name="name">com.pxl.teamy.login_txtEmail</string>
+    <string name="password">com.pxl.teamy.reg_confirm_pass</string>
+
+
+    <string name="add_new_location">Add new location</string>
+    <string name="location_list">Locations</string>
+    <string name="need_location_permission_message">You need to enable location permissions first</string>
+    <string name="location_permissions_granted_message">Location Permissions Granted</string>
+    <string name="setting_enabled" translatable="false">EnabledSetting</string>
+    <string name="settings_label">Settings</string>
+    <string name="location_permissions">Location Permissions</string>
+    <string name="enable_geofences">Enable Geofences</string>
+    <string name="privacy">http://www.google.com/policies/privacy</string>
+    <string name="ringer_permissions">Ringer Permissions</string>
+    <string name="silent_mode_activated">Silent mode activated</string>
+    <string name="touch_to_relaunch">Touch to launch the app.</string>
+    <string name="back_to_normal">Back to normal</string>
+
     <string name="pass_hint">Your Password...</string>
     <string name="email_hint">Your Email....</string>
     <string name="logo_text">Teamy</string>
@@ -31,7 +51,7 @@
     <string name="post_date_event_hint">Date</string>
     <string name="post_time_event_hint">Time</string>
     <string name="post_location_event_hint">Location</string>
-    <string name="post_max_event_hint">Maximum Participants</string>
+    <string name="post_max_event_hint">How Many Players</string>
 
     <string name="new_post_btn_hint">Post Event</string>
     <string name="bottom_home_text">Home</string>
@@ -41,5 +61,6 @@
     <string name="bottom_account_text">My Account</string>
 =
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cb_rememberLogin">Remember my Login</string>
 
 </resources>
