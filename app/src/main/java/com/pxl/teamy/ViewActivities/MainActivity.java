@@ -1,6 +1,8 @@
 package com.pxl.teamy.ViewActivities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -64,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
             initializeFragment();
 
+
+
             mainBottemNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -104,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
 
     @Override
     protected void onStart() {

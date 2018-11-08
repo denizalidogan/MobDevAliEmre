@@ -1,6 +1,5 @@
 package com.pxl.teamy.ViewFragments;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -12,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -37,11 +35,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
-public class HomeFragment extends Fragment {
+public class LandScapeFragment extends Fragment {
     private RecyclerView event_list_view;
     private List<EventPost> event_list;
     private List<User> user_list;
@@ -54,7 +48,7 @@ public class HomeFragment extends Fragment {
 
     private Boolean isFirstPageFirstLoad = true;
 
-    public HomeFragment() {
+    public LandScapeFragment() {
         // Required empty public constructor
     }
 
@@ -62,7 +56,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_home, container, false);
+        final View view = inflater.inflate(R.layout.fragment_landscape, container, false);
 
         context = container.getContext();
 
@@ -76,7 +70,6 @@ public class HomeFragment extends Fragment {
 
         event_list_view.setLayoutManager(new GridLayoutManager(container.getContext(), 2));
         event_list_view.setAdapter(eventRecyclerAdapter);
-
 
         if (firebaseAuth.getCurrentUser() != null) {
 
@@ -96,8 +89,6 @@ public class HomeFragment extends Fragment {
                     }
                 }
             });
-
-
 
 
             Query firstQuery = firebaseFirestore.collection("Posts").orderBy("timestamp", Query.Direction.DESCENDING).limit(6);
@@ -128,7 +119,7 @@ public class HomeFragment extends Fragment {
                                 firebaseFirestore.collection("Users").document(eventUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        if(task.isSuccessful()){
+                                        if (task.isSuccessful()) {
 
                                             User user = task.getResult().toObject(User.class);
 
@@ -140,7 +131,7 @@ public class HomeFragment extends Fragment {
 
                                             } else {
                                                 event_list.add(0, eventPost);
-                                                user_list.add(0,user);
+                                                user_list.add(0, user);
 
                                             }
                                             eventRecyclerAdapter.notifyDataSetChanged();
@@ -148,7 +139,6 @@ public class HomeFragment extends Fragment {
 
                                     }
                                 });
-
 
 
                             }
@@ -159,13 +149,12 @@ public class HomeFragment extends Fragment {
                 }
             });
         }
-        // Inflate the layout for this fragment
-        return view;
+            return view;
+
     }
 
-
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged (Configuration newConfig){
         super.onConfigurationChanged(newConfig);
         // check orientation
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -180,13 +169,13 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onDetach() {
+    public void onDetach () {
         isFirstPageFirstLoad = true;
         super.onDetach();
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach (Context context){
         isFirstPageFirstLoad = true;
         super.onAttach(context);
     }
@@ -226,8 +215,8 @@ public class HomeFragment extends Fragment {
 
 
                                         //dont load before users are getted
-                                             event_list.add(eventPost);
-                                            user_list.add(user);
+                                        event_list.add(eventPost);
+                                        user_list.add(user);
 
 
                                         eventRecyclerAdapter.notifyDataSetChanged();

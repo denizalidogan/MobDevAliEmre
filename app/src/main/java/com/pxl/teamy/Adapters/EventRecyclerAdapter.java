@@ -3,11 +3,13 @@ package com.pxl.teamy.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -46,6 +48,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     public List<EventPost> event_list;
     public List<User> user_list;
     public Context context;
+    private boolean mTwoPane;
 
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
@@ -62,7 +65,13 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         context = viewGroup.getContext();
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
+
+        if (view.findViewById(R.id.detailLayout) != null) {
+            mTwoPane = true;
+        }
+
         return new ViewHolder(view);
+
     }
 
     @Override
@@ -216,36 +225,47 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
 
         });
-
-        viewHolder.detailpage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Intent intent = new Intent(context, DetailActivity.class);
+            viewHolder.detailpage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Intent intent = new Intent(context, DetailActivity.class);
 //                Intent intent = new Intent(context, DetailFragment.class);
 //                intent.putExtra("EVENT_POST_ID", eventPostId);
 //                intent.putExtra("EVENT_TITLE", title);
 //                context.startActivity(intent);
-
-
-                boolean isDual = viewHolder.mView != null && viewHolder.mView.getVisibility() == View.VISIBLE;
-
-                if(isDual){
-                    
-                }else{
-                    DetailFragment d = new DetailFragment();
-                    Bundle b = new Bundle();
-                    b.putString("EVENT_POST_ID", eventPostId);
-                    b.putString("EVENT_TITLE", title);
-                    d.setArguments(b);
-                    FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
-                    //manager.beginTransaction().hide(new HomeFragment()).commit();
-                    manager.beginTransaction().replace(R.id.homeId, d).addToBackStack("new HomeFragment()").commit();
+                        DetailFragment d = new DetailFragment();
+                        Bundle b = new Bundle();
+                        b.putString("EVENT_POST_ID", eventPostId);
+                        b.putString("EVENT_TITLE", title);
+                        d.setArguments(b);
+                        FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
+                        manager.beginTransaction().hide(new HomeFragment()).commit();
+                        manager.beginTransaction().replace(R.id.homeId, d).addToBackStack("new HomeFragment()").commit();
                 }
+            });
 
 
 
-            }
-        });
+       // viewHolder.detailpage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //Intent intent = new Intent(context, DetailActivity.class);
+////                Intent intent = new Intent(context, DetailFragment.class);
+////                intent.putExtra("EVENT_POST_ID", eventPostId);
+////                intent.putExtra("EVENT_TITLE", title);
+////                context.startActivity(intent);
+//                DetailFragment d = new DetailFragment();
+//                Bundle b = new Bundle();
+//                b.putString("EVENT_POST_ID", eventPostId);
+//                b.putString("EVENT_TITLE", title);
+//                d.setArguments(b);
+//                FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
+//                manager.beginTransaction().hide(new HomeFragment()).commit();
+//                manager.beginTransaction().replace(R.id.homeId, d).commit();
+//            }
+//        });
+
+
 
 //        viewHolder.btnEventDelete.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -276,6 +296,12 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 //        });
 
 
+    }
+
+    public static boolean isTablet(Context context) {
+        return (context.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
 
