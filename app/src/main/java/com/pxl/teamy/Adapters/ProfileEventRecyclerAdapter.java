@@ -26,6 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.pxl.teamy.DomainClasses.EventPost;
 import com.pxl.teamy.R;
 import com.pxl.teamy.ViewActivities.DetailActivity;
+import com.pxl.teamy.ViewActivities.DetaillActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -73,6 +74,7 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
         String thumbUrl = event_list.get(i).getImage_thumb();
         final String eventPostId = event_list.get(i).EventPostId;
         final String currentUserId = firebaseAuth.getCurrentUser().getUid();
+        final String title = event_list.get(i).title;
 
 
 
@@ -224,8 +226,9 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
         viewHolder.detailpage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, DetailActivity.class);
+                Intent intent = new Intent(context, DetaillActivity.class);
                 intent.putExtra("EVENT_POST_ID", eventPostId);
+                intent.putExtra("EVENT_TITLE", title);
                 context.startActivity(intent);
             }
         });

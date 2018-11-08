@@ -16,122 +16,164 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/detail_post_image"
-            android:layout_width="153dp"
+            android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_columnWeight="1"
-            android:layout_gravity="fill"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:src="@drawable/default_image"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
-
-        <GridLayout
+        <LinearLayout
+            android:id="@+id/detail_post_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:columnCount="3"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
             app:layout_constraintTop_toBottomOf="@id/detail_post_image">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/post_desc"
-                android:layout_gravity="fill"
-                android:layout_columnWeight="1"
-                android:textSize="14sp"
-                android:padding="15dp"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/desc_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/post_desc"
+                    android:layout_gravity="fill"
+                    android:textSize="14sp"
+                    android:padding="15dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/post_date_event"
+                    android:textSize="14sp"
+                    android:padding="15dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/post_time_event"
+                    android:textSize="14sp"
+                    android:padding="15dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:hint="@string/post_location_event"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="15dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:hint="@string/post_max_event_hint"
+                    android:inputType="number"
+                    android:padding="15dp"/>
+            </LinearLayout>
 
-            <View
-                android:layout_width="7dp"
-                android:layout_height="300dp"
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="50sp"
-                android:background="#a40404" />
-
-            <TextView
-                android:id="@+id/detail_post_desc"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/post_desc_hint"
-                android:layout_gravity="fill"
-                android:layout_columnWeight="1"
-                android:textSize="14sp"
-                android:padding="15dp"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@color/black" />
+            </LinearLayout>
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/post_date_event"
-                android:textSize="14sp"
-                android:padding="15dp"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/detail_post_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/post_desc_hint"
+                    android:layout_gravity="fill"
+                    android:textSize="14sp"
+                    android:padding="15dp"/>
+                <TextView
+                    android:id="@+id/detail_post_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/post_date_event_hint"
+                    android:textSize="14sp"
+                    android:padding="15dp"/>
+                <TextView
+                    android:id="@+id/detail_post_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/post_time_event_hint"
+                    android:textSize="14sp"
+                    android:padding="15dp"/>
+                <TextView
+                    android:id="@+id/detail_post_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:hint="@string/post_location_event_hint"
+                    android:inputType="text"
+                    android:layout_gravity="fill"
+                    android:maxLines="1"
+                    android:padding="15dp"/>
+                <TextView
+                    android:id="@+id/detail_post_max"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:hint="@string/post_max_event_hint"
+                    android:inputType="number"
+                    android:padding="15dp"/>
+            </LinearLayout>
+        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/detail_post_list_user"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detail_post_layout"/>
+        <Button
+            android:id="@+id/btnDeleteEvent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/red"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:enabled="false"
+            android:text="Delete Event"
+            android:textAllCaps="false"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detail_post_list_user"/>
 
-            <TextView
-                android:id="@+id/detail_post_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/post_date_event_hint"
-                android:textSize="14sp"
-                android:padding="15dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/post_time_event"
-                android:textSize="14sp"
-                android:padding="15dp"/>
-
-            <TextView
-                android:id="@+id/detail_post_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/post_time_event_hint"
-                android:textSize="14sp"
-                android:padding="15dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:hint="@string/post_location_event"
-                android:inputType="text"
-                android:maxLines="1"
-                android:padding="15dp"/>
-
-            <TextView
-                android:id="@+id/detail_post_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:hint="@string/post_location_event_hint"
-                android:inputType="text"
-                android:maxLines="1"
-                android:padding="15dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:hint="@string/post_max_event_hint"
-                android:inputType="number"
-                android:padding="15dp"/>
-
-            <TextView
-                android:id="@+id/detail_post_max"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:hint="@string/post_max_event_hint"
-                android:inputType="number"
-                android:padding="15dp"/>
-        </GridLayout>
-
+        <ProgressBar
+            android:id="@+id/detail_post_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detail_post_toolbar" />
     </android.support.constraint.ConstraintLayout>
-
-
-
-
-
 </android.support.v4.widget.NestedScrollView>

@@ -30,6 +30,7 @@ import com.pxl.teamy.DomainClasses.User;
 import com.pxl.teamy.R;
 import com.pxl.teamy.ViewActivities.CommentsActivity;
 import com.pxl.teamy.ViewActivities.DetailActivity;
+import com.pxl.teamy.ViewActivities.DetaillActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,10 +46,6 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
-
-
-
-
 
     public EventRecyclerAdapter(List<EventPost> event_list, List <User> user_list) {
         this.event_list = event_list;
@@ -71,7 +68,6 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
         viewHolder.setIsRecyclable(false);
 
-
         String desc_data = event_list.get(i).getDesc();
         String image_url = event_list.get(i).getImage_uri();
         String event_user_id = event_list.get(i).getUser_id();
@@ -92,11 +88,12 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         final String maxParticipants = event_list.get(i).getMaxParticipants();
         final String eventPostId = event_list.get(i).EventPostId;
         final String currentUserId = firebaseAuth.getCurrentUser().getUid();
+        final String title = event_list.get(i).title;
 
-        if(event_user_id.equals(currentUserId)){
-            viewHolder.btnEventDelete.setEnabled(true);
-            viewHolder.btnEventDelete.setVisibility(View.VISIBLE);
-        }
+//        if(event_user_id.equals(currentUserId)){
+//            viewHolder.btnEventDelete.setEnabled(true);
+//            viewHolder.btnEventDelete.setVisibility(View.VISIBLE);
+//        }
 
 
 
@@ -220,48 +217,41 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         viewHolder.detailpage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, DetailActivity.class);
+                //Intent intent = new Intent(context, DetailActivity.class);
+                Intent intent = new Intent(context, DetaillActivity.class);
                 intent.putExtra("EVENT_POST_ID", eventPostId);
+                intent.putExtra("EVENT_TITLE", title);
                 context.startActivity(intent);
             }
         });
 
-        viewHolder.detailpage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra("EVENT_POST_ID", eventPostId);
-                context.startActivity(intent);
-            }
-        });
-
-        viewHolder.btnEventDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                firebaseFirestore.collection("Posts").document(eventPostId).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-
-                        event_list.remove(i);
-                        user_list.remove(i);
-                        
-                    }
-                });
-
-            }
-        });
+//        viewHolder.btnEventDelete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                firebaseFirestore.collection("Posts").document(eventPostId).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//
+//                        event_list.remove(i);
+//                        user_list.remove(i);
+//
+//                    }
+//                });
+//
+//            }
+//        });
 
 
 
-        viewHolder.eventCommentBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent commentIntent = new Intent(context,CommentsActivity.class);
-                commentIntent.putExtra("event_post_id", eventPostId);
-                context.startActivity(commentIntent);
-            }
-        });
+//        viewHolder.eventCommentBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent commentIntent = new Intent(context,CommentsActivity.class);
+//                commentIntent.putExtra("event_post_id", eventPostId);
+//                context.startActivity(commentIntent);
+//            }
+//        });
 
 
     }
@@ -277,13 +267,13 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         private TextView descView;
         private ImageView eventImageView;
         private TextView eventCreatedDate;
-        private Button btnEventDelete;
+        //private Button btnEventDelete;
         private TextView eventUserName;
         private CircleImageView eventUserImage;
         private ImageView eventJoinBtn;
         private TextView eventJoinCount;
 
-        private ImageView eventCommentBtn;
+        //private ImageView eventCommentBtn;
 
 
         private ConstraintLayout detailpage;
@@ -294,8 +284,8 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
             eventJoinBtn = mView.findViewById(R.id.event_join_btn);
             detailpage = mView.findViewById(R.id.detailpage);
-             eventCommentBtn = mView.findViewById(R.id.event_comment_icon);
-             btnEventDelete = mView.findViewById(R.id.btnDeleteEvent);
+             //eventCommentBtn = mView.findViewById(R.id.event_comment_icon);
+             //btnEventDelete = mView.findViewById(R.id.btnDeleteEvent);
 
 
         }

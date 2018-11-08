@@ -75,23 +75,8 @@
             android:parentActivityName=".ViewActivities.MainActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ViewActivities.DetailActivity"
+            android:name=".ViewActivities.DetaillActivity"
             android:theme="@style/AppTheme" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </application>
 
 </manifest>

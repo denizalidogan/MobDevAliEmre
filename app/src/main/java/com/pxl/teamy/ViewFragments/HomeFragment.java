@@ -90,7 +90,7 @@ public class HomeFragment extends Fragment {
                 }
             });
 
-            Query firstQuery = firebaseFirestore.collection("Posts").orderBy("timestamp", Query.Direction.DESCENDING).limit(3);
+            Query firstQuery = firebaseFirestore.collection("Posts").orderBy("timestamp", Query.Direction.DESCENDING).limit(6);
 
             firstQuery.addSnapshotListener(getActivity(), new EventListener<QuerySnapshot>() {
                 @Override
@@ -166,7 +166,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void LoadMorePost() {
-        Query nextQuery = firebaseFirestore.collection("Posts").orderBy("timestamp", Query.Direction.DESCENDING).startAfter(lastVisible).limit(3);
+        Query nextQuery = firebaseFirestore.collection("Posts").orderBy("timestamp", Query.Direction.DESCENDING).startAfter(lastVisible).limit(6);
 
         nextQuery.addSnapshotListener(getActivity(),new EventListener<QuerySnapshot>() {
             @Override

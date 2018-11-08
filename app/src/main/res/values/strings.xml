@@ -157,5 +157,6 @@
     <string name="back_to_normal">Back to normal</string>
     <string name="cb_rememberLogin">Remember my Login</string>
 
+    <string name="button_detail_page_delete">Delete Event</string>
 
 </resources>

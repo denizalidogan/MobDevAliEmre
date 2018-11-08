@@ -108,21 +108,21 @@
                 app:layout_constraintStart_toEndOf="@+id/event_join_btn"
                 app:layout_constraintTop_toBottomOf="@+id/event_desc" />
 
-            <ImageView
-                android:id="@+id/event_comment_icon"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:padding="5dp"
-                android:layout_marginEnd="5dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/event_desc"
-                app:srcCompat="@drawable/comments" />
+            <!--<ImageView-->
+                <!--android:id="@+id/event_comment_icon"-->
+                <!--android:layout_width="50dp"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:padding="5dp"-->
+                <!--android:layout_marginEnd="5dp"-->
+                <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/event_desc"-->
+                <!--app:srcCompat="@drawable/comments" />-->
 
-            <Button
-                android:id="@+id/btnDeleteEvent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            <!--<Button-->
+                <!--android:id="@+id/btnDeleteEvent"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
                 <!--android:layout_marginTop="8dp"-->
                 <!--android:layout_marginEnd="16dp"-->
                 <!--android:backgroundTintMode="screen"-->
@@ -131,7 +131,7 @@
                 <!--android:textAllCaps="false"-->
                 <!--android:visibility="invisible"-->
                 <!--app:layout_constraintEnd_toEndOf="parent"-->
-                <!--app:layout_constraintTop_toTopOf="@+id/event_image" -->
+                <!--app:layout_constraintTop_toTopOf="@+id/event_image"/>-->
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
