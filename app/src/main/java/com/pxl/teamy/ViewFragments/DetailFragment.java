@@ -143,7 +143,6 @@ public class DetailFragment extends Fragment {
 
 //                        RequestOptions placeholderRequest = new RequestOptions();
 //                        placeholderRequest.placeholder(R.drawable.default_image);
-
                             Glide.with(DetailFragment.this).load(image).into(detailImageView);
 
                             final String currentUserId = firebaseAuth.getCurrentUser().getUid();

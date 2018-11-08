@@ -7,8 +7,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ViewFragments.DetailFragment"
-    tools:showIn="@layout/fragment_detail"
-    android:id="@+id/detailLayout">
+    android:id="@+id/detailLayout"
+    android:background="@color/white">
 
 <android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:layout_height="150dp"
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
             android:src="@drawable/default_image"
             app:layout_constraintEnd_toEndOf="parent"
@@ -140,16 +140,16 @@
                     android:padding="15dp"/>
             </LinearLayout>
         </LinearLayout>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/detail_post_list_user"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_post_layout"/>
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@+id/detail_post_list_user"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:layout_marginStart="20dp"-->
+            <!--android:layout_marginEnd="20dp"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/detail_post_layout"/>-->
         <Button
             android:id="@+id/btnDeleteEvent"
             android:layout_width="0dp"
@@ -168,7 +168,7 @@
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_post_list_user"/>
+            app:layout_constraintTop_toBottomOf="@id/detail_post_layout"/>
 
         <ProgressBar
             android:id="@+id/detail_post_progress"

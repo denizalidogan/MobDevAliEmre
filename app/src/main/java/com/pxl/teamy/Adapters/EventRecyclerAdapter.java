@@ -225,14 +225,25 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 //                intent.putExtra("EVENT_POST_ID", eventPostId);
 //                intent.putExtra("EVENT_TITLE", title);
 //                context.startActivity(intent);
-                DetailFragment d = new DetailFragment();
-                Bundle b = new Bundle();
-                b.putString("EVENT_POST_ID", eventPostId);
-                b.putString("EVENT_TITLE", title);
-                d.setArguments(b);
-                FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
-                manager.beginTransaction().hide(new HomeFragment()).commit();
-                manager.beginTransaction().replace(R.id.homeId, d).commit();
+
+
+                boolean isDual = viewHolder.mView != null && viewHolder.mView.getVisibility() == View.VISIBLE;
+
+                if(isDual){
+                    
+                }else{
+                    DetailFragment d = new DetailFragment();
+                    Bundle b = new Bundle();
+                    b.putString("EVENT_POST_ID", eventPostId);
+                    b.putString("EVENT_TITLE", title);
+                    d.setArguments(b);
+                    FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
+                    //manager.beginTransaction().hide(new HomeFragment()).commit();
+                    manager.beginTransaction().replace(R.id.homeId, d).addToBackStack("new HomeFragment()").commit();
+                }
+
+
+
             }
         });
 
