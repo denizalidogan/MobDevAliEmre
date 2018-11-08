@@ -160,11 +160,11 @@ public class LandScapeFragment extends Fragment {
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             LandScapeFragment l = new LandScapeFragment();
             FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.landscape, l).commit();
+            manager.beginTransaction().replace(R.id.homeId, l).commit();
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             HomeFragment h = new HomeFragment();
             FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.homeId, h).commit();
+            manager.beginTransaction().replace(R.id.landscape, h).commit();
         }
     }
 
