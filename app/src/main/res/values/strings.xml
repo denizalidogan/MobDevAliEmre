@@ -158,5 +158,7 @@
     <string name="cb_rememberLogin">Remember my Login</string>
 
     <string name="button_detail_page_delete">Delete Event</string>
+    <string name="title_homedetailfragment_list">Items</string>
+    <string name="title_homedetailfragment_detail">HomeDetailFragment Detail</string>
 
 </resources>

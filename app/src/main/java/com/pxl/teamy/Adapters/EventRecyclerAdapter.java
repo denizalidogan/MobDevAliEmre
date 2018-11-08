@@ -1,14 +1,18 @@
 package com.pxl.teamy.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,7 +20,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -28,9 +31,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.pxl.teamy.DomainClasses.EventPost;
 import com.pxl.teamy.DomainClasses.User;
 import com.pxl.teamy.R;
-import com.pxl.teamy.ViewActivities.CommentsActivity;
-import com.pxl.teamy.ViewActivities.DetailActivity;
-import com.pxl.teamy.ViewActivities.DetaillActivity;
+import com.pxl.teamy.ViewActivities.MainActivity;
+import com.pxl.teamy.ViewFragments.DetailFragment;
+import com.pxl.teamy.ViewFragments.HomeFragment;
 
 import java.util.HashMap;
 import java.util.List;
@@ -218,10 +221,18 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             @Override
             public void onClick(View v) {
                 //Intent intent = new Intent(context, DetailActivity.class);
-                Intent intent = new Intent(context, DetaillActivity.class);
-                intent.putExtra("EVENT_POST_ID", eventPostId);
-                intent.putExtra("EVENT_TITLE", title);
-                context.startActivity(intent);
+//                Intent intent = new Intent(context, DetailFragment.class);
+//                intent.putExtra("EVENT_POST_ID", eventPostId);
+//                intent.putExtra("EVENT_TITLE", title);
+//                context.startActivity(intent);
+                DetailFragment d = new DetailFragment();
+                Bundle b = new Bundle();
+                b.putString("EVENT_POST_ID", eventPostId);
+                b.putString("EVENT_TITLE", title);
+                d.setArguments(b);
+                FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
+                manager.beginTransaction().hide(new HomeFragment()).commit();
+                manager.beginTransaction().replace(R.id.homeId, d).commit();
             }
         });
 

@@ -6,9 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-android:background="@drawable/gradient_bg_add"
-
-    tools:context=".NewPostActivity">
+    android:background="@drawable/gradient_bg_add"
+    tools:context=".ViewActivities.NewPostActivity">
 
 
     <ImageView
@@ -27,8 +26,6 @@ android:background="@drawable/gradient_bg_add"
         android:id="@+id/new_post_title"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-
-
         android:layout_marginTop="5dp"
         android:backgroundTint="#49b5ea"
         android:ems="10"
@@ -47,8 +44,6 @@ android:background="@drawable/gradient_bg_add"
     <EditText
 
         android:id="@+id/new_post_desc"
-
-
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -125,22 +120,7 @@ android:background="@drawable/gradient_bg_add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnPost"
-        android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
 
-android:background="#7f93ec"
-        android:padding="16dp"
-        android:text="@string/new_post_btn_hint"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
 
 
     <ProgressBar
@@ -155,6 +135,18 @@ android:background="#7f93ec"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/places_list_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:scrollbars="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/new_post_desc"/>
 
     <Button
         android:id="@+id/button2"
@@ -163,11 +155,7 @@ android:background="#7f93ec"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-
-
         android:background="#ae7ded"
-
-
         android:onClick="onAddPlaceButtonClicked"
         android:text="@string/add_new_location"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
@@ -177,19 +165,25 @@ android:background="#7f93ec"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/places_list_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+    <Button
+        android:id="@+id/btnPost"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:scrollbars="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        android:layout_marginBottom="16dp"
+
+        android:background="#7f93ec"
+        android:padding="16dp"
+        android:text="@string/new_post_btn_hint"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+
+
 
 
 

@@ -21,6 +21,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.pxl.teamy.R;
 import com.pxl.teamy.ViewFragments.AccountFragment;
+import com.pxl.teamy.ViewFragments.DetailFragment;
 import com.pxl.teamy.ViewFragments.HomeFragment;
 import com.pxl.teamy.ViewFragments.NotificationFragment;
 
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton btnAddPost;
     private BottomNavigationView mainBottemNav;
     private HomeFragment homeFragment;
+    private DetailFragment detailFragment;
     private NotificationFragment notificationFragment;
     private AccountFragment accountFragment;
 
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
             homeFragment = new HomeFragment();
             notificationFragment = new NotificationFragment();
             accountFragment = new AccountFragment();
+            detailFragment = new DetailFragment();
 
             initializeFragment();
 
@@ -179,15 +182,17 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.main_container, homeFragment);
         fragmentTransaction.add(R.id.main_container, notificationFragment);
         fragmentTransaction.add(R.id.main_container, accountFragment);
+        fragmentTransaction.add(R.id.main_container, detailFragment);
 
         fragmentTransaction.hide(notificationFragment);
         fragmentTransaction.hide(accountFragment);
+        fragmentTransaction.hide(detailFragment);
 
         fragmentTransaction.commit();
 
     }
 
-    private void replaceFragment(Fragment fragment, Fragment currentFragment){
+    public void replaceFragment(Fragment fragment, Fragment currentFragment){
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if(fragment == homeFragment){
@@ -197,10 +202,19 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        if(fragment == detailFragment){
+
+            fragmentTransaction.hide(accountFragment);
+            fragmentTransaction.hide(notificationFragment);
+            fragmentTransaction.hide(homeFragment);
+
+        }
+
         if(fragment == accountFragment){
 
             fragmentTransaction.hide(homeFragment);
             fragmentTransaction.hide(notificationFragment);
+            fragmentTransaction.hide(detailFragment);
 
         }
 
@@ -208,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
 
             fragmentTransaction.hide(homeFragment);
             fragmentTransaction.hide(accountFragment);
+            fragmentTransaction.hide(detailFragment);
 
         }
         fragmentTransaction.show(fragment);

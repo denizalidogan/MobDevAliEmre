@@ -25,8 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pxl.teamy.DomainClasses.EventPost;
 import com.pxl.teamy.R;
-import com.pxl.teamy.ViewActivities.DetailActivity;
-import com.pxl.teamy.ViewActivities.DetaillActivity;
+import com.pxl.teamy.ViewFragments.DetailFragment;
 
 import java.util.HashMap;
 import java.util.List;
@@ -226,7 +225,7 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
         viewHolder.detailpage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, DetaillActivity.class);
+                Intent intent = new Intent(context, DetailFragment.class);
                 intent.putExtra("EVENT_POST_ID", eventPostId);
                 intent.putExtra("EVENT_TITLE", title);
                 context.startActivity(intent);
