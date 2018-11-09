@@ -28,7 +28,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.pxl.teamy.Adapters.EventRecyclerAdapter;
 import com.pxl.teamy.DomainClasses.EventPost;
-import com.pxl.teamy.DomainClasses.Statics;
 import com.pxl.teamy.DomainClasses.User;
 import com.pxl.teamy.R;
 import com.pxl.teamy.ViewFragments.HomeFragment;
@@ -111,163 +110,83 @@ public class DetailFragment extends Fragment {
 //            }
 //        });
 
-        if(Statics.isIsLandscape()){
-                firebaseFirestore.collection("Posts").document(Statics.getEventId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+        if(b != null){
+            firebaseFirestore.collection("Posts").document(b.getString("EVENT_POST_ID")).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
 
-                        //Does the colllection excist?
-                        if (task.isSuccessful()) {
-                            // User exist?
-                            if (task.getResult().exists()) {
+                    //Does the colllection excist?
+                    if (task.isSuccessful()) {
+                        // User exist?
+                        if (task.getResult().exists()) {
 
-                                String date = task.getResult().getString("date");
-                                String desc = task.getResult().getString("desc");
-                                String image = task.getResult().getString("image_url");
-                                String location = task.getResult().getString("location");
-                                String max = task.getResult().getString("maxParticipants");
-                                String time = task.getResult().getString("time");
-                                String title = task.getResult().getString("title");
-                                String user_id = task.getResult().getString("user_id");
+                            String date = task.getResult().getString("date");
+                            String desc = task.getResult().getString("desc");
+                            String image = task.getResult().getString("image_url");
+                            String location = task.getResult().getString("location");
+                            String max = task.getResult().getString("maxParticipants");
+                            String time = task.getResult().getString("time");
+                            String title = task.getResult().getString("title");
+                            String user_id = task.getResult().getString("user_id");
 
 
-                                detailImageView.setImageURI(Uri.parse(image));
-                                detailPostDate.setText(date);
-                                detailPostDesc.setText(desc);
-                                detailPostLocation.setText(location);
-                                detailPostMaxPart.setText(max);
-                                detailPostTime.setText(time);
-                                //detailPostTitle.setText(title);
-                                //
+                            detailImageView.setImageURI(Uri.parse(image));
+                            detailPostDate.setText(date);
+                            detailPostDesc.setText(desc);
+                            detailPostLocation.setText(location);
+                            detailPostMaxPart.setText(max);
+                            detailPostTime.setText(time);
+                            //detailPostTitle.setText(title);
+                            //
 
 
 //                        RequestOptions placeholderRequest = new RequestOptions();
 //                        placeholderRequest.placeholder(R.drawable.default_image);
-                                Glide.with(DetailFragment.this).load(image).into(detailImageView);
+                            Glide.with(DetailFragment.this).load(image).into(detailImageView);
 
-                                final String currentUserId = firebaseAuth.getCurrentUser().getUid();
+                            final String currentUserId = firebaseAuth.getCurrentUser().getUid();
 
 
-                                if (user_id.equals(currentUserId)) {
-                                    deleteBtn.setEnabled(true);
-                                    deleteBtn.setVisibility(View.VISIBLE);
-                                }
+                            if (user_id.equals(currentUserId)) {
+                                deleteBtn.setEnabled(true);
+                                deleteBtn.setVisibility(View.VISIBLE);
                             }
-
-                        } else {
-
-                            String error = task.getException().getMessage();
-                            Toast.makeText(getContext(), "(FIRESTORE Retrieve Error) : " + error, Toast.LENGTH_LONG).show();
                         }
 
-                        detailPostProgress.setVisibility(View.INVISIBLE);
+                    } else {
+
+                        String error = task.getException().getMessage();
+                        Toast.makeText(getContext(), "(FIRESTORE Retrieve Error) : " + error, Toast.LENGTH_LONG).show();
                     }
-                });
 
-                deleteBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                    detailPostProgress.setVisibility(View.INVISIBLE);
+                }
+            });
 
-                        firebaseFirestore.collection("Posts").document(Statics.getEventId()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
+            deleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    firebaseFirestore.collection("Posts").document(b.getString("EVENT_POST_ID")).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
 
 //                        for(int i = 0; i <= event_list.size(); i++){
 //                            if(event_list.get(i).EventPostId == eventpostid){
 //                                event_list.remove(i);
 //                            }
 //                        }
-                                //event_list.remove(eventRecyclerAdapter.getItemNumber());
-                                //user_list.remove(eventRecyclerAdapter.getItemNumber());
-                                Intent mainIntent = new Intent(getContext(), HomeFragment.class);
-                                startActivity(mainIntent);
-                            }
-                        });
-
-                    }
-                });
-
-        }else{
-            if(b != null){
-                firebaseFirestore.collection("Posts").document(b.getString("EVENT_POST_ID")).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-
-                        //Does the colllection excist?
-                        if (task.isSuccessful()) {
-                            // User exist?
-                            if (task.getResult().exists()) {
-
-                                String date = task.getResult().getString("date");
-                                String desc = task.getResult().getString("desc");
-                                String image = task.getResult().getString("image_url");
-                                String location = task.getResult().getString("location");
-                                String max = task.getResult().getString("maxParticipants");
-                                String time = task.getResult().getString("time");
-                                String title = task.getResult().getString("title");
-                                String user_id = task.getResult().getString("user_id");
-
-
-                                detailImageView.setImageURI(Uri.parse(image));
-                                detailPostDate.setText(date);
-                                detailPostDesc.setText(desc);
-                                detailPostLocation.setText(location);
-                                detailPostMaxPart.setText(max);
-                                detailPostTime.setText(time);
-                                //detailPostTitle.setText(title);
-                                //
-
-
-//                        RequestOptions placeholderRequest = new RequestOptions();
-//                        placeholderRequest.placeholder(R.drawable.default_image);
-                                Glide.with(DetailFragment.this).load(image).into(detailImageView);
-
-                                final String currentUserId = firebaseAuth.getCurrentUser().getUid();
-
-
-                                if (user_id.equals(currentUserId)) {
-                                    deleteBtn.setEnabled(true);
-                                    deleteBtn.setVisibility(View.VISIBLE);
-                                }
-                            }
-
-                        } else {
-
-                            String error = task.getException().getMessage();
-                            Toast.makeText(getContext(), "(FIRESTORE Retrieve Error) : " + error, Toast.LENGTH_LONG).show();
+                            //event_list.remove(eventRecyclerAdapter.getItemNumber());
+                            //user_list.remove(eventRecyclerAdapter.getItemNumber());
+                            Intent mainIntent = new Intent(getContext(), HomeFragment.class);
+                            startActivity(mainIntent);
                         }
+                    });
 
-                        detailPostProgress.setVisibility(View.INVISIBLE);
-                    }
-                });
-
-                deleteBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        firebaseFirestore.collection("Posts").document(b.getString("EVENT_POST_ID")).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-
-//                        for(int i = 0; i <= event_list.size(); i++){
-//                            if(event_list.get(i).EventPostId == eventpostid){
-//                                event_list.remove(i);
-//                            }
-//                        }
-                                //event_list.remove(eventRecyclerAdapter.getItemNumber());
-                                //user_list.remove(eventRecyclerAdapter.getItemNumber());
-                                Intent mainIntent = new Intent(getContext(), HomeFragment.class);
-                                startActivity(mainIntent);
-                            }
-                        });
-
-                    }
-                });
-            }
+                }
+            });
         }
-
 
 
         return view;

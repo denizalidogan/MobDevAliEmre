@@ -174,7 +174,6 @@ public class HomeFragment extends Fragment {
             FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.homeId, l).commit();
             Statics.setIsLandscape(true);
-            Statics.setEventId(event_list.get(0).EventPostId);
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             HomeFragment h = new HomeFragment();
             FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
