@@ -151,6 +151,24 @@
             <!--app:layout_constraintEnd_toEndOf="parent"-->
             <!--app:layout_constraintTop_toBottomOf="@id/detail_post_layout"/>-->
         <Button
+            android:id="@+id/btnCommentEvent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:text="Comment"
+            android:textAllCaps="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detail_post_layout"/>
+
+        <Button
             android:id="@+id/btnDeleteEvent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -168,7 +186,7 @@
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_post_layout"/>
+            app:layout_constraintTop_toBottomOf="@id/btnCommentEvent"/>
 
         <ProgressBar
             android:id="@+id/detail_post_progress"

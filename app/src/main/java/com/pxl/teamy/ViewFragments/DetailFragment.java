@@ -32,6 +32,7 @@ import com.pxl.teamy.DomainClasses.EventPost;
 import com.pxl.teamy.DomainClasses.Statics;
 import com.pxl.teamy.DomainClasses.User;
 import com.pxl.teamy.R;
+import com.pxl.teamy.ViewActivities.CommentsActivity;
 import com.pxl.teamy.ViewFragments.HomeFragment;
 
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class DetailFragment extends Fragment {
     private TextView detailPostTitle;
     private Button deleteBtn;
     private RecyclerView recyclerView;
+    private Button commentBtn;
 
     private TextView desc_hint;
 
@@ -99,19 +101,11 @@ public class DetailFragment extends Fragment {
         detailPostTitle = view.findViewById(R.id.detail_post_title);
         deleteBtn = view.findViewById(R.id.btnDeleteEvent);
         desc_hint = view.findViewById(R.id.desc_hint);
+        commentBtn = view.findViewById(R.id.btnCommentEvent);
 
         final Bundle b = getArguments();
 
 
-//        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent commentIntent = new Intent(getContext(), CommentsActivity.class);
-//                commentIntent.putExtra("event_post_id", eventpostid);
-//                startActivity(commentIntent);
-//            }
-//        });
 
         if(b != null){
             firebaseFirestore.collection("Posts").document(b.getString("EVENT_POST_ID")).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -164,6 +158,17 @@ public class DetailFragment extends Fragment {
                     }
 
                     detailPostProgress.setVisibility(View.INVISIBLE);
+                }
+            });
+
+            commentBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    commentBtn.setEnabled(true);
+                    Intent commentIntent = new Intent(getContext(), CommentsActivity.class);
+                    commentIntent.putExtra("event_post_id", b.getString("EVENT_POST_ID"));
+                    Toast.makeText(getContext(), "(calisio mk) : " , Toast.LENGTH_LONG).show();
+                    startActivity(commentIntent);
                 }
             });
 
