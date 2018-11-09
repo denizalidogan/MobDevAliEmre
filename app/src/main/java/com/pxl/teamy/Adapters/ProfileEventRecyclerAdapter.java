@@ -244,6 +244,7 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
                 manager.beginTransaction().hide(new HomeFragment()).commit();
 
                     //portrait
+
                     manager.beginTransaction().replace(R.id.layoutHome, d).addToBackStack("new AccountFragment()").commit();
             }
         });

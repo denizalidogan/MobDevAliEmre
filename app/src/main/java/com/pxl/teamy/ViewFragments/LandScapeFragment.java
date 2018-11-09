@@ -161,6 +161,7 @@ public class LandScapeFragment extends Fragment {
             LandScapeFragment l = new LandScapeFragment();
             FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.homeId, l).commit();
+
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             HomeFragment h = new HomeFragment();
             FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();

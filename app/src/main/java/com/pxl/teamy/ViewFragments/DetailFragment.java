@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -53,6 +54,8 @@ public class DetailFragment extends Fragment {
 
     private TextView desc_hint;
 
+    private Context context;
+
     private Boolean isFirstPageFirstLoad = true;
 
     private DocumentSnapshot lastVisible;
@@ -71,7 +74,6 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
-
 
         event_list = new ArrayList<>();
 
@@ -180,8 +182,18 @@ public class DetailFragment extends Fragment {
 //                        }
                             //event_list.remove(eventRecyclerAdapter.getItemNumber());
                             //user_list.remove(eventRecyclerAdapter.getItemNumber());
-                            Intent mainIntent = new Intent(getContext(), HomeFragment.class);
-                            startActivity(mainIntent);
+                            //Intent mainIntent = new Intent(getContext(), HomeFragment.class);
+                            //startActivity(mainIntent);
+                            FragmentManager manager = getActivity().getSupportFragmentManager();
+
+                            if(Statics.isIsLandscape()){
+                                manager.beginTransaction().replace(R.id.landscape, new LandScapeFragment()).commit();
+                            }else{
+                                manager.beginTransaction().replace(R.id.detailLayout, new HomeFragment()).commit();
+
+                            }
+                            //portrait
+
                         }
                     });
 

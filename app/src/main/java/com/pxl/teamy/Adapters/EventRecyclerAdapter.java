@@ -250,9 +250,11 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
                             manager.beginTransaction().add(R.id.detailLayout, d).commit();
                         }
 
-                        else
+                        else{
                             //portrait
                             manager.beginTransaction().replace(R.id.homeId, d).addToBackStack("new HomeFragment()").commit();
+
+                        }
                 }
             });
 
