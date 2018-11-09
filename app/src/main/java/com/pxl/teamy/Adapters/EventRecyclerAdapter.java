@@ -31,6 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pxl.teamy.DomainClasses.EventPost;
+import com.pxl.teamy.DomainClasses.Statics;
 import com.pxl.teamy.DomainClasses.User;
 import com.pxl.teamy.R;
 import com.pxl.teamy.ViewActivities.MainActivity;
@@ -242,8 +243,13 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
                         d.setArguments(b);
                         FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
                         manager.beginTransaction().hide(new HomeFragment()).commit();
-                        //manager.beginTransaction().replace(R.id.homeId, d).addToBackStack("new HomeFragment()").commit();
-                        manager.beginTransaction().add(R.id.detailLayout, d).commit();
+
+                        if(Statics.isIsLandscape())
+                            //landscape
+                            manager.beginTransaction().add(R.id.detailLayout, d).commit();
+                        else
+                            //portrait
+                            manager.beginTransaction().replace(R.id.homeId, d).addToBackStack("new HomeFragment()").commit();
                 }
             });
 

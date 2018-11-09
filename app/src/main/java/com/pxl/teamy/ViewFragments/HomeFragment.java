@@ -29,6 +29,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pxl.teamy.Adapters.EventRecyclerAdapter;
 import com.pxl.teamy.DomainClasses.EventPost;
+import com.pxl.teamy.DomainClasses.Statics;
 import com.pxl.teamy.DomainClasses.User;
 import com.pxl.teamy.R;
 
@@ -172,10 +173,12 @@ public class HomeFragment extends Fragment {
             LandScapeFragment l = new LandScapeFragment();
             FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.homeId, l).commit();
+            Statics.setIsLandscape(true);
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             HomeFragment h = new HomeFragment();
             FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.landscape, h).commit();
+            Statics.setIsLandscape(false);
         }
     }
 
