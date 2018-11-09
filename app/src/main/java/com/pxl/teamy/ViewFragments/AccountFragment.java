@@ -106,7 +106,7 @@ public class AccountFragment extends Fragment {
 
                     if (reachedBottom) {
                         String desc = lastVisible.getString("desc");
-                        Toast.makeText(container.getContext(), "No more events listed" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(container.getContext(), "No more events listed", Toast.LENGTH_LONG).show();
                         LoadMorePost();
                     }
                 }
@@ -115,7 +115,7 @@ public class AccountFragment extends Fragment {
             Query firstQuery = firebaseFirestore.collection("Posts").orderBy("date", Query.Direction.DESCENDING);
 
 
-            firstQuery.addSnapshotListener(getActivity(),new EventListener<QuerySnapshot>() {
+            firstQuery.addSnapshotListener(getActivity(), new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 
@@ -129,19 +129,18 @@ public class AccountFragment extends Fragment {
                                 String user = doc.getDocument().toObject(EventPost.class).getUser_id();
 
 
-                                if(doc.getDocument().toObject(EventPost.class).getUser_id().contains(user_id)){
+                                if (doc.getDocument().toObject(EventPost.class).getUser_id().contains(user_id)) {
                                     String blogPostId = doc.getDocument().getId();
                                     EventPost eventPost = doc.getDocument().toObject(EventPost.class).withId(blogPostId);
                                     event_list.add(eventPost);
                                     profileEventRecyclerAdapter.notifyDataSetChanged();
-                                    count ++;
+                                    count++;
                                 }
 
                             }
 
                         }
                     }
-
 
 
                 }
@@ -192,7 +191,7 @@ public class AccountFragment extends Fragment {
     public void LoadMorePost() {
         Query nextQuery = firebaseFirestore.collection("Posts").orderBy("date", Query.Direction.DESCENDING).startAfter(lastVisible).limit(3);
 
-        nextQuery.addSnapshotListener(getActivity(),new EventListener<QuerySnapshot>() {
+        nextQuery.addSnapshotListener(getActivity(), new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 
@@ -207,7 +206,7 @@ public class AccountFragment extends Fragment {
                         if (doc.getType() == DocumentChange.Type.ADDED) {
 
 
-                            if(doc.getDocument().toObject(EventPost.class).getUser_id().contains(user_id)){
+                            if (doc.getDocument().toObject(EventPost.class).getUser_id().contains(user_id)) {
                                 EventPost eventPost = doc.getDocument().toObject(EventPost.class);
                                 event_list.add(eventPost);
                                 profileEventRecyclerAdapter.notifyDataSetChanged();

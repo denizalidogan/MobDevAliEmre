@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.pxl.teamy.R;
 
-public class LoginActivity extends AppCompatActivity implements TextWatcher,   CompoundButton.OnCheckedChangeListener {
+public class LoginActivity extends AppCompatActivity implements TextWatcher, CompoundButton.OnCheckedChangeListener {
 
     private EditText loginTxtEmail;
     private EditText loginTxtPassword;
@@ -42,8 +42,6 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher,   C
     private static final String KEY_REMEMBER = "remember";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASS = "password";
-
-
 
 
     @Override
@@ -65,23 +63,18 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher,   C
         editor = sharedPreferences.edit();
 
 
-        if(sharedPreferences.getBoolean(KEY_REMEMBER, false))
+        if (sharedPreferences.getBoolean(KEY_REMEMBER, false))
             cb_rememberLogin.setChecked(true);
         else
             cb_rememberLogin.setChecked(false);
 
 
-
-
-        loginTxtEmail.setText(sharedPreferences.getString(KEY_USERNAME,""));
-        loginTxtPassword.setText(sharedPreferences.getString(KEY_PASS,""));
+        loginTxtEmail.setText(sharedPreferences.getString(KEY_USERNAME, ""));
+        loginTxtPassword.setText(sharedPreferences.getString(KEY_PASS, ""));
 
         loginTxtEmail.addTextChangedListener(this);
         loginTxtPassword.addTextChangedListener(this);
         cb_rememberLogin.setOnCheckedChangeListener(this);
-
-
-
 
 
         //Buttons en txtinput waarden initialiseren
@@ -152,24 +145,19 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher,   C
     }
 
 
-    private void managePrefs(){
-        if(cb_rememberLogin.isChecked()){
+    private void managePrefs() {
+        if (cb_rememberLogin.isChecked()) {
             editor.putString(KEY_USERNAME, loginTxtEmail.getText().toString().trim());
             editor.putString(KEY_PASS, loginTxtPassword.getText().toString().trim());
             editor.putBoolean(KEY_REMEMBER, true);
             editor.commit();
-        }else{
+        } else {
             editor.putBoolean(KEY_REMEMBER, false);
             editor.remove(KEY_PASS);//editor.putString(KEY_PASS,"");
             editor.remove(KEY_USERNAME);//editor.putString(KEY_USERNAME, "");
             editor.commit();
         }
     }
-
-
-
-
-
 
 
     @Override

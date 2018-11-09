@@ -299,12 +299,11 @@ public class SetupActivity extends AppCompatActivity {
     //hasmap uploaden naar firestore voor de referenties te kunnen legen met de gebruikers
     private void storeFirestore(@NonNull Task<UploadTask.TaskSnapshot> task, String user_name, String user_username, String user_date, String user_bio, String user_gender) {
 
-         String download_uri = mainImageURI.toString();
+        String download_uri = mainImageURI.toString();
         Map<String, String> userMap = new HashMap<>();
 
 
-
-        if (task != null){
+        if (task != null) {
             Task<Uri> urlTask = task.getResult().getStorage().getDownloadUrl();
 
             while (!urlTask.isSuccessful()) ;

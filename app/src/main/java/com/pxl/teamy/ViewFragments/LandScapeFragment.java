@@ -149,12 +149,12 @@ public class LandScapeFragment extends Fragment {
                 }
             });
         }
-            return view;
+        return view;
 
     }
 
     @Override
-    public void onConfigurationChanged (Configuration newConfig){
+    public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         // check orientation
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -170,13 +170,13 @@ public class LandScapeFragment extends Fragment {
     }
 
     @Override
-    public void onDetach () {
+    public void onDetach() {
         isFirstPageFirstLoad = true;
         super.onDetach();
     }
 
     @Override
-    public void onAttach (Context context){
+    public void onAttach(Context context) {
         isFirstPageFirstLoad = true;
         super.onAttach(context);
     }
@@ -184,7 +184,7 @@ public class LandScapeFragment extends Fragment {
     public void LoadMorePost() {
         Query nextQuery = firebaseFirestore.collection("Posts").orderBy("timestamp", Query.Direction.DESCENDING).startAfter(lastVisible).limit(6);
 
-        nextQuery.addSnapshotListener(getActivity(),new EventListener<QuerySnapshot>() {
+        nextQuery.addSnapshotListener(getActivity(), new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 
@@ -206,11 +206,10 @@ public class LandScapeFragment extends Fragment {
                             String eventUserId = doc.getDocument().getString("user_id");
 
 
-
                             firebaseFirestore.collection("Users").document(eventUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if(task.isSuccessful()){
+                                    if (task.isSuccessful()) {
 
                                         User user = task.getResult().toObject(User.class);
 

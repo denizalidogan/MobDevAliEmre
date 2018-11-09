@@ -29,7 +29,7 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
 
-    public UserRecyclerAdapter(List<EventPost> event_list, List <User> user_list) {
+    public UserRecyclerAdapter(List<EventPost> event_list, List<User> user_list) {
         this.event_list = event_list;
         this.user_list = user_list;
     }
@@ -49,7 +49,6 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
 
 
         viewHolder.setIsRecyclable(false);
-
 
 
         String userName = user_list.get(i).getName();
@@ -126,7 +125,6 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
 //
 //            }
 //        });
-
 
 
     }

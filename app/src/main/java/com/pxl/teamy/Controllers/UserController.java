@@ -9,12 +9,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.pxl.teamy.DomainClasses.User;
 import com.pxl.teamy.IControllers.IUserCrud;
 
-public class UserController  implements IUserCrud {
+public class UserController implements IUserCrud {
 
     private FirebaseFirestore firebaseFirestore;
-     User returnedUser ;
+    User returnedUser;
 
-    public User getUserByEventUserId (String eventUserId){
+    public User getUserByEventUserId(String eventUserId) {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
 
@@ -26,12 +26,9 @@ public class UserController  implements IUserCrud {
                     returnedUser = user;
                 }
             }
-            });
-            return returnedUser;
+        });
+        return returnedUser;
     }
-
-
-
 
 
 }

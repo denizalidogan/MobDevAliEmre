@@ -3,8 +3,7 @@ package com.pxl.teamy.DomainClasses;
 public class User {
 
 
-    public String bio,dateOfBirth,gender,image,name,username;
-
+    public String bio, dateOfBirth, gender, image, name, username;
 
 
     public User() {
@@ -19,8 +18,6 @@ public class User {
         this.name = name;
         this.username = username;
     }
-
-
 
 
     public String getBio() {
@@ -70,12 +67,6 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
-
-
-
-
-
 
 
 }

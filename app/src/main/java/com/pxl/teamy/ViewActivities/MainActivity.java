@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             mainToolbar = (Toolbar) findViewById(R.id.main_toolbar);
             setSupportActionBar(mainToolbar);
 
-          //  getSupportActionBar().setTitle("Teamy");
+            //  getSupportActionBar().setTitle("Teamy");
 
 
             mainBottemNav = findViewById(R.id.mainBottomNav);
@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
             initializeFragment();
 
 
-
             mainBottemNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -82,17 +81,16 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.bottom_action_home:
                             getSupportActionBar().setTitle("Teamy");
 
-                            getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(),R.drawable.gradient_bg_toolbar));
+                            getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.gradient_bg_toolbar));
                             replaceFragment(homeFragment, currentFragment);
                             getSupportActionBar().show();
                             return true;
 
                         case R.id.bottom_action_myaccount:
 
-                           getSupportActionBar().setTitle("My Account");
+                            getSupportActionBar().setTitle("My Account");
 
                             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xff12c2e9));
-
 
 
                             replaceFragment(accountFragment, currentFragment);
@@ -100,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
                         case R.id.bottom_action_notification:
                             getSupportActionBar().setTitle("Notifications");
-                            getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(),R.drawable.gradient_bg_toolbar));
+                            getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.gradient_bg_toolbar));
 
                             getSupportActionBar().show();
                             replaceFragment(notificationFragment, currentFragment);
@@ -195,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    private void initializeFragment(){
+    private void initializeFragment() {
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
@@ -212,17 +210,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void replaceFragment(Fragment fragment, Fragment currentFragment){
+    public void replaceFragment(Fragment fragment, Fragment currentFragment) {
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if(fragment == homeFragment){
+        if (fragment == homeFragment) {
 
             fragmentTransaction.hide(accountFragment);
             fragmentTransaction.hide(notificationFragment);
 
         }
 
-        if(fragment == detailFragment){
+        if (fragment == detailFragment) {
 
             fragmentTransaction.hide(accountFragment);
             fragmentTransaction.hide(notificationFragment);
@@ -230,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        if(fragment == accountFragment){
+        if (fragment == accountFragment) {
 
             fragmentTransaction.hide(homeFragment);
             fragmentTransaction.hide(notificationFragment);
@@ -238,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        if(fragment == notificationFragment){
+        if (fragment == notificationFragment) {
 
             fragmentTransaction.hide(homeFragment);
             fragmentTransaction.hide(accountFragment);

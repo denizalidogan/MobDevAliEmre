@@ -50,12 +50,11 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     public List<User> user_list;
     public Context context;
     private boolean mTwoPane;
-    public String maxParticipants = "0";
 
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
 
-    public EventRecyclerAdapter(List<EventPost> event_list, List <User> user_list) {
+    public EventRecyclerAdapter(List<EventPost> event_list, List<User> user_list) {
         this.event_list = event_list;
         this.user_list = user_list;
     }
@@ -85,14 +84,13 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         String title_data = event_list.get(i).getTitle();
         String desc_data = event_list.get(i).getDesc();
         String location = event_list.get(i).getLocation();
-        maxParticipants = event_list.get(i).getMaxParticipants();
+        final String maxParticipants = event_list.get(i).getMaxParticipants();
         String image_url = event_list.get(i).getImage_uri();
         final String user_id = event_list.get(i).getUser_id();
         String thumbUrl = event_list.get(i).getImage_thumb();
         final String eventPostId = event_list.get(i).EventPostId;
         final String currentUserId = firebaseAuth.getCurrentUser().getUid();
         final String title = event_list.get(i).title;
-
 
 
         String userName = user_list.get(i).getName();
@@ -102,16 +100,12 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         viewHolder.setTitleText(title_data);
         viewHolder.setLocationText(location);
         viewHolder.setCountText(maxParticipants + " Max Participants");
-        viewHolder.setEventImage(image_url,thumbUrl);
+        viewHolder.setEventImage(image_url, thumbUrl);
 
 //        if(event_user_id.equals(currentUserId)){
 //            viewHolder.btnEventDelete.setEnabled(true);
 //            viewHolder.btnEventDelete.setVisibility(View.VISIBLE);
 //        }
-
-
-
-        viewHolder.setEventImage(image_url, thumbUrl);
 
 
 //        // SimpleDateFormat formatter = new SimpleDateFormat("dd:HH:mm:ss");
@@ -226,41 +220,38 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
 
         });
-            viewHolder.detailpage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //Intent intent = new Intent(context, DetailActivity.class);
+        viewHolder.detailpage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Intent intent = new Intent(context, DetailActivity.class);
 //                Intent intent = new Intent(context, DetailFragment.class);
 //                intent.putExtra("EVENT_POST_ID", eventPostId);
 //                intent.putExtra("EVENT_TITLE", title);
 //                context.startActivity(intent);
-                    HomeFragment h = new HomeFragment();
+                HomeFragment h = new HomeFragment();
 
-                        DetailFragment d = new DetailFragment();
-                        Bundle b = new Bundle();
-                        b.putString("EVENT_POST_ID", eventPostId);
-                        b.putString("EVENT_TITLE", title);
-                        d.setArguments(b);
-                        FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
-                        manager.beginTransaction().hide(new HomeFragment()).commit();
+                DetailFragment d = new DetailFragment();
+                Bundle b = new Bundle();
+                b.putString("EVENT_POST_ID", eventPostId);
+                b.putString("EVENT_TITLE", title);
+                d.setArguments(b);
+                FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
+                manager.beginTransaction().hide(new HomeFragment()).commit();
 
-                        if(Statics.isIsLandscape()){
-                            //landscape
-                            Statics.setEventpostId(eventPostId);
-                            manager.beginTransaction().add(R.id.detailLayout, d).commit();
-                        }
+                if (Statics.isIsLandscape()) {
+                    //landscape
+                    Statics.setEventpostId(eventPostId);
+                    manager.beginTransaction().add(R.id.detailLayout, d).commit();
+                } else {
+                    //portrait
+                    manager.beginTransaction().replace(R.id.homeId, d).addToBackStack("new HomeFragment()").commit();
 
-                        else{
-                            //portrait
-                            manager.beginTransaction().replace(R.id.homeId, d).addToBackStack("new HomeFragment()").commit();
-
-                        }
                 }
-            });
+            }
+        });
 
 
-
-       // viewHolder.detailpage.setOnClickListener(new View.OnClickListener() {
+        // viewHolder.detailpage.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                //Intent intent = new Intent(context, DetailActivity.class);
@@ -280,7 +271,6 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 //        });
 
 
-
 //        viewHolder.btnEventDelete.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -297,7 +287,6 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 //
 //            }
 //        });
-
 
 
 //        viewHolder.eventCommentBtn.setOnClickListener(new View.OnClickListener() {
@@ -346,8 +335,8 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
             eventJoinBtn = mView.findViewById(R.id.event_join_btn);
             detailpage = mView.findViewById(R.id.detailpage);
-             //eventCommentBtn = mView.findViewById(R.id.event_comment_icon);
-             //btnEventDelete = mView.findViewById(R.id.btnDeleteEvent);
+            //eventCommentBtn = mView.findViewById(R.id.event_comment_icon);
+            //btnEventDelete = mView.findViewById(R.id.btnDeleteEvent);
 
 
         }

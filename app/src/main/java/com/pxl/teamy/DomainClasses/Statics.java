@@ -1,8 +1,8 @@
 package com.pxl.teamy.DomainClasses;
 
-public  final class  Statics {
+public final class Statics {
 
-    private static boolean  isLandscape ;
+    private static boolean isLandscape;
 
     private static String eventpostId;
 

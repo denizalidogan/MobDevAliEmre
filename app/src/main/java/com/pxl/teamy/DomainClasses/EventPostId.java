@@ -1,7 +1,6 @@
 package com.pxl.teamy.DomainClasses;
 
 
-
 import com.google.firebase.firestore.Exclude;
 
 import io.reactivex.annotations.NonNull;

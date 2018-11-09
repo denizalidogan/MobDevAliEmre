@@ -7,7 +7,7 @@ public class Comments {
     private String message, user_id;
     private Date timestamp;
 
-    public Comments(){
+    public Comments() {
 
     }
 

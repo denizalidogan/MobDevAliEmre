@@ -78,7 +78,6 @@ public class NewPostActivity extends AppCompatActivity implements ConnectionCall
         OnConnectionFailedListener {
 
 
-
     private Toolbar newPostToolbar;
     private ImageView newPostImage;
     private EditText newPostDesc;
@@ -107,12 +106,8 @@ public class NewPostActivity extends AppCompatActivity implements ConnectionCall
     private RecyclerView mRecyclerView;
     private GoogleApiClient mClient;
     private Geofencing mGeofencing;
-      private boolean mIsEnabled;
+    private boolean mIsEnabled;
     private static final int PLACE_PICKER_REQUEST = 1;
-
-
-
-
 
 
     @Override
@@ -137,7 +132,6 @@ public class NewPostActivity extends AppCompatActivity implements ConnectionCall
         mAdapter = new PlaceListAdapter(this, null);
 
 
-
         mRecyclerView.setAdapter(mAdapter);
 
         mClient = new GoogleApiClient.Builder(this)
@@ -151,26 +145,22 @@ public class NewPostActivity extends AppCompatActivity implements ConnectionCall
         mGeofencing = new Geofencing(this, mClient);
 
 
-
-
         storageReference = FirebaseStorage.getInstance().getReference();
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
 
         current_user_id = firebaseAuth.getCurrentUser().getUid();
 
-  //      newPostToolbar = findViewById(R.id.new_post_toolbar);
+        //      newPostToolbar = findViewById(R.id.new_post_toolbar);
 //        setSupportActionBar(newPostToolbar);
 //        getSupportActionBar().setTitle("Add New Post");
-
-
 
 
         newPostImage = findViewById(R.id.new_post_image);
         newPostDesc = findViewById(R.id.new_post_desc);
         newPostDate = findViewById(R.id.new_post_date);
         newPostTime = findViewById(R.id.new_post_time);
-       // newPostLocation = findViewById(R.id.new_post_location);
+        // newPostLocation = findViewById(R.id.new_post_location);
         newPostMaxPart = findViewById(R.id.new_post_max);
         newPostBtn = findViewById(R.id.btnPost);
         newPostProgress = findViewById(R.id.new_post_progress);
@@ -246,12 +236,10 @@ public class NewPostActivity extends AppCompatActivity implements ConnectionCall
             public void onClick(View v) {
 
 
-
-
                 final String desc = newPostDesc.getText().toString();
                 final String date = newPostDate.getText().toString();
                 final String time = newPostTime.getText().toString();
-              
+
                 final String count = newPostMaxPart.getText().toString();
                 final String title = newPostTitle.getText().toString();
 
@@ -420,14 +408,6 @@ public class NewPostActivity extends AppCompatActivity implements ConnectionCall
     }
 
 
-
-
-
-
-
-
-
-
     /***
      * Called when the Google API Client is successfully connected
      *
@@ -522,25 +502,6 @@ public class NewPostActivity extends AppCompatActivity implements ConnectionCall
         // Initialize location permissions checkbox
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

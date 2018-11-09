@@ -26,14 +26,11 @@ public class CommentsRecyclerAdapter extends RecyclerView.Adapter<CommentsRecycl
     public Context context;
 
 
-
-
-    public CommentsRecyclerAdapter(List<Comments> commentsList, List <User> user_list){
+    public CommentsRecyclerAdapter(List<Comments> commentsList, List<User> user_list) {
         this.user_list = user_list;
         this.commentsList = commentsList;
 
     }
-
 
 
     @Override
@@ -53,7 +50,7 @@ public class CommentsRecyclerAdapter extends RecyclerView.Adapter<CommentsRecycl
         String userName = user_list.get(position).getUsername();
 
 
-        holder.setComment_ProfImage( user_list.get(position).getImage());
+        holder.setComment_ProfImage(user_list.get(position).getImage());
 
         holder.setComment_username(userName);
         holder.setComment_message(commentMessage);
@@ -67,7 +64,7 @@ public class CommentsRecyclerAdapter extends RecyclerView.Adapter<CommentsRecycl
     @Override
     public int getItemCount() {
 
-        if(commentsList != null) {
+        if (commentsList != null) {
 
             return commentsList.size();
 
@@ -86,13 +83,10 @@ public class CommentsRecyclerAdapter extends RecyclerView.Adapter<CommentsRecycl
         private TextView comment_message;
 
 
-
         private TextView comment_username;
 
 
-
         private TextView comment_date;
-
 
 
         private ImageView comment_ProfImage;
@@ -108,12 +102,13 @@ public class CommentsRecyclerAdapter extends RecyclerView.Adapter<CommentsRecycl
             comment_date.setText(datum);
         }
 
-        public void setComment_message(String message){
+        public void setComment_message(String message) {
 
             comment_message = mView.findViewById(R.id.comment_message);
             comment_message.setText(message);
 
         }
+
         public void setComment_username(String username) {
             comment_username = mView.findViewById(R.id.comment_username);
             comment_username.setText(username);
@@ -122,8 +117,7 @@ public class CommentsRecyclerAdapter extends RecyclerView.Adapter<CommentsRecycl
         public void setComment_ProfImage(String image) {
 
 
-
-            comment_ProfImage =  mView.findViewById(R.id.comment_image);
+            comment_ProfImage = mView.findViewById(R.id.comment_image);
             RequestOptions placeholderOption = new RequestOptions();
 
             placeholderOption.placeholder(R.drawable.profile_placeholder);

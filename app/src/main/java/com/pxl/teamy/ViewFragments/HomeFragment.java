@@ -99,8 +99,6 @@ public class HomeFragment extends Fragment {
             });
 
 
-
-
             Query firstQuery = firebaseFirestore.collection("Posts").orderBy("timestamp", Query.Direction.DESCENDING).limit(6);
 
             firstQuery.addSnapshotListener(getActivity(), new EventListener<QuerySnapshot>() {
@@ -129,7 +127,7 @@ public class HomeFragment extends Fragment {
                                 firebaseFirestore.collection("Users").document(eventUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        if(task.isSuccessful()){
+                                        if (task.isSuccessful()) {
 
                                             User user = task.getResult().toObject(User.class);
 
@@ -141,7 +139,7 @@ public class HomeFragment extends Fragment {
 
                                             } else {
                                                 event_list.add(0, eventPost);
-                                                user_list.add(0,user);
+                                                user_list.add(0, user);
 
                                             }
                                             eventRecyclerAdapter.notifyDataSetChanged();
@@ -149,7 +147,6 @@ public class HomeFragment extends Fragment {
 
                                     }
                                 });
-
 
 
                             }
@@ -173,7 +170,7 @@ public class HomeFragment extends Fragment {
             LandScapeFragment l = new LandScapeFragment();
             Statics.setIsLandscape(true);
             Boolean ja = Statics.isIsLandscape();
-            if(Statics.getEventpostId() == null){
+            if (Statics.getEventpostId() == null) {
                 Statics.setEventpostId(event_list.get(0).EventPostId);
             }
             FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
@@ -202,7 +199,7 @@ public class HomeFragment extends Fragment {
     public void LoadMorePost() {
         Query nextQuery = firebaseFirestore.collection("Posts").orderBy("timestamp", Query.Direction.DESCENDING).startAfter(lastVisible).limit(6);
 
-        nextQuery.addSnapshotListener(getActivity(),new EventListener<QuerySnapshot>() {
+        nextQuery.addSnapshotListener(getActivity(), new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 
@@ -224,18 +221,17 @@ public class HomeFragment extends Fragment {
                             String eventUserId = doc.getDocument().getString("user_id");
 
 
-
                             firebaseFirestore.collection("Users").document(eventUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if(task.isSuccessful()){
+                                    if (task.isSuccessful()) {
 
                                         User user = task.getResult().toObject(User.class);
 
 
                                         //dont load before users are getted
-                                             event_list.add(eventPost);
-                                            user_list.add(user);
+                                        event_list.add(eventPost);
+                                        user_list.add(user);
 
 
                                         eventRecyclerAdapter.notifyDataSetChanged();

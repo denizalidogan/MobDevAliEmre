@@ -1,196 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_bg_add"
     tools:context=".ViewActivities.NewPostActivity">
 
-<android.support.constraint.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-
-    <ImageView
-        android:id="@+id/new_post_image"
-        android:layout_width="210dp"
-        android:layout_height="114dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.015"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_post_title"
-        app:srcCompat="@mipmap/image_placeholder" />
-
-    <EditText
-        android:id="@+id/new_post_title"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:backgroundTint="#49b5ea"
-        android:ems="10"
-        android:hint="@string/post_title_hint"
-        android:inputType="text"
-        android:maxLines="1"
-        android:padding="15dp"
-        android:textAlignment="textStart"
-        android:textColor="@color/colorAccent"
-        android:textColorHint="@color/colorAccent"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-
-        android:id="@+id/new_post_desc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:backgroundTint="#b678ed"
-        android:ems="10"
-        android:hint="@string/post_desc_hint"
-        android:inputType="textMultiLine"
-        android:maxLines="3"
-        android:padding="15dp"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
-        android:textColorHighlight="@color/common_google_signin_btn_text_dark_pressed"
-        android:textColorHint="@color/common_google_signin_btn_text_dark_pressed"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_post_image" />
-
-
-    <TextView
-        android:id="@+id/new_post_date"
-        android:layout_width="171dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="8dp"
-        android:backgroundTint="@color/place_autocomplete_search_hint"
-        android:ems="10"
-        android:hint="@string/post_date_event_hint"
-        android:padding="15dp"
-        android:textAlignment="textStart"
-        android:textColor="@color/common_google_signin_btn_text_dark_pressed"
-        android:textColorHint="@color/common_google_signin_btn_text_dark_pressed"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/new_post_image"
-        app:layout_constraintTop_toBottomOf="@+id/new_post_max" />
-
-    <TextView
-        android:id="@+id/new_post_time"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="40dp"
-        android:ems="10"
-        android:hint="@string/post_time_event_hint"
-        android:padding="15dp"
-        android:textAlignment="textStart"
-        android:textColor="@color/common_google_signin_btn_text_dark_pressed"
-        android:textColorHint="@color/common_google_signin_btn_text_dark_pressed"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/new_post_desc"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/new_post_image" />
-
-    <EditText
-        android:id="@+id/new_post_max"
-        android:layout_width="180dp"
-        android:layout_height="0dp"
-
-        android:layout_marginTop="5dp"
-        android:backgroundTint="#49b5ea"
-        android:ems="10"
-        android:hint="@string/post_max_event_hint"
-        android:inputType="number"
-        android:padding="15dp"
-        android:textAlignment="center"
-        android:textColor="@color/colorAccent"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-
-
-    <ProgressBar
-        android:id="@+id/new_post_progress"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/places_list_recycler_view"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:scrollbars="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/new_post_desc"/>
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:background="#ae7ded"
-        android:onClick="onAddPlaceButtonClicked"
-        android:text="@string/add_new_location"
-        android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/places_list_recycler_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btnPost"
-        android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="#7f93ec"
-        android:padding="16dp"
-        android:text="@string/new_post_btn_hint"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
-        app:layout_constraintTop_toBottomOf="@id/button2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_height="wrap_content">
 
 
+        <ImageView
+            android:id="@+id/new_post_image"
+            android:layout_width="210dp"
+            android:layout_height="114dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.015"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/new_post_title"
+            app:srcCompat="@mipmap/image_placeholder" />
+
+        <EditText
+            android:id="@+id/new_post_title"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="#49b5ea"
+            android:ems="10"
+            android:hint="@string/post_title_hint"
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:textAlignment="textStart"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+
+            android:id="@+id/new_post_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="#b678ed"
+            android:ems="10"
+            android:hint="@string/post_desc_hint"
+            android:inputType="textMultiLine"
+            android:maxLines="3"
+            android:padding="15dp"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textColorHighlight="@color/common_google_signin_btn_text_dark_pressed"
+            android:textColorHint="@color/common_google_signin_btn_text_dark_pressed"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/new_post_image" />
 
 
+        <TextView
+            android:id="@+id/new_post_date"
+            android:layout_width="171dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/place_autocomplete_search_hint"
+            android:ems="10"
+            android:hint="@string/post_date_event_hint"
+            android:padding="15dp"
+            android:textAlignment="textStart"
+            android:textColor="@color/common_google_signin_btn_text_dark_pressed"
+            android:textColorHint="@color/common_google_signin_btn_text_dark_pressed"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/new_post_image"
+            app:layout_constraintTop_toBottomOf="@+id/new_post_max" />
+
+        <TextView
+            android:id="@+id/new_post_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="40dp"
+            android:ems="10"
+            android:hint="@string/post_time_event_hint"
+            android:padding="15dp"
+            android:textAlignment="textStart"
+            android:textColor="@color/common_google_signin_btn_text_dark_pressed"
+            android:textColorHint="@color/common_google_signin_btn_text_dark_pressed"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/new_post_desc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/new_post_image" />
+
+        <EditText
+            android:id="@+id/new_post_max"
+            android:layout_width="180dp"
+            android:layout_height="0dp"
+
+            android:layout_marginTop="5dp"
+            android:backgroundTint="#49b5ea"
+            android:ems="10"
+            android:hint="@string/post_max_event_hint"
+            android:inputType="number"
+            android:padding="15dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
+        <ProgressBar
+            android:id="@+id/new_post_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/places_list_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:scrollbars="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/new_post_desc" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="#ae7ded"
+            android:onClick="onAddPlaceButtonClicked"
+            android:text="@string/add_new_location"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/places_list_recycler_view" />
+
+        <Button
+            android:id="@+id/btnPost"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="#7f93ec"
+            android:padding="16dp"
+            android:text="@string/new_post_btn_hint"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button2" />
+
+
+    </android.support.constraint.ConstraintLayout>
 </android.support.v4.widget.NestedScrollView>

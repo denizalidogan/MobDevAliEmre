@@ -95,7 +95,7 @@ public class CommentsActivity extends AppCompatActivity {
                                     firebaseFirestore.collection("Users").document(comments.getUser_id()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                            if(task.isSuccessful()){
+                                            if (task.isSuccessful()) {
 
                                                 User user = task.getResult().toObject(User.class);
 
@@ -106,11 +106,6 @@ public class CommentsActivity extends AppCompatActivity {
 
                                         }
                                     });
-
-
-
-
-
 
 
                                 }
@@ -137,7 +132,7 @@ public class CommentsActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {
 
-                        if(!task.isSuccessful()){
+                        if (!task.isSuccessful()) {
 
                             Toast.makeText(CommentsActivity.this, "Error Posting Comment : " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
 

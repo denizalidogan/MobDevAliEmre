@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -33,56 +32,62 @@
             android:id="@+id/detail_post_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center"
             android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/detail_post_image">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/desc_hint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/post_desc"
                     android:layout_gravity="fill"
-                    android:textSize="14sp"
-                    android:padding="15dp"/>
+                    android:hint="@string/post_desc"
+                    android:padding="15dp"
+                    android:textSize="14sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="@string/post_date_event"
-                    android:textSize="14sp"
-                    android:padding="15dp"/>
+                    android:padding="15dp"
+                    android:textSize="14sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="@string/post_time_event"
-                    android:textSize="14sp"
-                    android:padding="15dp"/>
+                    android:padding="15dp"
+                    android:textSize="14sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
                     android:hint="@string/post_location_event"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:padding="15dp"/>
+                    android:padding="15dp"
+                    android:textSize="14sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
                     android:hint="@string/post_max_event_hint"
                     android:inputType="number"
-                    android:padding="15dp"/>
+                    android:padding="15dp"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
@@ -94,77 +99,84 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/detail_post_desc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/post_desc_hint"
                     android:layout_gravity="fill"
-                    android:textSize="14sp"
-                    android:padding="15dp"/>
+                    android:hint="@string/post_desc_hint"
+                    android:padding="15dp"
+                    android:textSize="14sp" />
+
                 <TextView
                     android:id="@+id/detail_post_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="@string/post_date_event_hint"
-                    android:textSize="14sp"
-                    android:padding="15dp"/>
+                    android:padding="15dp"
+                    android:textSize="14sp" />
+
                 <TextView
                     android:id="@+id/detail_post_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="@string/post_time_event_hint"
-                    android:textSize="14sp"
-                    android:padding="15dp"/>
+                    android:padding="15dp"
+                    android:textSize="14sp" />
+
                 <TextView
                     android:id="@+id/detail_post_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
+                    android:layout_gravity="fill"
                     android:hint="@string/post_location_event_hint"
                     android:inputType="text"
-                    android:layout_gravity="fill"
                     android:maxLines="1"
-                    android:padding="15dp"/>
+                    android:padding="15dp"
+                    android:textSize="14sp" />
+
                 <TextView
                     android:id="@+id/detail_post_max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
                     android:hint="@string/post_max_event_hint"
                     android:inputType="number"
-                    android:padding="15dp"/>
+                    android:padding="15dp"
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/detail_post_list_user"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_post_layout"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detail_post_layout" />
+
         <Button
             android:id="@+id/btnDeleteEvent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
             android:backgroundTint="@color/red"
+            android:enabled="false"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:enabled="false"
             android:text="Delete Event"
             android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_post_list_user"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detail_post_list_user" />
 
         <ProgressBar
             android:id="@+id/detail_post_progress"

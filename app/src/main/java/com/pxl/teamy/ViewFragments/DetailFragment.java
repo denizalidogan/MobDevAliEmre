@@ -106,8 +106,7 @@ public class DetailFragment extends Fragment {
         final Bundle b = getArguments();
 
 
-
-        if(b != null){
+        if (b != null) {
             firebaseFirestore.collection("Posts").document(b.getString("EVENT_POST_ID")).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -167,7 +166,7 @@ public class DetailFragment extends Fragment {
                     commentBtn.setEnabled(true);
                     Intent commentIntent = new Intent(getContext(), CommentsActivity.class);
                     commentIntent.putExtra("event_post_id", b.getString("EVENT_POST_ID"));
-                    Toast.makeText(getContext(), "(calisio mk) : " , Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "(calisio mk) : ", Toast.LENGTH_LONG).show();
                     startActivity(commentIntent);
                 }
             });
@@ -191,9 +190,9 @@ public class DetailFragment extends Fragment {
                             //startActivity(mainIntent);
                             FragmentManager manager = getActivity().getSupportFragmentManager();
 
-                            if(Statics.isIsLandscape()){
+                            if (Statics.isIsLandscape()) {
                                 manager.beginTransaction().replace(R.id.landscape, new LandScapeFragment()).commit();
-                            }else{
+                            } else {
                                 manager.beginTransaction().replace(R.id.detailLayout, new HomeFragment()).commit();
 
                             }
@@ -204,7 +203,7 @@ public class DetailFragment extends Fragment {
 
                 }
             });
-         }
+        }
 // else{
 //            firebaseFirestore.collection("Posts").document(Statics.getEventpostId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 //                @Override
@@ -299,8 +298,6 @@ public class DetailFragment extends Fragment {
         isFirstPageFirstLoad = true;
         super.onAttach(context);
     }
-
-
 
 
 }
