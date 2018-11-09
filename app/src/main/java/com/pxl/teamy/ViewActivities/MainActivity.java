@@ -3,12 +3,14 @@ package com.pxl.teamy.ViewActivities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -21,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.type.Color;
 import com.pxl.teamy.R;
 import com.pxl.teamy.ViewFragments.AccountFragment;
 import com.pxl.teamy.ViewFragments.DetailFragment;
@@ -53,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             mainToolbar = (Toolbar) findViewById(R.id.main_toolbar);
             setSupportActionBar(mainToolbar);
 
-            getSupportActionBar().setTitle("Teamy");
+          //  getSupportActionBar().setTitle("Teamy");
 
 
             mainBottemNav = findViewById(R.id.mainBottomNav);
@@ -77,17 +80,29 @@ public class MainActivity extends AppCompatActivity {
                     switch (item.getItemId()) {
 
                         case R.id.bottom_action_home:
+                            getSupportActionBar().setTitle("Teamy");
 
+                            getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(),R.drawable.gradient_bg_toolbar));
                             replaceFragment(homeFragment, currentFragment);
+                            getSupportActionBar().show();
                             return true;
 
                         case R.id.bottom_action_myaccount:
+
+                           getSupportActionBar().setTitle("My Account");
+
+                            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xff12c2e9));
+
+
 
                             replaceFragment(accountFragment, currentFragment);
                             return true;
 
                         case R.id.bottom_action_notification:
+                            getSupportActionBar().setTitle("Notifications");
+                            getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(),R.drawable.gradient_bg_toolbar));
 
+                            getSupportActionBar().show();
                             replaceFragment(notificationFragment, currentFragment);
                             return true;
 
