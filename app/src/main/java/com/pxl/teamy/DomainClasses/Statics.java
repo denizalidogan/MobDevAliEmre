@@ -4,6 +4,8 @@ public  final class  Statics {
 
     private static boolean  isLandscape ;
 
+    private static String eventpostId;
+
     public static boolean isIsLandscape() {
         return isLandscape;
     }
@@ -12,6 +14,11 @@ public  final class  Statics {
         Statics.isLandscape = isLandscape;
     }
 
+    public static String getEventpostId() {
+        return eventpostId;
+    }
 
-
+    public static void setEventpostId(String eventpostId) {
+        Statics.eventpostId = eventpostId;
+    }
 }

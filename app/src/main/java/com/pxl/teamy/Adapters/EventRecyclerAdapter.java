@@ -244,9 +244,12 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
                         FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
                         manager.beginTransaction().hide(new HomeFragment()).commit();
 
-                        if(Statics.isIsLandscape())
+                        if(Statics.isIsLandscape()){
                             //landscape
+                            Statics.setEventpostId(eventPostId);
                             manager.beginTransaction().add(R.id.detailLayout, d).commit();
+                        }
+
                         else
                             //portrait
                             manager.beginTransaction().replace(R.id.homeId, d).addToBackStack("new HomeFragment()").commit();

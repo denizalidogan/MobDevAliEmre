@@ -68,7 +68,7 @@ public class LandScapeFragment extends Fragment {
         firebaseAuth = firebaseAuth.getInstance();
         eventRecyclerAdapter = new EventRecyclerAdapter(event_list, user_list);
 
-        event_list_view.setLayoutManager(new GridLayoutManager(container.getContext(), 2));
+        event_list_view.setLayoutManager(new GridLayoutManager(container.getContext(), 1));
         event_list_view.setAdapter(eventRecyclerAdapter);
 
         if (firebaseAuth.getCurrentUser() != null) {
