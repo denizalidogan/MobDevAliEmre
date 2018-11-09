@@ -233,6 +233,8 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 //                intent.putExtra("EVENT_POST_ID", eventPostId);
 //                intent.putExtra("EVENT_TITLE", title);
 //                context.startActivity(intent);
+                    HomeFragment h = new HomeFragment();
+
                         DetailFragment d = new DetailFragment();
                         Bundle b = new Bundle();
                         b.putString("EVENT_POST_ID", eventPostId);
@@ -240,7 +242,8 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
                         d.setArguments(b);
                         FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
                         manager.beginTransaction().hide(new HomeFragment()).commit();
-                        manager.beginTransaction().replace(R.id.homeId, d).addToBackStack("new HomeFragment()").commit();
+                        //manager.beginTransaction().replace(R.id.homeId, d).addToBackStack("new HomeFragment()").commit();
+                        manager.beginTransaction().add(R.id.detailLayout, d).commit();
                 }
             });
 
