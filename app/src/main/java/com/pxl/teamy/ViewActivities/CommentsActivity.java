@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -23,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pxl.teamy.Adapters.CommentsRecyclerAdapter;
 import com.pxl.teamy.DomainClasses.Comments;
+import com.pxl.teamy.DomainClasses.User;
 import com.pxl.teamy.R;
 
 import java.util.ArrayList;
@@ -41,7 +43,7 @@ public class CommentsActivity extends AppCompatActivity {
     private RecyclerView comment_list;
     private CommentsRecyclerAdapter commentsRecyclerAdapter;
     private List<Comments> commentsList;
-
+    private List<User> userList;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
 
@@ -69,7 +71,8 @@ public class CommentsActivity extends AppCompatActivity {
 
         //RecyclerView Firebase List
         commentsList = new ArrayList<>();
-        commentsRecyclerAdapter = new CommentsRecyclerAdapter(commentsList);
+        userList = new ArrayList<>();
+        commentsRecyclerAdapter = new CommentsRecyclerAdapter(commentsList, userList);
         comment_list.setHasFixedSize(true);
         comment_list.setLayoutManager(new LinearLayoutManager(this));
         comment_list.setAdapter(commentsRecyclerAdapter);
@@ -87,9 +90,27 @@ public class CommentsActivity extends AppCompatActivity {
                                 if (doc.getType() == DocumentChange.Type.ADDED) {
 
                                     String commentId = doc.getDocument().getId();
-                                    Comments comments = doc.getDocument().toObject(Comments.class);
-                                    commentsList.add(comments);
-                                    commentsRecyclerAdapter.notifyDataSetChanged();
+                                    final Comments comments = doc.getDocument().toObject(Comments.class);
+
+                                    firebaseFirestore.collection("Users").document(comments.getUser_id()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            if(task.isSuccessful()){
+
+                                                User user = task.getResult().toObject(User.class);
+
+                                                commentsList.add(comments);
+                                                userList.add(user);
+                                                commentsRecyclerAdapter.notifyDataSetChanged();
+                                            }
+
+                                        }
+                                    });
+
+
+
+
+
 
 
                                 }
