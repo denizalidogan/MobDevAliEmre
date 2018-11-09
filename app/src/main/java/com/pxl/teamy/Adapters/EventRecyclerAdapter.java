@@ -50,6 +50,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     public List<User> user_list;
     public Context context;
     private boolean mTwoPane;
+    public String maxParticipants = "0";
 
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
@@ -81,11 +82,16 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
         viewHolder.setIsRecyclable(false);
 
-        String desc_data = event_list.get(i).getDesc();
-        String image_url = event_list.get(i).getImage_uri();
-        String event_user_id = event_list.get(i).getUser_id();
         String title_data = event_list.get(i).getTitle();
+        String desc_data = event_list.get(i).getDesc();
         String location = event_list.get(i).getLocation();
+        maxParticipants = event_list.get(i).getMaxParticipants();
+        String image_url = event_list.get(i).getImage_uri();
+        final String user_id = event_list.get(i).getUser_id();
+        String thumbUrl = event_list.get(i).getImage_thumb();
+        final String eventPostId = event_list.get(i).EventPostId;
+        final String currentUserId = firebaseAuth.getCurrentUser().getUid();
+        final String title = event_list.get(i).title;
 
 
 
@@ -93,15 +99,10 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         String userImage = user_list.get(i).getImage();
 
         viewHolder.setUserData(userName, userImage);
-
-
-
-
-        String thumbUrl = event_list.get(i).getImage_thumb();
-        final String maxParticipants = event_list.get(i).getMaxParticipants();
-        final String eventPostId = event_list.get(i).EventPostId;
-        final String currentUserId = firebaseAuth.getCurrentUser().getUid();
-        final String title = event_list.get(i).title;
+        viewHolder.setTitleText(title_data);
+        viewHolder.setLocationText(location);
+        viewHolder.setCountText(maxParticipants + " Max Participants");
+        viewHolder.setEventImage(image_url,thumbUrl);
 
 //        if(event_user_id.equals(currentUserId)){
 //            viewHolder.btnEventDelete.setEnabled(true);
@@ -110,7 +111,6 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
 
 
-        viewHolder.setDescText(desc_data);
         viewHolder.setEventImage(image_url, thumbUrl);
 
 
@@ -329,14 +329,14 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         private TextView descView;
         private ImageView eventImageView;
         private TextView eventCreatedDate;
-        //private Button btnEventDelete;
+        private TextView countView;
+        private TextView titleView;
+        private TextView locationView;
+
         private TextView eventUserName;
         private CircleImageView eventUserImage;
         private ImageView eventJoinBtn;
         private TextView eventJoinCount;
-
-        //private ImageView eventCommentBtn;
-
 
         private ConstraintLayout detailpage;
 
@@ -352,9 +352,19 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
         }
 
-        public void setDescText(String descText) {
-            descView = mView.findViewById(R.id.event_desc);
-            descView.setText(descText);
+        public void setCountText(String countText) {
+            countView = mView.findViewById(R.id.event_count);
+            countView.setText(countText);
+        }
+
+        public void setTitleText(String titleText) {
+            titleView = mView.findViewById(R.id.event_title);
+            titleView.setText(titleText);
+        }
+
+        public void setLocationText(String locationText) {
+            locationView = mView.findViewById(R.id.event_adress);
+            locationView.setText(locationText);
         }
 
         public void setEventImage(String downloadUrl, String thumbUrl) {
@@ -389,7 +399,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
         public void updateJoinersCount(int count, String maxParticipants) {
 
-            eventJoinCount = mView.findViewById(R.id.event_join_count);
+            eventJoinCount = mView.findViewById(R.id.event_count);
 
 
             if (count < 1)
