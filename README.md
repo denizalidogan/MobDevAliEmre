@@ -7,7 +7,7 @@ De gebruiker zal kunnen inloggen en registreren waarbij de gebruiker ook na het 
 
 De gebruiker zal verder een event kunnen aanmaken waarbij het keuze bestaat tussen aantal deelnemers, locatie, vereiste,...
 
-Na het joinen van een event krijgt een gebruiker een herinnering (Push notification)
+Gebruiker kan eventen verwijderen, commentaar toevoegen.
 
 Events kunnen opgezocht worden m.b.v. een searchbar die opzoekt via titel. Ook kunnen events in categorieën verdeelt worden.
 
