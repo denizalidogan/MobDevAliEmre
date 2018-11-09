@@ -1,12 +1,16 @@
 package com.pxl.teamy.ViewActivities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -19,8 +23,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.type.Color;
 import com.pxl.teamy.R;
 import com.pxl.teamy.ViewFragments.AccountFragment;
+import com.pxl.teamy.ViewFragments.DetailFragment;
 import com.pxl.teamy.ViewFragments.HomeFragment;
 import com.pxl.teamy.ViewFragments.NotificationFragment;
 
@@ -33,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton btnAddPost;
     private BottomNavigationView mainBottemNav;
     private HomeFragment homeFragment;
+    private DetailFragment detailFragment;
     private NotificationFragment notificationFragment;
     private AccountFragment accountFragment;
 
@@ -49,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             mainToolbar = (Toolbar) findViewById(R.id.main_toolbar);
             setSupportActionBar(mainToolbar);
 
-            getSupportActionBar().setTitle("Teamy");
+          //  getSupportActionBar().setTitle("Teamy");
 
 
             mainBottemNav = findViewById(R.id.mainBottomNav);
@@ -58,8 +65,11 @@ public class MainActivity extends AppCompatActivity {
             homeFragment = new HomeFragment();
             notificationFragment = new NotificationFragment();
             accountFragment = new AccountFragment();
+            detailFragment = new DetailFragment();
 
             initializeFragment();
+
+
 
             mainBottemNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -70,17 +80,29 @@ public class MainActivity extends AppCompatActivity {
                     switch (item.getItemId()) {
 
                         case R.id.bottom_action_home:
+                            getSupportActionBar().setTitle("Teamy");
 
+                            getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(),R.drawable.gradient_bg_toolbar));
                             replaceFragment(homeFragment, currentFragment);
+                            getSupportActionBar().show();
                             return true;
 
                         case R.id.bottom_action_myaccount:
+
+                           getSupportActionBar().setTitle("My Account");
+
+                            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xff12c2e9));
+
+
 
                             replaceFragment(accountFragment, currentFragment);
                             return true;
 
                         case R.id.bottom_action_notification:
+                            getSupportActionBar().setTitle("Notifications");
+                            getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(),R.drawable.gradient_bg_toolbar));
 
+                            getSupportActionBar().show();
                             replaceFragment(notificationFragment, currentFragment);
                             return true;
 
@@ -101,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
 
     @Override
     protected void onStart() {
@@ -179,15 +202,17 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.main_container, homeFragment);
         fragmentTransaction.add(R.id.main_container, notificationFragment);
         fragmentTransaction.add(R.id.main_container, accountFragment);
+        fragmentTransaction.add(R.id.main_container, detailFragment);
 
         fragmentTransaction.hide(notificationFragment);
         fragmentTransaction.hide(accountFragment);
+        fragmentTransaction.hide(detailFragment);
 
         fragmentTransaction.commit();
 
     }
 
-    private void replaceFragment(Fragment fragment, Fragment currentFragment){
+    public void replaceFragment(Fragment fragment, Fragment currentFragment){
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if(fragment == homeFragment){
@@ -197,10 +222,19 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        if(fragment == detailFragment){
+
+            fragmentTransaction.hide(accountFragment);
+            fragmentTransaction.hide(notificationFragment);
+            fragmentTransaction.hide(homeFragment);
+
+        }
+
         if(fragment == accountFragment){
 
             fragmentTransaction.hide(homeFragment);
             fragmentTransaction.hide(notificationFragment);
+            fragmentTransaction.hide(detailFragment);
 
         }
 
@@ -208,6 +242,7 @@ public class MainActivity extends AppCompatActivity {
 
             fragmentTransaction.hide(homeFragment);
             fragmentTransaction.hide(accountFragment);
+            fragmentTransaction.hide(detailFragment);
 
         }
         fragmentTransaction.show(fragment);

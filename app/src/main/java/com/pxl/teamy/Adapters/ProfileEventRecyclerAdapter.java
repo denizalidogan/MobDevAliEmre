@@ -2,8 +2,11 @@ package com.pxl.teamy.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,9 +27,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pxl.teamy.DomainClasses.EventPost;
+import com.pxl.teamy.DomainClasses.Statics;
 import com.pxl.teamy.R;
-import com.pxl.teamy.ViewActivities.DetailActivity;
-import com.pxl.teamy.ViewActivities.DetaillActivity;
+import com.pxl.teamy.ViewFragments.DetailFragment;
+import com.pxl.teamy.ViewFragments.HomeFragment;
 
 import java.util.HashMap;
 import java.util.List;
@@ -226,10 +230,22 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
         viewHolder.detailpage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, DetaillActivity.class);
-                intent.putExtra("EVENT_POST_ID", eventPostId);
-                intent.putExtra("EVENT_TITLE", title);
-                context.startActivity(intent);
+//                Intent intent = new Intent(context, DetailFragment.class);
+//                intent.putExtra("EVENT_POST_ID", eventPostId);
+//                intent.putExtra("EVENT_TITLE", title);
+//                context.startActivity(intent);
+
+                DetailFragment d = new DetailFragment();
+                Bundle b = new Bundle();
+                b.putString("EVENT_POST_ID", eventPostId);
+                b.putString("EVENT_TITLE", title);
+                d.setArguments(b);
+                FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
+                manager.beginTransaction().hide(new HomeFragment()).commit();
+
+                    //portrait
+
+                    manager.beginTransaction().replace(R.id.layoutHome, d).addToBackStack("new AccountFragment()").commit();
             }
         });
 

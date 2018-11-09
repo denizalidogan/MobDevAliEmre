@@ -1,14 +1,20 @@
 package com.pxl.teamy.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,7 +22,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -26,11 +31,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pxl.teamy.DomainClasses.EventPost;
+import com.pxl.teamy.DomainClasses.Statics;
 import com.pxl.teamy.DomainClasses.User;
 import com.pxl.teamy.R;
-import com.pxl.teamy.ViewActivities.CommentsActivity;
-import com.pxl.teamy.ViewActivities.DetailActivity;
-import com.pxl.teamy.ViewActivities.DetaillActivity;
+import com.pxl.teamy.ViewActivities.MainActivity;
+import com.pxl.teamy.ViewFragments.DetailFragment;
+import com.pxl.teamy.ViewFragments.HomeFragment;
 
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +49,8 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     public List<EventPost> event_list;
     public List<User> user_list;
     public Context context;
+    private boolean mTwoPane;
+    public String maxParticipants = "0";
 
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
@@ -59,7 +67,13 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         context = viewGroup.getContext();
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
+
+        if (view.findViewById(R.id.detailLayout) != null) {
+            mTwoPane = true;
+        }
+
         return new ViewHolder(view);
+
     }
 
     @Override
@@ -68,11 +82,16 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
         viewHolder.setIsRecyclable(false);
 
-        String desc_data = event_list.get(i).getDesc();
-        String image_url = event_list.get(i).getImage_uri();
-        String event_user_id = event_list.get(i).getUser_id();
         String title_data = event_list.get(i).getTitle();
+        String desc_data = event_list.get(i).getDesc();
         String location = event_list.get(i).getLocation();
+        maxParticipants = event_list.get(i).getMaxParticipants();
+        String image_url = event_list.get(i).getImage_uri();
+        final String user_id = event_list.get(i).getUser_id();
+        String thumbUrl = event_list.get(i).getImage_thumb();
+        final String eventPostId = event_list.get(i).EventPostId;
+        final String currentUserId = firebaseAuth.getCurrentUser().getUid();
+        final String title = event_list.get(i).title;
 
 
 
@@ -80,15 +99,10 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         String userImage = user_list.get(i).getImage();
 
         viewHolder.setUserData(userName, userImage);
-
-
-
-
-        String thumbUrl = event_list.get(i).getImage_thumb();
-        final String maxParticipants = event_list.get(i).getMaxParticipants();
-        final String eventPostId = event_list.get(i).EventPostId;
-        final String currentUserId = firebaseAuth.getCurrentUser().getUid();
-        final String title = event_list.get(i).title;
+        viewHolder.setTitleText(title_data);
+        viewHolder.setLocationText(location);
+        viewHolder.setCountText(maxParticipants + " Max Participants");
+        viewHolder.setEventImage(image_url,thumbUrl);
 
 //        if(event_user_id.equals(currentUserId)){
 //            viewHolder.btnEventDelete.setEnabled(true);
@@ -97,7 +111,6 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
 
 
-        viewHolder.setDescText(desc_data);
         viewHolder.setEventImage(image_url, thumbUrl);
 
 
@@ -213,17 +226,60 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
 
         });
+            viewHolder.detailpage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Intent intent = new Intent(context, DetailActivity.class);
+//                Intent intent = new Intent(context, DetailFragment.class);
+//                intent.putExtra("EVENT_POST_ID", eventPostId);
+//                intent.putExtra("EVENT_TITLE", title);
+//                context.startActivity(intent);
+                    HomeFragment h = new HomeFragment();
 
-        viewHolder.detailpage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Intent intent = new Intent(context, DetailActivity.class);
-                Intent intent = new Intent(context, DetaillActivity.class);
-                intent.putExtra("EVENT_POST_ID", eventPostId);
-                intent.putExtra("EVENT_TITLE", title);
-                context.startActivity(intent);
-            }
-        });
+                        DetailFragment d = new DetailFragment();
+                        Bundle b = new Bundle();
+                        b.putString("EVENT_POST_ID", eventPostId);
+                        b.putString("EVENT_TITLE", title);
+                        d.setArguments(b);
+                        FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
+                        manager.beginTransaction().hide(new HomeFragment()).commit();
+
+                        if(Statics.isIsLandscape()){
+                            //landscape
+                            Statics.setEventpostId(eventPostId);
+                            manager.beginTransaction().add(R.id.detailLayout, d).commit();
+                        }
+
+                        else{
+                            //portrait
+                            manager.beginTransaction().replace(R.id.homeId, d).addToBackStack("new HomeFragment()").commit();
+
+                        }
+                }
+            });
+
+
+
+       // viewHolder.detailpage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //Intent intent = new Intent(context, DetailActivity.class);
+////                Intent intent = new Intent(context, DetailFragment.class);
+////                intent.putExtra("EVENT_POST_ID", eventPostId);
+////                intent.putExtra("EVENT_TITLE", title);
+////                context.startActivity(intent);
+//                DetailFragment d = new DetailFragment();
+//                Bundle b = new Bundle();
+//                b.putString("EVENT_POST_ID", eventPostId);
+//                b.putString("EVENT_TITLE", title);
+//                d.setArguments(b);
+//                FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
+//                manager.beginTransaction().hide(new HomeFragment()).commit();
+//                manager.beginTransaction().replace(R.id.homeId, d).commit();
+//            }
+//        });
+
+
 
 //        viewHolder.btnEventDelete.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -256,6 +312,12 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
     }
 
+    public static boolean isTablet(Context context) {
+        return (context.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
 
     @Override
     public int getItemCount() {
@@ -267,14 +329,14 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         private TextView descView;
         private ImageView eventImageView;
         private TextView eventCreatedDate;
-        //private Button btnEventDelete;
+        private TextView countView;
+        private TextView titleView;
+        private TextView locationView;
+
         private TextView eventUserName;
         private CircleImageView eventUserImage;
         private ImageView eventJoinBtn;
         private TextView eventJoinCount;
-
-        //private ImageView eventCommentBtn;
-
 
         private ConstraintLayout detailpage;
 
@@ -290,9 +352,19 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
         }
 
-        public void setDescText(String descText) {
-            descView = mView.findViewById(R.id.event_desc);
-            descView.setText(descText);
+        public void setCountText(String countText) {
+            countView = mView.findViewById(R.id.event_count);
+            countView.setText(countText);
+        }
+
+        public void setTitleText(String titleText) {
+            titleView = mView.findViewById(R.id.event_title);
+            titleView.setText(titleText);
+        }
+
+        public void setLocationText(String locationText) {
+            locationView = mView.findViewById(R.id.event_adress);
+            locationView.setText(locationText);
         }
 
         public void setEventImage(String downloadUrl, String thumbUrl) {
@@ -327,7 +399,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
         public void updateJoinersCount(int count, String maxParticipants) {
 
-            eventJoinCount = mView.findViewById(R.id.event_join_count);
+            eventJoinCount = mView.findViewById(R.id.event_count);
 
 
             if (count < 1)

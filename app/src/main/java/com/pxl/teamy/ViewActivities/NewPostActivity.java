@@ -100,7 +100,7 @@ public class NewPostActivity extends AppCompatActivity implements ConnectionCall
 
     private String current_user_id;
     private Bitmap compressedImageFile;
-
+    private static final int PERMISSIONS_REQUEST_FINE_LOCATION = 111;
 
 
     private PlaceListAdapter mAdapter;
@@ -119,6 +119,14 @@ public class NewPostActivity extends AppCompatActivity implements ConnectionCall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
+
+        if (ActivityCompat.checkSelfPermission(NewPostActivity.this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(NewPostActivity.this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST_FINE_LOCATION);
+        }
 
 
         // Set up the recycler view
