@@ -39,8 +39,6 @@ import javax.annotation.Nullable;
  * A simple {@link Fragment} subclass.
  */
 public class AccountFragment extends Fragment {
-
-
     private String user_id;
     private ImageView setupImage;
     private Uri mainImageURI = null;
@@ -141,8 +139,6 @@ public class AccountFragment extends Fragment {
 
                         }
                     }
-
-
                 }
             });
         }
@@ -150,7 +146,6 @@ public class AccountFragment extends Fragment {
         firebaseFirestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
 
                 //Does the colllection excist?
                 if (task.isSuccessful()) {
@@ -219,5 +214,4 @@ public class AccountFragment extends Fragment {
             }
         });
     }
-
 }

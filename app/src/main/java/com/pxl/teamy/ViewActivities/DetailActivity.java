@@ -20,10 +20,8 @@ import com.pxl.teamy.R;
 
 
 public class DetailActivity extends AppCompatActivity {
-
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
-
     private ImageView detailImageView;
     private TextView detailPostDesc;
     private TextView detailPostDate;
@@ -31,22 +29,15 @@ public class DetailActivity extends AppCompatActivity {
     private TextView detailPostLocation;
     private TextView detailPostMaxPart;
     private TextView detailPostTitle;
-
     private ProgressBar detailPostProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailevent);
-
-//        Toolbar setupToolbar = findViewById(R.id.setupToolbar);
-//        setSupportActionBar(setupToolbar);
-//        getSupportActionBar().setTitle("Account Setup");
-
         firebaseAuth = FirebaseAuth.getInstance();
 
         firebaseFirestore = FirebaseFirestore.getInstance();
-
         detailImageView = findViewById(R.id.detail_post_image);
         detailPostDesc = findViewById(R.id.detail_post_desc);
         detailPostDate = findViewById(R.id.detail_post_date);
@@ -67,7 +58,6 @@ public class DetailActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     // User exist?
                     if (task.getResult().exists()) {
-
                         String date = task.getResult().getString("date");
                         String desc = task.getResult().getString("desc");
                         String image = task.getResult().getString("image_url");
@@ -77,7 +67,6 @@ public class DetailActivity extends AppCompatActivity {
                         String title = task.getResult().getString("title");
                         String user_id = task.getResult().getString("user_id");
 
-
                         detailImageView.setImageURI(Uri.parse(image));
                         detailPostDate.setText(date);
                         detailPostDesc.setText(desc);
@@ -86,18 +75,13 @@ public class DetailActivity extends AppCompatActivity {
                         detailPostTime.setText(time);
                         detailPostTitle.setText(title);
 
-//                        RequestOptions placeholderRequest = new RequestOptions();
-//                        placeholderRequest.placeholder(R.drawable.default_image);
-
                         Glide.with(DetailActivity.this).load(image).into(detailImageView);
                     }
 
                 } else {
-
                     String error = task.getException().getMessage();
                     Toast.makeText(DetailActivity.this, "(FIRESTORE Retrieve Error) : " + error, Toast.LENGTH_LONG).show();
                 }
-
                 detailPostProgress.setVisibility(View.INVISIBLE);
             }
         });

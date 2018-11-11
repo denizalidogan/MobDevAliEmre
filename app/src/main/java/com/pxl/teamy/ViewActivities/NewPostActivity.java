@@ -29,8 +29,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -44,8 +42,6 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
-
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -63,7 +59,6 @@ import com.pxl.teamy.R;
 import com.pxl.teamy.provider.PlaceContract;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -76,7 +71,6 @@ import java.util.UUID;
 
 public class NewPostActivity extends AppCompatActivity implements ConnectionCallbacks,
         OnConnectionFailedListener {
-
 
     private Toolbar newPostToolbar;
     private ImageView newPostImage;
@@ -100,15 +94,12 @@ public class NewPostActivity extends AppCompatActivity implements ConnectionCall
     private String current_user_id;
     private Bitmap compressedImageFile;
     private static final int PERMISSIONS_REQUEST_FINE_LOCATION = 111;
-
-
     private PlaceListAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private GoogleApiClient mClient;
     private Geofencing mGeofencing;
     private boolean mIsEnabled;
     private static final int PLACE_PICKER_REQUEST = 1;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,10 +119,7 @@ public class NewPostActivity extends AppCompatActivity implements ConnectionCall
         mRecyclerView = (RecyclerView) findViewById(R.id.places_list_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
         mAdapter = new PlaceListAdapter(this, null);
-
-
         mRecyclerView.setAdapter(mAdapter);
 
         mClient = new GoogleApiClient.Builder(this)
@@ -151,16 +139,10 @@ public class NewPostActivity extends AppCompatActivity implements ConnectionCall
 
         current_user_id = firebaseAuth.getCurrentUser().getUid();
 
-        //      newPostToolbar = findViewById(R.id.new_post_toolbar);
-//        setSupportActionBar(newPostToolbar);
-//        getSupportActionBar().setTitle("Add New Post");
-
-
         newPostImage = findViewById(R.id.new_post_image);
         newPostDesc = findViewById(R.id.new_post_desc);
         newPostDate = findViewById(R.id.new_post_date);
         newPostTime = findViewById(R.id.new_post_time);
-        // newPostLocation = findViewById(R.id.new_post_location);
         newPostMaxPart = findViewById(R.id.new_post_max);
         newPostBtn = findViewById(R.id.btnPost);
         newPostProgress = findViewById(R.id.new_post_progress);
@@ -169,7 +151,6 @@ public class NewPostActivity extends AppCompatActivity implements ConnectionCall
         newPostImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .setMinCropResultSize(512, 512)
@@ -375,14 +356,11 @@ public class NewPostActivity extends AppCompatActivity implements ConnectionCall
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
-
                 postImageUri = result.getUri();
                 newPostImage.setImageURI(postImageUri);
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-
                 Exception error = result.getError();
-
             }
         }
 

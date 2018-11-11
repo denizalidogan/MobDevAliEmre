@@ -41,8 +41,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEventRecyclerAdapter.ViewHolder> {
 
     public List<EventPost> event_list;
-
-
     public Context context;
 
     private FirebaseFirestore firebaseFirestore;
@@ -81,21 +79,14 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
         firebaseFirestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
                 if (task.isSuccessful()) {
-
                     String userName = task.getResult().getString("name");
                     String userImage = task.getResult().getString("image");
-
                     viewHolder.setUserData(userName, userImage);
-
-
                 } else {
 
                     //Firebase Exception
                 }
-
-
             }
         });
 
@@ -103,22 +94,7 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
         viewHolder.setLocationText(location);
         viewHolder.setCountText(maxParticipants + " Max Participants");
         viewHolder.setEventImage(image_url, thumbUrl);
-
-
-//        // SimpleDateFormat formatter = new SimpleDateFormat("dd:HH:mm:ss");
-//
-//
-//        long  milliseconds = Long.parseLong(event_list.get(i).getTime());
-//
-//        String dateString = android.text.format.DateFormat.format("dd/MM/yyyy", new Date(milliseconds)).toString();
-//
-//
-//        Date date = new Date(milliseconds);
-//        String dateString2 = formatter.format(date);
-
-
         viewHolder.setTime(event_list.get(i).getDate() + " " + event_list.get(i).getTime());
-
 
         //Get Likes Count
         firebaseFirestore.collection("Posts/" + eventPostId + "/Likes").addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -126,13 +102,10 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
 
                 if (!documentSnapshots.isEmpty()) {
-
                     int count = documentSnapshots.size();
-
                     viewHolder.updateJoinersCount(count, maxParticipants);
 
                 } else {
-
                     viewHolder.updateJoinersCount(0, maxParticipants);
 
                 }
@@ -145,50 +118,22 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
         firebaseFirestore.collection("Posts/" + eventPostId + "/Likes").document(currentUserId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
-
                 if (documentSnapshot.exists()) {
-
                     viewHolder.eventJoinBtn.setImageDrawable(context.getDrawable(R.mipmap.action_join_color));
 
                 } else {
-
                     viewHolder.eventJoinBtn.setImageDrawable(context.getDrawable(R.mipmap.action_join_accent));
 
                 }
-
             }
         });
-
-
-        //get Likes
-
-
-//
-//        firebaseFirestore.collection("Posts").document(eventPostId).collection("Likes").document(currentUserId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-//
-//                if(!documentSnapshot.exists()){
-//                    viewHolder.eventJoinBtn.setImageDrawable(context.getDrawable(R.mipmap.action_join_accent));
-//
-//                }
-//
-//                else{
-//                    viewHolder.eventJoinBtn.setImageDrawable(context.getDrawable(R.mipmap.action_join_color));
-//                }
-//
-//            }
-//        });
-
 
         viewHolder.eventJoinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 firebaseFirestore.collection("Posts").document(eventPostId).collection("Likes").document(currentUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
                         if (!task.getResult().exists()) {
                             Map<String, Object> JoinersMap = new HashMap<>();
                             JoinersMap.put("timestamp", FieldValue.serverTimestamp());
@@ -203,14 +148,9 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
 
                             firebaseFirestore.collection("Posts").document(eventPostId).collection("Likes").document(currentUserId).delete();
                             Toast.makeText(context, "You have left the event!", Toast.LENGTH_LONG).show();
-
                         }
-
-
                     }
                 });
-
-
             }
 
 
@@ -219,11 +159,6 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
         viewHolder.detailpage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(context, DetailFragment.class);
-//                intent.putExtra("EVENT_POST_ID", eventPostId);
-//                intent.putExtra("EVENT_TITLE", title);
-//                context.startActivity(intent);
-
                 DetailFragment d = new DetailFragment();
                 Bundle b = new Bundle();
                 b.putString("EVENT_POST_ID", eventPostId);
@@ -231,14 +166,10 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
                 d.setArguments(b);
                 FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
                 manager.beginTransaction().hide(new HomeFragment()).commit();
-
                 //portrait
-
                 manager.beginTransaction().replace(R.id.layoutHome, d).addToBackStack("new AccountFragment()").commit();
             }
         });
-
-
     }
 
 
@@ -246,7 +177,6 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
     public int getItemCount() {
         return event_list.size();
     }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         private View mView;
         private TextView descView;
@@ -255,19 +185,15 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
         private TextView countView;
         private TextView titleView;
         private TextView locationView;
-
         private TextView eventUserName;
         private CircleImageView eventUserImage;
         private ImageView eventJoinBtn;
         private TextView eventJoinCount;
-
         private ConstraintLayout detailpage;
-
 
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-
             eventJoinBtn = mView.findViewById(R.id.event_join_btn);
             detailpage = mView.findViewById(R.id.detailpage);
 
@@ -305,34 +231,22 @@ public class ProfileEventRecyclerAdapter extends RecyclerView.Adapter<ProfileEve
         public void setUserData(String name, String image) {
             eventUserImage = mView.findViewById(R.id.event_user_image);
             eventUserName = mView.findViewById(R.id.event_Username);
-
             eventUserName.setText(name);
 
             RequestOptions placeholderOption = new RequestOptions();
             placeholderOption.placeholder(R.drawable.profile_placeholder);
 
-
             Glide.with(context).applyDefaultRequestOptions(placeholderOption).load(image).into(eventUserImage);
-
-
         }
 
         public void updateJoinersCount(int count, String maxParticipants) {
-
             eventJoinCount = mView.findViewById(R.id.event_count);
-
-
             if (count < 1)
                 eventJoinCount.setText(count + " / " + maxParticipants);
             else
                 eventJoinCount.setText(count + " / " + maxParticipants);
-
         }
-
-
     }
-
-
 }
 
 

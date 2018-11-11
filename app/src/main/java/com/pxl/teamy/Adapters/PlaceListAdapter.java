@@ -33,7 +33,6 @@ import com.pxl.teamy.R;
 import com.pxl.teamy.ViewActivities.DetailActivity;
 
 public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.PlaceViewHolder> {
-
     private Context mContext;
     private PlaceBuffer mPlaces;
 
@@ -66,14 +65,8 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.Plac
         holder.post_locmaps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(context, DetailActivity.class);
-//                intent.putExtra("EVENT_POST_ID", eventPostId);
-//                context.startActivity(intent);
-
                 notifyDataSetChanged();
-
                 holder.post_locmaps.setBackgroundColor(Color.CYAN);
-
 
             }
         });
@@ -115,14 +108,9 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.Plac
             super(itemView);
 
             post_locmaps = itemView.findViewById(R.id.post_locmaps);
-
-
             nameTextView = (TextView) itemView.findViewById(R.id.name_text_view);
             addressTextView = (TextView) itemView.findViewById(R.id.address_text_view);
 
-
         }
-
-
     }
 }

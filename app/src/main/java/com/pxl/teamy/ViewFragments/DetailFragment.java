@@ -180,15 +180,6 @@ public class DetailFragment extends Fragment {
                         @Override
                         public void onSuccess(Void aVoid) {
 
-//                        for(int i = 0; i <= event_list.size(); i++){
-//                            if(event_list.get(i).EventPostId == eventpostid){
-//                                event_list.remove(i);
-//                            }
-//                        }
-                            //event_list.remove(eventRecyclerAdapter.getItemNumber());
-                            //user_list.remove(eventRecyclerAdapter.getItemNumber());
-                            //Intent mainIntent = new Intent(getContext(), HomeFragment.class);
-                            //startActivity(mainIntent);
                             FragmentManager manager = getActivity().getSupportFragmentManager();
 
                             if (Statics.isIsLandscape()) {
@@ -199,92 +190,11 @@ public class DetailFragment extends Fragment {
                                 startActivity(intent);
                             }
                             //portrait
-
                         }
                     });
-
                 }
             });
         }
-// else{
-//            firebaseFirestore.collection("Posts").document(Statics.getEventpostId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                @Override
-//                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//
-//
-//                    //Does the colllection excist?
-//                    if (task.isSuccessful()) {
-//                        // User exist?
-//                        if (task.getResult().exists()) {
-//
-//                            String date = task.getResult().getString("date");
-//                            String desc = task.getResult().getString("desc");
-//                            String image = task.getResult().getString("image_url");
-//                            String location = task.getResult().getString("location");
-//                            String max = task.getResult().getString("maxParticipants");
-//                            String time = task.getResult().getString("time");
-//                            String title = task.getResult().getString("title");
-//                            String user_id = task.getResult().getString("user_id");
-//
-//
-//                            detailImageView.setImageURI(Uri.parse(image));
-//                            detailPostDate.setText(date);
-//                            detailPostDesc.setText(desc);
-//                            detailPostLocation.setText(location);
-//                            detailPostMaxPart.setText(max);
-//                            detailPostTime.setText(time);
-//                            //detailPostTitle.setText(title);
-//                            //
-//
-//
-////                        RequestOptions placeholderRequest = new RequestOptions();
-////                        placeholderRequest.placeholder(R.drawable.default_image);
-//                            Glide.with(DetailFragment.this).load(image).into(detailImageView);
-//
-//                            final String currentUserId = firebaseAuth.getCurrentUser().getUid();
-//
-//
-//                            if (user_id.equals(currentUserId)) {
-//                                deleteBtn.setEnabled(true);
-//                                deleteBtn.setVisibility(View.VISIBLE);
-//                            }
-//                        }
-//
-//                    } else {
-//
-//                        String error = task.getException().getMessage();
-//                        Toast.makeText(getContext(), "(FIRESTORE Retrieve Error) : " + error, Toast.LENGTH_LONG).show();
-//                    }
-//
-//                    detailPostProgress.setVisibility(View.INVISIBLE);
-//                }
-//            });
-//
-//            deleteBtn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                    firebaseFirestore.collection("Posts").document(Statics.getEventpostId()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void aVoid) {
-//
-////                        for(int i = 0; i <= event_list.size(); i++){
-////                            if(event_list.get(i).EventPostId == eventpostid){
-////                                event_list.remove(i);
-////                            }
-////                        }
-//                            //event_list.remove(eventRecyclerAdapter.getItemNumber());
-//                            //user_list.remove(eventRecyclerAdapter.getItemNumber());
-//                            Intent mainIntent = new Intent(getContext(), HomeFragment.class);
-//                            startActivity(mainIntent);
-//                        }
-//                    });
-//
-//                }
-//            });
-//        }
-
-
         return view;
     }
 
@@ -300,6 +210,4 @@ public class DetailFragment extends Fragment {
         isFirstPageFirstLoad = true;
         super.onAttach(context);
     }
-
-
 }

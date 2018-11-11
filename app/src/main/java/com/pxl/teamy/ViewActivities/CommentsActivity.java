@@ -34,19 +34,15 @@ import java.util.Map;
 
 
 public class CommentsActivity extends AppCompatActivity {
-
     private Toolbar commentToolbar;
-
     private EditText comment_field;
     private ImageView comment_post_btn;
-
     private RecyclerView comment_list;
     private CommentsRecyclerAdapter commentsRecyclerAdapter;
     private List<Comments> commentsList;
     private List<User> userList;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
-
     private String event_post_id;
     private String current_user_id;
 
@@ -77,18 +73,13 @@ public class CommentsActivity extends AppCompatActivity {
         comment_list.setLayoutManager(new LinearLayoutManager(this));
         comment_list.setAdapter(commentsRecyclerAdapter);
 
-
         firebaseFirestore.collection("Posts/" + event_post_id + "/Comments")
                 .addSnapshotListener(CommentsActivity.this, new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-
                         if (!documentSnapshots.isEmpty()) {
-
                             for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
-
                                 if (doc.getType() == DocumentChange.Type.ADDED) {
-
                                     String commentId = doc.getDocument().getId();
                                     final Comments comments = doc.getDocument().toObject(Comments.class);
 
@@ -96,33 +87,23 @@ public class CommentsActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                             if (task.isSuccessful()) {
-
                                                 User user = task.getResult().toObject(User.class);
-
                                                 commentsList.add(comments);
                                                 userList.add(user);
                                                 commentsRecyclerAdapter.notifyDataSetChanged();
                                             }
-
                                         }
                                     });
-
-
                                 }
                             }
-
                         }
-
                     }
                 });
 
         comment_post_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String comment_message = comment_field.getText().toString();
-
-
                 Map<String, Object> commentsMap = new HashMap<>();
                 commentsMap.put("message", comment_message);
                 commentsMap.put("user_id", current_user_id);
@@ -131,23 +112,14 @@ public class CommentsActivity extends AppCompatActivity {
                 firebaseFirestore.collection("Posts/" + event_post_id + "/Comments").add(commentsMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {
-
                         if (!task.isSuccessful()) {
-
                             Toast.makeText(CommentsActivity.this, "Error Posting Comment : " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-
                         } else {
-
                             comment_field.setText("");
-
                         }
-
                     }
                 });
-
             }
         });
-
-
     }
 }
