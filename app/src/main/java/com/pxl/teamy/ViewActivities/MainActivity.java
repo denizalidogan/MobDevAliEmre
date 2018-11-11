@@ -249,4 +249,12 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
     }
+
+
+    @Override
+    public void onBackPressed() {
+        //Include the code here
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 }
