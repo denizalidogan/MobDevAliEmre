@@ -33,6 +33,7 @@ import com.pxl.teamy.DomainClasses.Statics;
 import com.pxl.teamy.DomainClasses.User;
 import com.pxl.teamy.R;
 import com.pxl.teamy.ViewActivities.CommentsActivity;
+import com.pxl.teamy.ViewActivities.MainActivity;
 import com.pxl.teamy.ViewFragments.HomeFragment;
 
 import java.util.ArrayList;
@@ -193,8 +194,9 @@ public class DetailFragment extends Fragment {
                             if (Statics.isIsLandscape()) {
                                 manager.beginTransaction().replace(R.id.landscape, new LandScapeFragment()).commit();
                             } else {
-                                manager.beginTransaction().replace(R.id.detailLayout, new HomeFragment()).commit();
-
+                                //manager.beginTransaction().replace(R.id.detailLayout, new HomeFragment()).commit();
+                                Intent intent = new Intent(getActivity(), MainActivity.class);
+                                startActivity(intent);
                             }
                             //portrait
 
