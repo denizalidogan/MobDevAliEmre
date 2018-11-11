@@ -26,7 +26,6 @@ public class RegisterActivity extends AppCompatActivity {
     private Button reg_btn;
     private Button reg_login_btn;
     private ProgressBar reg_progress;
-
     private FirebaseAuth mAuth;
 
     @Override
@@ -35,7 +34,6 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         mAuth = FirebaseAuth.getInstance();
-
 
         reg_email_field = findViewById(R.id.reg_email);
         reg_pass_field = findViewById(R.id.reg_pass);
@@ -61,9 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String confirm_pass = reg_confirm_pass_field.getText().toString();
 
                 if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(pass) & !TextUtils.isEmpty(confirm_pass)) {
-
                     if (pass.equals(confirm_pass)) {
-
                         reg_progress.setVisibility(View.VISIBLE);
 
                         mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -71,7 +67,6 @@ public class RegisterActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
                                 if (task.isSuccessful()) {
-
                                     Intent setupIntent = new Intent(RegisterActivity.this, SetupActivity.class);
                                     startActivity(setupIntent);
                                     finish();
@@ -82,21 +77,17 @@ public class RegisterActivity extends AppCompatActivity {
                                     Toast.makeText(RegisterActivity.this, "Error : " + errorMessage, Toast.LENGTH_LONG).show();
 
                                 }
-
                                 reg_progress.setVisibility(View.INVISIBLE);
-
                             }
                         });
 
                     } else {
-
                         Toast.makeText(RegisterActivity.this, "Confirm Password and Password Field doesn't match.", Toast.LENGTH_LONG).show();
 
                     }
                 }
             }
         });
-
 
     }
 
@@ -112,10 +103,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void sendToMain() {
-
         Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
         startActivity(mainIntent);
         finish();
-
     }
 }

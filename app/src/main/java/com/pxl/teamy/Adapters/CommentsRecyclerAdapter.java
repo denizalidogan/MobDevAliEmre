@@ -43,7 +43,6 @@ public class CommentsRecyclerAdapter extends RecyclerView.Adapter<CommentsRecycl
 
     @Override
     public void onBindViewHolder(final CommentsRecyclerAdapter.ViewHolder holder, int position) {
-
         holder.setIsRecyclable(false);
 
         String commentMessage = commentsList.get(position).getMessage();
@@ -51,27 +50,20 @@ public class CommentsRecyclerAdapter extends RecyclerView.Adapter<CommentsRecycl
 
 
         holder.setComment_ProfImage(user_list.get(position).getImage());
-
         holder.setComment_username(userName);
         holder.setComment_message(commentMessage);
 
 
-//        String date = DateFormat.format("HH:mm:ss dd-MM-yyyy", commentsList.get(position).getTimestamp()).toString();
-//        holder.setComment_date(commentsList.get(position).getTimestamp().toString());
+
     }
 
 
     @Override
     public int getItemCount() {
-
         if (commentsList != null) {
-
             return commentsList.size();
-
         } else {
-
             return 0;
-
         }
 
     }
@@ -79,16 +71,9 @@ public class CommentsRecyclerAdapter extends RecyclerView.Adapter<CommentsRecycl
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private View mView;
-
         private TextView comment_message;
-
-
         private TextView comment_username;
-
-
         private TextView comment_date;
-
-
         private ImageView comment_ProfImage;
 
 
@@ -115,8 +100,6 @@ public class CommentsRecyclerAdapter extends RecyclerView.Adapter<CommentsRecycl
         }
 
         public void setComment_ProfImage(String image) {
-
-
             comment_ProfImage = mView.findViewById(R.id.comment_image);
             RequestOptions placeholderOption = new RequestOptions();
 

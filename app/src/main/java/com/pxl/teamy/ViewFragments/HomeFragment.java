@@ -38,7 +38,6 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -66,12 +65,9 @@ public class HomeFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         context = container.getContext();
-
         event_list = new ArrayList<>();
-
         user_list = new ArrayList<>();
         event_list_view = view.findViewById(R.id.event_list_view);
-
         firebaseAuth = firebaseAuth.getInstance();
         eventRecyclerAdapter = new EventRecyclerAdapter(event_list, user_list);
 
@@ -80,9 +76,7 @@ public class HomeFragment extends Fragment {
 
 
         if (firebaseAuth.getCurrentUser() != null) {
-
             firebaseFirestore = FirebaseFirestore.getInstance();
-
             event_list_view.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -98,17 +92,13 @@ public class HomeFragment extends Fragment {
                 }
             });
 
-
             Query firstQuery = firebaseFirestore.collection("Posts").orderBy("timestamp", Query.Direction.DESCENDING).limit(6);
-
             firstQuery.addSnapshotListener(getActivity(), new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 
                     if (!queryDocumentSnapshots.isEmpty()) {
-
                         if (isFirstPageFirstLoad) {
-
                             lastVisible = queryDocumentSnapshots.getDocuments()
                                     .get(queryDocumentSnapshots.size() - 1);
                             event_list.clear();
@@ -144,15 +134,11 @@ public class HomeFragment extends Fragment {
                                             }
                                             eventRecyclerAdapter.notifyDataSetChanged();
                                         }
-
                                     }
                                 });
-
-
                             }
                         }
                         isFirstPageFirstLoad = false;
-
                     }
                 }
             });
@@ -204,18 +190,13 @@ public class HomeFragment extends Fragment {
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 
                 if (!queryDocumentSnapshots.isEmpty()) {
-
-
                     lastVisible = queryDocumentSnapshots.getDocuments()
                             .get(queryDocumentSnapshots.size() - 1);
 
 
                     for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
                         if (doc.getType() == DocumentChange.Type.ADDED) {
-
-
                             String blogPostId = doc.getDocument().getId();
-
 
                             final EventPost eventPost = doc.getDocument().toObject(EventPost.class).withId(blogPostId);
                             String eventUserId = doc.getDocument().getString("user_id");
@@ -225,22 +206,14 @@ public class HomeFragment extends Fragment {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                     if (task.isSuccessful()) {
-
                                         User user = task.getResult().toObject(User.class);
-
-
                                         //dont load before users are getted
                                         event_list.add(eventPost);
                                         user_list.add(user);
-
-
                                         eventRecyclerAdapter.notifyDataSetChanged();
                                     }
-
                                 }
                             });
-
-
                         }
 
                     }

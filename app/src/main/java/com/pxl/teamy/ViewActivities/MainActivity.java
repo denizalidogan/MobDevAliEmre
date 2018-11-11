@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
 
@@ -57,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
             setSupportActionBar(mainToolbar);
 
             //  getSupportActionBar().setTitle("Teamy");
-
-
             mainBottemNav = findViewById(R.id.mainBottomNav);
 
             //FRAGMENTS
@@ -66,33 +63,25 @@ public class MainActivity extends AppCompatActivity {
             notificationFragment = new NotificationFragment();
             accountFragment = new AccountFragment();
             detailFragment = new DetailFragment();
-
             initializeFragment();
 
 
             mainBottemNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
                     Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.main_container);
 
                     switch (item.getItemId()) {
-
                         case R.id.bottom_action_home:
                             getSupportActionBar().setTitle("Teamy");
-
                             getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.gradient_bg_toolbar));
                             replaceFragment(homeFragment, currentFragment);
                             getSupportActionBar().show();
                             return true;
 
                         case R.id.bottom_action_myaccount:
-
                             getSupportActionBar().setTitle("My Account");
-
                             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xff12c2e9));
-
-
                             replaceFragment(accountFragment, currentFragment);
                             return true;
 
@@ -105,20 +94,14 @@ public class MainActivity extends AppCompatActivity {
                             return true;
 
                         case R.id.bottom_action_add:
-
                             sentToAddEvent();
                             return true;
 
                         default:
                             return false;
-
-
                     }
-
                 }
             });
-
-
         }
     }
 
@@ -194,9 +177,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeFragment() {
-
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-
         fragmentTransaction.add(R.id.main_container, homeFragment);
         fragmentTransaction.add(R.id.main_container, notificationFragment);
         fragmentTransaction.add(R.id.main_container, accountFragment);
@@ -205,23 +186,18 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.hide(notificationFragment);
         fragmentTransaction.hide(accountFragment);
         fragmentTransaction.hide(detailFragment);
-
         fragmentTransaction.commit();
-
     }
 
     public void replaceFragment(Fragment fragment, Fragment currentFragment) {
-
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (fragment == homeFragment) {
-
             fragmentTransaction.hide(accountFragment);
             fragmentTransaction.hide(notificationFragment);
 
         }
 
         if (fragment == detailFragment) {
-
             fragmentTransaction.hide(accountFragment);
             fragmentTransaction.hide(notificationFragment);
             fragmentTransaction.hide(homeFragment);
@@ -229,7 +205,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (fragment == accountFragment) {
-
             fragmentTransaction.hide(homeFragment);
             fragmentTransaction.hide(notificationFragment);
             fragmentTransaction.hide(detailFragment);
@@ -237,16 +212,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (fragment == notificationFragment) {
-
             fragmentTransaction.hide(homeFragment);
             fragmentTransaction.hide(accountFragment);
             fragmentTransaction.hide(detailFragment);
-
         }
         fragmentTransaction.show(fragment);
-
-        //fragmentTransaction.replace(R.id.main_container, fragment);
         fragmentTransaction.commit();
 
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        //Include the code here
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

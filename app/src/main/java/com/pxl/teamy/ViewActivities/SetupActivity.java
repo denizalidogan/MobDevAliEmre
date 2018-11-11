@@ -56,35 +56,28 @@ public class SetupActivity extends AppCompatActivity {
 
     private CircleImageView setupImage;
     private Uri mainImageURI = null;
-
     private String user_id;
     private boolean isChanged = false;
-
     private EditText setupName;
     private Button setupBtn;
     private ProgressBar setupProgress;
     private EditText setupUsername;
     private TextView setupBirth;
     private EditText setupBio;
-
     private RadioGroup rg;
     private RadioButton rb;
     private String gender;
-
     private static final String TAG = "SetupActivity";
     private DatePickerDialog.OnDateSetListener onDateSetListener;
-
     private StorageReference storageReference;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
-
     private Bitmap compressedImageFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
-
         Toolbar setupToolbar = findViewById(R.id.setupToolbar);
         setSupportActionBar(setupToolbar);
         getSupportActionBar().setTitle("Account Setup");
@@ -308,9 +301,7 @@ public class SetupActivity extends AppCompatActivity {
 
             while (!urlTask.isSuccessful()) ;
             download_uri = urlTask.getResult().toString();
-
         }
-
 
         userMap.put("image", download_uri);
         userMap.put("name", user_name);
@@ -356,9 +347,7 @@ public class SetupActivity extends AppCompatActivity {
                 isChanged = true;
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-
                 Exception error = result.getError();
-
             }
         }
 
